@@ -3,7 +3,7 @@ package com.example.thomasroehl.shopadminandroid.register;
 /**
  * Created by Thomas Roehl on 04.12.2015.
  */
-public interface RegisterController {
+public interface RegisterControllerInterf {
     public boolean verifyPassword(String pw, String pwR);
     public String screenFlowMain();
     public String screenFlowLogin();
