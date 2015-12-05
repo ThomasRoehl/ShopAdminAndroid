@@ -4,6 +4,7 @@ import java.sql.Date;
 
 /**
  * Created by Thomas Roehl on 04.12.2015.
+ * Test Change for commit(SZ04122015)
  */
 public interface CameraController {
     public String screenFlowEdit();
