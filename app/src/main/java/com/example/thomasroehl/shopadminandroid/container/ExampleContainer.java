@@ -12,10 +12,12 @@ public class ExampleContainer {
     }
 
     public void setName(String name){
+        assert(name != null);
         this.name = name;
     }
 
     public String getName(){
+        assert (name != null);
         return this.name;
     }
 
@@ -25,14 +27,21 @@ public class ExampleContainer {
 
     @Override
     public String toString(){
+        assert(this.name != null);
         return "name: " + this.name + "\taccNr: " + accNr;
     }
 
     @Override
     public boolean equals(Object eq){
+        assert(eq != null);
         if (!(eq instanceof ExampleContainer)) return false;
         ExampleContainer eqO = (ExampleContainer) eq;
-        if (eqO.getAccNr() == this.accNr) return true;
+        if (eqO.getAccNr() == this.accNr && this.name.equals(eqO.getName())) return true;
         return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return this.accNr;
     }
 }
