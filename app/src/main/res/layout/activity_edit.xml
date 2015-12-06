@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.thomasroehl.shopadminandroid.gui.EditActivity" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shop"
+        android:textSize="30dp"
+        android:id="@+id/textShop"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="60dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sum"
+        android:textSize="30dp"
+        android:id="@+id/textSum"
+        android:layout_below="@+id/textShop"
+        android:layout_alignRight="@+id/textShop"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:textSize="30dp"
+        android:id="@+id/textCategory"
+        android:layout_below="@+id/textSum"
+        android:layout_alignRight="@+id/textSum"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textSize="30dp"
+        android:id="@+id/textDate"
+        android:layout_below="@+id/textCategory"
+        android:layout_alignRight="@+id/textCategory"
+        android:layout_marginTop="15dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editShop"
+        android:ems="8"
+        android:inputType="text"
+        android:layout_alignBottom="@+id/textShop"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:maxLength="40" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editSum"
+        android:ems="8"
+        android:inputType="numberDecimal"
+        android:layout_alignBottom="@+id/textSum"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:maxLength="40" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editCategory"
+        android:ems="8"
+        android:layout_alignBottom="@+id/textCategory"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:maxLength="40" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editDate"
+        android:ems="8"
+        android:inputType="date"
+        android:layout_alignBottom="@+id/textDate"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:maxLength="40" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/buttonSave"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:clickable="false"
+        android:width="120dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rescan"
+        android:id="@+id/buttonRescan"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:width="120dp" />
+
+</RelativeLayout>
