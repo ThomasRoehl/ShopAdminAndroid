@@ -1,6 +1,7 @@
 package com.example.thomasroehl.shopadminandroid.startscreen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -9,6 +10,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.thomasroehl.shopadminandroid.database.DatabaseController;
+import com.example.thomasroehl.shopadminandroid.gui.CameraActivity;
 
 /**
  * Created by SZC on 10.12.2015.
@@ -65,8 +67,12 @@ public class MainViewController implements StartScreenControllerInterf {
     }
 
     @Override
-    public String screenFlowScan() {
-        return null;
+    public Intent screenFlowScan() {
+        Intent i = new Intent(
+                this.currentActivityContext,
+                CameraActivity.class);
+
+        return i;
     }
 
     @Override
@@ -86,7 +92,7 @@ public class MainViewController implements StartScreenControllerInterf {
      * @param amount Specify the numbers of datasets to be read from the databaase
      */
     @Override
-    public Object getTable(int amount) {
+    public void getTable(int amount) {
         // 1) Generate Header Row
         addHeader();
 
@@ -99,8 +105,6 @@ public class MainViewController implements StartScreenControllerInterf {
          * Diesen sollte ich auch bekommen
          */
 
-
-        return null;
     }
 
 
