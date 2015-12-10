@@ -21,14 +21,47 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars  =  "none">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1"
+                android:layout_alignParentTop="true"
+                android:id="@+id/tbl_Main"
+                android:onClick="onClickTable">
+            </TableLayout>
+        </ScrollView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Scan"
+            android:id="@+id/btn_Scan"
+            android:layout_weight="0.35"
+            android:clickable="true"
+            android:background="#fd03aa"
+            android:textColor="#fdfafa"
+            android:textStyle="bold"
+            android:textSize="60dp"
+            android:layout_alignParentBottom="true"
+            android:onClick="onClickScan"
+            />
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
