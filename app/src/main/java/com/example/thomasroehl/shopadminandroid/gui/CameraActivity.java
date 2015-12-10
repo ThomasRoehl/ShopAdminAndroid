@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageView;
 
@@ -17,8 +18,7 @@ import com.example.thomasroehl.shopadminandroid.camera.CameraController;
  * Created by SZC on 10.12.2015.
  */
 public class CameraActivity extends AppCompatActivity {
-    final static int    CAMERA_OUTPUT = 0;
-    ImageView           imv;
+    final static int    CAMERA_OUTPUT = 1848;
     CameraController    myController = null;
 
     @Override
@@ -26,18 +26,15 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_camera);
 
-        myController = new CameraController();
+        myController = CameraController.getInstance();
 
         myController.setCurrentActivityContext(this);
 
-        //Intent i = new Intent("android.media.action.IMAGE_CAPTURE");
-        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        i.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        Intent i = new Intent("android.media.action.IMAGE_CAPTURE");
+        //Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //i.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         startActivityForResult(i, CAMERA_OUTPUT);
-
-        finish();
-        //startActivity(this.myController.screenFlowEdit());
 
     }
 
@@ -53,13 +50,18 @@ public class CameraActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == CAMERA_OUTPUT && resultCode == RESULT_OK)
-        {
-            Bundle extras = data.getExtras();
-            Bitmap bmp = (Bitmap) extras.get("data");
+        Log.i("Camera", "onActivityResult");
 
-            //imv = (ImageView) findViewById(R.id.ResultingImage);
-            //imv.setImageBitmap(bmp);
+        if (requestCode == CAMERA_OUTPUT && resultCode == RESULT_OK) {
+
+            Bundle extras = data.getExtras();
+
+            this.myController.setPicture((Bitmap)extras.get("data"));
+
+            startActivity(this.myController.screenFlowEdit());
+        }
+        else if (requestCode == CAMERA_OUTPUT && resultCode == RESULT_CANCELED) {
+            finish();
         }
 
     }

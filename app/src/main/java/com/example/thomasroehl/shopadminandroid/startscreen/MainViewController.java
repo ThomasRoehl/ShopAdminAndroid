@@ -97,7 +97,7 @@ public class MainViewController implements StartScreenControllerInterf {
         addHeader();
 
         // 2) ReadData from Database
-    /*
+        /*
          * TODO: Lesen von Datenbank
          * Ich benoetige eine Methode um die Belegdaten von der Datenbank zu bekommen
          * Weiterhin benötige ich einen entsprechenden Container und ich muss der Datenbank

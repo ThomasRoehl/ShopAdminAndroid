@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
         myController.setTableLayout(mainViewReceipts);
 
+        /*
+         * TODO: Steuerung von Login/Register und vorhalten der Benutzerdaten zur Laufzeit
+         * Redefiniton der Application-Klasse
+         * http://stackoverflow.com/questions/5725152/android-proper-way-to-handle-activities
+         */
+
         myController.getTable(10);
 
     }
@@ -79,10 +85,9 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         if (this.backFromScan) {
-            CameraController test = new CameraController();
-            test.setCurrentActivityContext(this);
+            Log.i("OnResume", "BackFromScan");
 
-            startActivity(test.screenFlowEdit());
+            //this.myCameraController = CameraController.getInstance();
         }
 
     }
