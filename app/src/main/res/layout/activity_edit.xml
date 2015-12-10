@@ -72,20 +72,11 @@
         android:layout_marginRight="30dp"
         android:maxLength="40" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editCategory"
-        android:ems="8"
-        android:layout_alignBottom="@+id/textCategory"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:maxLength="40" />
 
     <EditText
+        android:id="@+id/editDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editDate"
         android:ems="8"
         android:inputType="date"
         android:layout_alignBottom="@+id/textDate"
@@ -94,22 +85,32 @@
         android:maxLength="40" />
 
     <Button
+        android:id="@+id/buttonSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:id="@+id/buttonSave"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:clickable="false"
-        android:width="120dp" />
+        android:width="120dp"
+        android:onClick="saveMyData" />
 
     <Button
+        android:id="@+id/buttonRescan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rescan"
-        android:id="@+id/buttonRescan"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:width="120dp" />
+        android:width="120dp"
+        android:onClick="rescanData" />
 
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:layout_alignBottom="@+id/textCategory"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:entries="@array/category_array" />
 </RelativeLayout>
