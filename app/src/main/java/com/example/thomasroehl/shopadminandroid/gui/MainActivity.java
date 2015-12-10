@@ -9,11 +9,15 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
 import android.view.MenuItem;
+import android.widget.TableLayout;
 
 import com.example.thomasroehl.shopadminandroid.R;
+import com.example.thomasroehl.shopadminandroid.startscreen.MainViewController;
 import com.example.thomasroehl.shopadminandroid.startscreen.StartScreenControllerInterf;
 
 public class MainActivity extends AppCompatActivity {
+    MainViewController  myController = null;
+    TableLayout         mainViewReceipts = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //GetController Instance
+        myController = MainViewController.getInstance();
+
+        //SetContext
+        myController.setCurrentActivityContext(this);
+
+        //Fill receipt overview table
+        mainViewReceipts = (TableLayout) findViewById(R.id.tbl_Main);
+
+        myController.setTableLayout(mainViewReceipts);
+
+        myController.getTable(10);
 
     }
 
@@ -51,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickTable(View view) {
-        Log.i("clicks", "You clicked Button Scan");
+        Log.i("clicks", "You clicked the Table");
     }
 
 }
