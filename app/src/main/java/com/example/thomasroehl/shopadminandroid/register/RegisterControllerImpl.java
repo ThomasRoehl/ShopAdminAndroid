@@ -1,5 +1,11 @@
 package com.example.thomasroehl.shopadminandroid.register;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+
+import com.example.thomasroehl.shopadminandroid.gui.EditActivity;
+
 import java.util.HashMap;
 
 /**
@@ -8,8 +14,23 @@ import java.util.HashMap;
 public class RegisterControllerImpl implements RegisterControllerInterf {
 
 
-    public RegisterControllerImpl(){
+    private static RegisterControllerImpl registerController = null;
+    Context currentActivityContext;
 
+    public static RegisterControllerImpl getRegisterController() {
+        if (registerController == null) {
+            registerController = new RegisterControllerImpl();
+        }
+        return registerController;
+    }
+
+    /**
+     * Reference to the activity context
+     *
+     * @param context Reference on View Context
+     */
+    public void setCurrentActivityContext(Context context) {
+        this.currentActivityContext = context;
     }
 
     @Override
@@ -20,9 +41,17 @@ public class RegisterControllerImpl implements RegisterControllerInterf {
             return false;
     }
 
+    /**
+     * Screen Flow to MainView
+     *
+     * @return Intent to EditView
+     */
     @Override
-    public void screenFlowMain() {
-        //startActivity(new Intent(packageContext,MainActivity.class));
+    public Intent screenFlowMain() {
+        Intent i = new Intent(
+                this.currentActivityContext,
+                EditActivity.class);
+        return i;
     }
 
     @Override
@@ -44,10 +73,32 @@ public class RegisterControllerImpl implements RegisterControllerInterf {
         return false;
     }
 
+    public boolean checkNameIsEmpty(String name)
+    {
+        if(name == null || name.equals(""))
+            return true;
+        else
+            return false;
+    }
+
+    public boolean checkPasswordIsEmpty(String password)
+    {
+        if(password == null || password.equals(""))
+            return true;
+        else
+            return false;
+    }
+
+    public boolean checkEmailIsEmpty(String email)
+    {
+        if(email == null || email.equals(""))
+            return true;
+        else
+            return false;
+    }
+
     @Override
     public String getFeedbackMessage() {
-
-
 
         return null;
     }

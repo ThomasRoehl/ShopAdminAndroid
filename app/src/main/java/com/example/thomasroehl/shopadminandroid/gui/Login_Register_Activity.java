@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.thomasroehl.shopadminandroid.R;
+import com.example.thomasroehl.shopadminandroid.camera.CameraController;
 import com.example.thomasroehl.shopadminandroid.register.RegisterControllerImpl;
 
 public class Login_Register_Activity extends AppCompatActivity {
@@ -32,6 +34,9 @@ public class Login_Register_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_login_register);
 
         registerController = new RegisterControllerImpl();
+        registerController = RegisterControllerImpl.getRegisterController();
+        registerController.setCurrentActivityContext(this);
+
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextVerifyPassword = (EditText) findViewById(R.id.editTextVerifyPassword);
@@ -48,7 +53,6 @@ public class Login_Register_Activity extends AppCompatActivity {
                 if (registerController.checkUsername(s.toString())) {
                     textViewUsernameMessage.setText("Username already in use. Choose another one!");
                     textViewUsernameMessage.setTextColor(Color.RED);
-
                     return;
                 } else {
                     textViewUsernameMessage.setText("");
@@ -56,14 +60,9 @@ public class Login_Register_Activity extends AppCompatActivity {
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-               /* System.out.println("editTextUserName.beforeTextChanged-event-handler, " +
-                " s = " + s + " start = " + start + " count = " + count + " after = " + after);*/
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*System.out.println("editTextUserName.onTextChanged-event-handler, " +
-                        " s = " + s + " start = " + start + " count = " + count + " before = " + before);*/
-
             }
         });
 
@@ -71,7 +70,6 @@ public class Login_Register_Activity extends AppCompatActivity {
 
 
             public void onFocusChange(View v, boolean hasFocus) {
-                //System.out.println("verifyPassword lost focus event handler");
                 if (!hasFocus) {
                     if (!registerController.verifyPassword(editTextPassword.getText().toString(), editTextVerifyPassword.getText().toString())) {
                         textViewVerifyPasswordMessage.setText("These Passwords don't match. Please, try again!");
@@ -87,31 +85,35 @@ public class Login_Register_Activity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("register-button click event handler, begin");
                 String username = editTextUsername.getText().toString();
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String verifyPassword = editTextVerifyPassword.getText().toString();
-                System.out.println("username = " + username);
+
                 if(registerController.checkUsername(username))
                 {
-                    System.out.println("register-button click event handler, if 1");
                     return;
                 }
                 if(!registerController.verifyPassword(password, verifyPassword))
                 {
-                    System.out.println("register-button click event handler, if 2");
                     return;
                 }
-                //User user = new User(username, email, password);
-                startActivity(new Intent(Login_Register_Activity.this, MainActivity.class));
+                if(registerController.checkNameIsEmpty(username)  == true ||
+                        registerController.checkPasswordIsEmpty(password) == true ||
+                        registerController.checkEmailIsEmpty(email) == true)
+                {
+                    Toast toast = Toast.makeText(Login_Register_Activity.this, "Fill in all fields!", Toast.LENGTH_LONG);
+                    toast.show();
+                    return;
+                }
+                else {
+
+                    Toast toast = Toast.makeText(Login_Register_Activity.this, "Registration successfull", Toast.LENGTH_LONG);
+                    toast.show();
+                    startActivity(new Intent(Login_Register_Activity.this, MainActivity.class));
+                }
+
             }
         });
-
     }
 }
-/*
-*
-*
-*
-* */
