@@ -5,7 +5,8 @@ package com.example.thomasroehl.shopadminandroid.register;
  */
 public interface RegisterControllerInterf {
     public boolean verifyPassword(String pw, String pwR);
-    public String screenFlowMain();
+    //public String screenFlowMain();
+    public void screenFlowMain();
     public String screenFlowLogin();
     public boolean checkUsername(String username);
     public String getFeedbackMessage();
