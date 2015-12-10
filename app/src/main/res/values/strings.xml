@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">ShopAdminAndroid</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Items of category dropdown in editView. Add more if necessary -->
+    <string-array name="category_array">
+        <item>Food</item>
+        <item>Cosmetics</item>
+        <item>unknown</item>
+    </string-array>
+    <!-- END - Items of category dropdown in editView. Add more if necessary - END -->
+
 </resources>

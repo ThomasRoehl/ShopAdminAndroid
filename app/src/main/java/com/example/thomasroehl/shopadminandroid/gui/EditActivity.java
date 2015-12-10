@@ -1,30 +1,106 @@
 package com.example.thomasroehl.shopadminandroid.gui;
 
+import com.example.thomasroehl.shopadminandroid.edit.EditControllerInterf;
+import com.example.thomasroehl.shopadminandroid.R;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.thomasroehl.shopadminandroid.R;
-import com.example.thomasroehl.shopadminandroid.edit.EditControllerInterf;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import java.sql.Date;
 
 /**
  * Created by Roger M. Nabinger on 06.12.2015.
+ *
+ *
  */
 
-public class EditActivity extends AppCompatActivity implements EditControllerInterf{
+
+
+public class EditActivity extends AppCompatActivity implements EditControllerInterf, AdapterView.OnItemSelectedListener {
+
+    private String shop;
+    private String category;
+    private double sum;
+    private String today;
+
+    Spinner categorySpinner;
+    EditText editCategory;
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    public String getCategory() {
+        return category;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
+        categorySpinner = (Spinner) findViewById(R.id.spinnerCategory);
+        populateSpinner();
+        categorySpinner.setOnItemSelectedListener(this);
     }
+
+    public void populateSpinner(){
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this,
+                R.array.category_array, android.R.layout.simple_spinner_item);
+        categorySpinner.setAdapter(categoryAdapter);
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+        String category = parent.getItemAtPosition(position).toString();
+        setCategory(category);
+    }
+
+    public void onNothingSelected(AdapterView<?> parentView){
+
+    }
+
+
+
+
+
+
+
+
+    public void saveMyData(View view) {
+        // TODO: Roger - Testimplementierung
+        // Daten übernehmen und in Variablen speichern
+        // Methode zum Speichern in Datenbank aufrufen
+        Toast.makeText(EditActivity.this, "Saving Data:" +
+                "\nShop: " + shop +
+                "\nSum: " + sum +
+                "\nCategory: " + getCategory() +
+                "\nDate: " + today,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    public void rescanData(View view) {
+        // TODO: Roger - Testimplementierung
+        Toast.makeText(EditActivity.this, "Goto rescan", Toast.LENGTH_SHORT).show();
+    }
+
+
+
+
+
+
+
+
+    // Aus Interface
+
 
     @Override
     public boolean saveData(String shop, String category, double sum, Date date) {
-        /*
-         * TODO: Roger - Schreiben in Datenbank
-         * Ich benoetige eine Methode um die Daten in die DB zu schreiben. Finde ich diese
-         * dann im DatabaseInterf?
-         */
+        // TODO: Roger
         return false;
     }
 
@@ -39,4 +115,7 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
         // TODO: Roger
         return null;
     }
+
+
+
 }

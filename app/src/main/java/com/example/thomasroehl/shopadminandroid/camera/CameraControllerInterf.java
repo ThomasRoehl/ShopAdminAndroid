@@ -1,5 +1,7 @@
 package com.example.thomasroehl.shopadminandroid.camera;
 
+import android.content.Intent;
+
 import java.sql.Date;
 
 /**
@@ -11,7 +13,7 @@ public interface CameraControllerInterf {
      * return screenflow destination for EditView
      * @return name of destination
      */
-    public String screenFlowEdit();
+    public Intent screenFlowEdit();
 
     /**
      * save picture from camera

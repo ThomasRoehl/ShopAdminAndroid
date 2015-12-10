@@ -1,10 +1,12 @@
 package com.example.thomasroehl.shopadminandroid.startscreen;
 
+import android.content.Intent;
+
 /**
  * Created by Thomas Roehl on 04.12.2015.
  */
 public interface StartScreenControllerInterf {
-    public String screenFlowScan();
+    public Intent screenFlowScan();
     public String screenFlowTable();
-    public Object getTable(int amount);
+    public void getTable(int amount);
 }
