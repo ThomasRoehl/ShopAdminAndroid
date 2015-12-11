@@ -18,6 +18,7 @@
         android:layout_marginTop="30dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:textColor="@color/colorPigPink"
         android:layout_marginLeft="60dp" />
 
     <TextView
@@ -28,6 +29,7 @@
         android:id="@+id/textSum"
         android:layout_below="@+id/textShop"
         android:layout_alignRight="@+id/textShop"
+        android:textColor="@color/colorPigPink"
         android:layout_marginTop="15dp" />
 
     <TextView
@@ -38,6 +40,7 @@
         android:id="@+id/textCategory"
         android:layout_below="@+id/textSum"
         android:layout_alignRight="@+id/textSum"
+        android:textColor="@color/colorPigPink"
         android:layout_marginTop="15dp" />
 
     <TextView
@@ -48,6 +51,7 @@
         android:id="@+id/textDate"
         android:layout_below="@+id/textCategory"
         android:layout_alignRight="@+id/textCategory"
+        android:textColor="@color/colorPigPink"
         android:layout_marginTop="15dp" />
 
     <EditText
@@ -56,7 +60,7 @@
         android:id="@+id/editShop"
         android:ems="8"
         android:inputType="text"
-        android:layout_alignBottom="@+id/textShop"
+        android:layout_alignTop="@+id/textShop"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
         android:maxLength="40" />
@@ -67,7 +71,7 @@
         android:id="@+id/editSum"
         android:ems="8"
         android:inputType="numberDecimal"
-        android:layout_alignBottom="@+id/textSum"
+        android:layout_alignTop="@+id/textSum"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
         android:maxLength="40" />
@@ -79,7 +83,7 @@
         android:layout_height="wrap_content"
         android:ems="8"
         android:inputType="date"
-        android:layout_alignBottom="@+id/textDate"
+        android:layout_alignTop="@+id/textDate"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
         android:maxLength="40" />
@@ -92,6 +96,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:width="120dp"
+        android:background="@color/colorPigPink"
+        android:textColor="#fdfafa"
         android:onClick="saveMyData" />
 
     <Button
@@ -102,6 +108,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:width="120dp"
+        android:background="@color/colorPigPink"
+        android:textColor="#fdfafa"
         android:onClick="rescanData" />
 
     <Spinner
