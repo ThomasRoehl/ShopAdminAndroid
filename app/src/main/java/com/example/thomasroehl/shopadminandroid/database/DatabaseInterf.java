@@ -1,5 +1,7 @@
 package com.example.thomasroehl.shopadminandroid.database;
 
+import com.example.thomasroehl.shopadminandroid.container.User;
+
 /**
  * Created by Thomas Roehl on 04.12.2015.
  */
@@ -21,11 +23,9 @@ public interface DatabaseInterf {
 
     /**
      * create user in database with given entries
-     * @param username
-     * @param password
-     * @param email
+     * @param user
      * @return return if user was created
      */
-    public boolean createUser(String username, String password, String email);
+    public boolean createUser(User user);
 
 }
