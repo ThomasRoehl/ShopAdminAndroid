@@ -1,9 +1,8 @@
 package com.example.thomasroehl.shopadminandroid.database;
 
-import android.app.Application;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.thomasroehl.shopadminandroid.container.User;
 
@@ -12,12 +11,24 @@ import com.example.thomasroehl.shopadminandroid.container.User;
  */
 public class DatabaseController implements DatabaseInterf {
 
-    private final String CHECKUSERBYNAME = "SELECT FROM ...";
+    private final String USERTABLE =  "UserTable";
+    private final String RECEIPTTABLE = "ReceiptTable";
+    private final String USERNIDCOLUMN = "UserIdColumn";
+    private final String USERNAMECOLUMN = "UserNameColumn";
+    private final String USERPASSWORDCOLUMN = "UserPasswordColumn";
+    private final String USEREMAILCOLUMN = "UserEmailColumn";
+
+
+    private final String CHECKUSERBYNAME = "SELECT * FROM " + USERTABLE + " WHERE " + USERNAMECOLUMN + " = ";
+    private final String CHECKUSERPASSWORD = "SELECT * FROM " + USERTABLE + " WHERE " + USERPASSWORDCOLUMN + " = ";
+
+
     private final String CHECKUSERBYID = "SELECT FROM ...";
     private final String INSERTUSER = "INSERT INTO ...";
     private SQLiteDatabase db;
     private final DatabaseModel DBModel;
     private Context applicationContext;
+
 
     public DatabaseController(){
         DBModel = new DatabaseModel(applicationContext);
@@ -47,7 +58,15 @@ public class DatabaseController implements DatabaseInterf {
      */
     @Override
     public boolean checkUsername(String username) {
+        connect();
+        Cursor cursor = db.rawQuery(CHECKUSERBYNAME + username + ";", null);
+        if (cursor.moveToFirst()) {
+            disconnect();
+            return true;
+        }
+        disconnect();
         return false;
+
     }
 
     /**
@@ -58,6 +77,13 @@ public class DatabaseController implements DatabaseInterf {
      */
     @Override
     public boolean checkPassword(String password) {
+        connect();
+        Cursor cursor = db.rawQuery(CHECKUSERPASSWORD + password + ";", null);
+        if (cursor.moveToFirst()) {
+            disconnect();
+            return true;
+        }
+        disconnect();
         return false;
     }
 
