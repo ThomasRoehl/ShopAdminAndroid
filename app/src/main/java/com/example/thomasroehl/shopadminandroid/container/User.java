@@ -12,6 +12,7 @@ public class User {
     private String email;
     private String password;
     private Date lastLogin;
+    private String group;
 
     public User(){
 
@@ -23,6 +24,14 @@ public class User {
 
     public User(String name, String email, String password){
 
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public int getId() {
