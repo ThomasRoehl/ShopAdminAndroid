@@ -13,20 +13,22 @@ import android.widget.ImageView;
 
 import com.example.thomasroehl.shopadminandroid.R;
 import com.example.thomasroehl.shopadminandroid.camera.CameraController;
+import com.example.thomasroehl.shopadminandroid.camera.CameraControllerInterf;
+import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
 /**
  * Created by SZC on 10.12.2015.
  */
 public class CameraActivity extends AppCompatActivity {
-    final static int    CAMERA_OUTPUT = 1848;
-    CameraController    myController = null;
+    final static int        CAMERA_OUTPUT = 1848;
+    CameraController        myController = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_camera);
 
-        myController = CameraController.getInstance();
+        myController = (CameraController)StorageAdmin.CAMERACONTROLLER;
 
         myController.setCurrentActivityContext(this);
 

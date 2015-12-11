@@ -13,6 +13,7 @@ import android.widget.TableLayout;
 import com.example.thomasroehl.shopadminandroid.R;
 import com.example.thomasroehl.shopadminandroid.camera.CameraController;
 import com.example.thomasroehl.shopadminandroid.startscreen.MainViewController;
+import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
 public class MainActivity extends AppCompatActivity {
     MainViewController  myController = null;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //GetController Instance
-        myController = MainViewController.getInstance();
+        myController = (MainViewController)StorageAdmin.STARTSCREENCONTROLLER;
 
         //SetContext
         myController.setCurrentActivityContext(this);

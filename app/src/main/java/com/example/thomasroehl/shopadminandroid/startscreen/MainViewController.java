@@ -10,7 +10,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.thomasroehl.shopadminandroid.database.DatabaseController;
+import com.example.thomasroehl.shopadminandroid.database.DatabaseInterf;
 import com.example.thomasroehl.shopadminandroid.gui.CameraActivity;
+import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
 /**
  * Created by SZC on 10.12.2015.
@@ -18,7 +20,7 @@ import com.example.thomasroehl.shopadminandroid.gui.CameraActivity;
  */
 public class MainViewController implements StartScreenControllerInterf {
     TableLayout tl;
-    DatabaseController db;
+    DatabaseInterf db;
     Context currentActivityContext;
 
     private final String txt_Shop = "Shop";
@@ -32,7 +34,7 @@ public class MainViewController implements StartScreenControllerInterf {
      */
     protected MainViewController() {
         this.tl = null;
-        this.db = new DatabaseController();
+        this.db = StorageAdmin.DBCONTROLLER;
         this.currentActivityContext = null;
     }
 
