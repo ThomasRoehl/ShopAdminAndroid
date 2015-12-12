@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.thomasroehl.shopadminandroid.database.DatabaseController;
 import com.example.thomasroehl.shopadminandroid.database.DatabaseInterf;
 import com.example.thomasroehl.shopadminandroid.gui.CameraActivity;
+import com.example.thomasroehl.shopadminandroid.gui.ReportPagerActivity;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
 /**
@@ -78,8 +79,12 @@ public class MainViewController implements StartScreenControllerInterf {
     }
 
     @Override
-    public String screenFlowTable() {
-        return null;
+    public Intent screenFlowTable() {
+        Intent i = new Intent(
+                this.currentActivityContext,
+                ReportPagerActivity.class);
+
+        return i;
     }
 
 

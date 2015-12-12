@@ -7,6 +7,6 @@ import android.content.Intent;
  */
 public interface StartScreenControllerInterf {
     public Intent screenFlowScan();
-    public String screenFlowTable();
+    public Intent screenFlowTable();
     public void getTable(int amount);
 }

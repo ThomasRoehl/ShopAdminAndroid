@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickTable(View view) {
         Log.i("clicks", "You clicked the Table");
+        startActivity(this.myController.screenFlowTable());
     }
 
     @Override
