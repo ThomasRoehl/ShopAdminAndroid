@@ -10,6 +10,7 @@ import com.example.thomasroehl.shopadminandroid.edit.EditControllerInterf;
 import com.example.thomasroehl.shopadminandroid.login.LoginControllerInterf;
 import com.example.thomasroehl.shopadminandroid.register.RegisterControllerImpl;
 import com.example.thomasroehl.shopadminandroid.register.RegisterControllerInterf;
+import com.example.thomasroehl.shopadminandroid.reports.ReportController;
 import com.example.thomasroehl.shopadminandroid.reports.ReportControllerInterf;
 import com.example.thomasroehl.shopadminandroid.startscreen.MainViewController;
 import com.example.thomasroehl.shopadminandroid.startscreen.StartScreenControllerInterf;
@@ -18,12 +19,15 @@ import com.example.thomasroehl.shopadminandroid.startscreen.StartScreenControlle
  * Created by Thomas Roehl on 11.12.2015.
  */
 public abstract class StorageAdmin {
+    public static final String REPORT_SHOP_SUMMARY      = "REPORT_SHOP_SUMMARY";
+    public static final String REPORT_CATEGORY_SUMMARY  = "REPORT_CATEGORY_SUMMARY";
+
     public static final DatabaseInterf DBCONTROLLER = new DatabaseController();
     public static final CameraControllerInterf CAMERACONTROLLER = CameraController.getInstance();
     public static EditControllerInterf EDITCONTROLLER;
     public static LoginControllerInterf LOGINCONTROLLER;
     public static final RegisterControllerInterf REGISTERCONTROLLER = new RegisterControllerImpl();
-    public static ReportControllerInterf REPORTCONTROLLER;
+    public static ReportControllerInterf REPORTCONTROLLER = ReportController.getInstance();
     public static final StartScreenControllerInterf STARTSCREENCONTROLLER = MainViewController.getInstance();
     private static Session session;
 

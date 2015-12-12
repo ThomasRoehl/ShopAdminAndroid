@@ -3,12 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Text_1"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:fillViewport="true"
+        android:scrollbars  =  "none">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1"
+            android:layout_alignParentTop="true"
+            android:id="@+id/tbl_Report_Shop_Summary"
+            android:onClick="onClickTable">
+        </TableLayout>
+    </ScrollView>
 
 </RelativeLayout>

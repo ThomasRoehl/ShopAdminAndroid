@@ -29,8 +29,8 @@ public class ReportPagerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
+        tabLayout.addTab(tabLayout.newTab().setText("Shop Overview"));
+        tabLayout.addTab(tabLayout.newTab().setText("Category Overview"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // ViewPager and its adapters use support library

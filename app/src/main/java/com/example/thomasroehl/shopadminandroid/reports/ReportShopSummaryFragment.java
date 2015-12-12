@@ -6,27 +6,35 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.thomasroehl.shopadminandroid.R;
+import com.example.thomasroehl.shopadminandroid.startscreen.MainViewController;
+import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
 /**
  * Created by SZC on 12.12.2015.
  */
 public class ReportShopSummaryFragment extends Fragment {
-    public static final String ARG_OBJECT = "object";
+    ReportController myController = null;
+    TableLayout ShopSummaryFragmentTable = null;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // The last two arguments ensure LayoutParams are inflated
-        // properly.
         View rootView = inflater.inflate(
                 R.layout.report_fragment_shop_summary, container, false);
 
-        /*Bundle args = getArguments();
-        ((TextView) rootView.findViewById(android.R.id.text1)).setText(
-                Integer.toString(args.getInt(ARG_OBJECT)));*/
+        //GetController Instance
+        myController = (ReportController) StorageAdmin.REPORTCONTROLLER;
+
+        //SetContext
+        myController.setCurrentActivityContext(getActivity());
+
+        //Fill receipt overview table
+        ShopSummaryFragmentTable = (TableLayout) rootView.findViewById(R.id.tbl_Report_Shop_Summary);
+
+        myController.getTable(StorageAdmin.REPORT_SHOP_SUMMARY, ShopSummaryFragmentTable);
 
         return rootView;
     }
