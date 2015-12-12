@@ -3,6 +3,8 @@ package com.example.thomasroehl.shopadminandroid.startscreen;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -23,6 +25,10 @@ public class MainViewController implements StartScreenControllerInterf {
     TableLayout tl;
     DatabaseInterf db;
     Context currentActivityContext;
+
+    private final float ratioColumnShop     = 0.5f;
+    private final float ratioColumnAmount   = 0.25f;
+    private final float ratioColumnDate     = 0.25f;
 
     private final String txt_Shop = "Shop";
     private final String txt_Amount = "Amount";
@@ -120,28 +126,61 @@ public class MainViewController implements StartScreenControllerInterf {
      */
     private void addHeader() {
         TableRow tr;
-        TextView label;
+        int pixels = 0;
+
+        int maxpixels_width = (int) (this.currentActivityContext.getResources().getDisplayMetrics().widthPixels * 0.9f);
+        int maxpixels_height = (int) (this.currentActivityContext.getResources().getDisplayMetrics().heightPixels * 0.6f);
+
+
+        int height_pixels = (int) maxpixels_height / 11;
+
+        Log.i("MaxPixels (Width):", String.valueOf(maxpixels_width));
+        Log.i("MaxPixels (Height):", String.valueOf(maxpixels_height));
+
+        Log.i("Height per cell:", String.valueOf(height_pixels));
+
+        float dpi_column_shopname = maxpixels_width * this.ratioColumnShop;
+        float dpi_column_amount   = maxpixels_width * this.ratioColumnAmount;
+        float dpi_column_date     = maxpixels_width * this.ratioColumnDate;
+
+        //pixels = (int)(dpi_column_shopname * scaleRatio + 0.5f);
+        pixels = (int)dpi_column_shopname;
+
+        Log.i("Pixel ShopName:", String.valueOf(pixels));
 
         tr = new TableRow(this.currentActivityContext);
 
         /** Creating a TextView as Column Description for the Shopname **/
-        label = new TextView(this.currentActivityContext);
+        TextView shopname = new TextView(this.currentActivityContext);
 
-        label.setText(this.txt_Shop);
-        label.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+        shopname.setText(this.txt_Shop);
+        //shopname.setTextSize(myTextSize);
+        shopname.setWidth(pixels);
+        shopname.setHeight(height_pixels);
+        shopname.setTextColor(Color.WHITE);
+
+        shopname.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
-        label.setPadding(5, 5, 5, 5);
-        label.setBackgroundColor(Color.MAGENTA);
+        shopname.setPadding(5, 5, 5, 5);
+        shopname.setBackgroundColor(Color.MAGENTA);
         LinearLayout Ll = new LinearLayout(this.currentActivityContext);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT);
         params.setMargins(5, 5, 5, 5);
-        Ll.addView(label,params);
+        Ll.addView(shopname,params);
         tr.addView(Ll); // Adding textView to tablerow.
 
         /** Creating a TextView as Column Description for the Amount **/
         TextView amount = new TextView(this.currentActivityContext);
         amount.setText(this.txt_Amount);
+        //pixels = (int)(dpi_column_amount * scaleRatio + 0.5f);
+        pixels = (int)dpi_column_amount;
+        Log.i("Pixel Amount:", String.valueOf(pixels));
+
+        amount.setWidth(pixels);
+        amount.setHeight(height_pixels);
+        //amount.setTextSize(myTextSize);
+        amount.setTextColor(Color.WHITE);
         amount.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
         amount.setPadding(5, 5, 5, 5);
@@ -156,6 +195,15 @@ public class MainViewController implements StartScreenControllerInterf {
         /** Creating a TextView as Column Description for the Amount **/
         TextView date = new TextView(this.currentActivityContext);
         date.setText(this.txt_Date);
+        //date.setTextSize(myTextSize);
+        //pixels = (int)(dpi_column_date * scaleRatio + 0.5f);
+
+        pixels = (int)dpi_column_date;
+        Log.i("Pixel Date:", String.valueOf(pixels));
+
+        date.setWidth(pixels);
+        date.setHeight(height_pixels);
+        date.setTextColor(Color.WHITE);
         date.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
         date.setPadding(5, 5, 5, 5);
