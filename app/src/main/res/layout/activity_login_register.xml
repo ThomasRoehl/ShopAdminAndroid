@@ -13,11 +13,22 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registrate"
-        android:id="@+id/buttonRegistrate"
+        android:text="Register"
+        android:id="@+id/buttonRegister"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create new Account"
+        android:id="@+id/buttonCreateNewAccount"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="visible"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -100,12 +111,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Verify password"
-        android:id="@+id/textViewMessage"
+        android:id="@+id/textViewVerifyPassword"
         android:paddingTop="15dp"
         android:layout_below="@+id/editTextPassword"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:visibility="invisible"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -113,11 +125,12 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editTextVerifyPassword"
-        android:layout_below="@+id/textViewMessage"
+        android:layout_below="@+id/textViewVerifyPassword"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/editTextPassword"
-        android:layout_alignEnd="@+id/editTextPassword" />
+        android:layout_alignEnd="@+id/editTextPassword"
+        android:visibility="invisible"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -127,7 +140,8 @@
         android:layout_below="@+id/editTextVerifyPassword"
         android:textSize="10dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -137,7 +151,8 @@
         android:layout_below="@+id/textViewPasswordMessage"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:visibility="invisible"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -149,7 +164,8 @@
         android:layout_alignRight="@+id/editTextVerifyPassword"
         android:layout_alignEnd="@+id/editTextVerifyPassword"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
 
     <!--<TextView
         android:layout_width="wrap_content"

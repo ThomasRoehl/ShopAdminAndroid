@@ -13,18 +13,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thomasroehl.shopadminandroid.R;
-import com.example.thomasroehl.shopadminandroid.camera.CameraController;
 import com.example.thomasroehl.shopadminandroid.register.RegisterControllerImpl;
 
 public class Login_Register_Activity extends AppCompatActivity {
 
+    boolean inCreateNewAccountMode;
+    Button buttonLogin;
     Button buttonRegister;
+    Button buttonCreateNewAccount;
     EditText editTextUsername;
     EditText editTextEmail;
     EditText editTextPassword;
     EditText editTextVerifyPassword;
     TextView textViewUsernameMessage;
     TextView textViewVerifyPasswordMessage;
+    TextView textViewEmail;
+    TextView textViewVerifyPassword;
+    TextView textViewInfo;
 
     RegisterControllerImpl registerController;
 
@@ -32,6 +37,8 @@ public class Login_Register_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_register);
+
+        inCreateNewAccountMode = false;
 
         registerController = new RegisterControllerImpl();
         registerController = RegisterControllerImpl.getRegisterController();
@@ -41,10 +48,16 @@ public class Login_Register_Activity extends AppCompatActivity {
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextVerifyPassword = (EditText) findViewById(R.id.editTextVerifyPassword);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        buttonRegister = (Button) findViewById(R.id.buttonRegistrate);
+        buttonRegister = (Button) findViewById(R.id.buttonRegister);
+        textViewEmail = (TextView) findViewById(R.id.textViewEmail);
+        buttonCreateNewAccount = (Button) findViewById(R.id.buttonCreateNewAccount);
+        textViewVerifyPassword = (TextView) findViewById(R.id.textViewVerifyPassword);
+        buttonLogin = (Button) findViewById(R.id.buttonLogin);
 
         textViewUsernameMessage = (TextView) findViewById(R.id.textViewUsernameMessage);
         textViewVerifyPasswordMessage = (TextView) findViewById(R.id.textViewPasswordMessage);
+        textViewInfo = (TextView) findViewById(R.id.textViewInfo);
+
 
         editTextUsername.addTextChangedListener(new TextWatcher() {
 
@@ -67,8 +80,6 @@ public class Login_Register_Activity extends AppCompatActivity {
         });
 
         editTextVerifyPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if (!registerController.verifyPassword(editTextPassword.getText().toString(), editTextVerifyPassword.getText().toString())) {
@@ -90,29 +101,58 @@ public class Login_Register_Activity extends AppCompatActivity {
                 String password = editTextPassword.getText().toString();
                 String verifyPassword = editTextVerifyPassword.getText().toString();
 
-                if(registerController.checkUsername(username))
-                {
+                if (registerController.checkUsername(username)) {
                     return;
                 }
-                if(!registerController.verifyPassword(password, verifyPassword))
-                {
+                if (!registerController.verifyPassword(password, verifyPassword)) {
                     return;
                 }
-                if(registerController.checkNameIsEmpty(username)  == true ||
+                if (registerController.checkNameIsEmpty(username) == true ||
                         registerController.checkPasswordIsEmpty(password) == true ||
-                        registerController.checkEmailIsEmpty(email) == true)
-                {
+                        registerController.checkEmailIsEmpty(email) == true) {
                     Toast toast = Toast.makeText(Login_Register_Activity.this, "Fill in all fields!", Toast.LENGTH_LONG);
                     toast.show();
                     return;
-                }
-                else {
+                } else {
 
                     Toast toast = Toast.makeText(Login_Register_Activity.this, "Registration successfull", Toast.LENGTH_LONG);
                     toast.show();
                     startActivity(new Intent(Login_Register_Activity.this, MainActivity.class));
                 }
 
+            }
+        });
+        buttonCreateNewAccount.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                inCreateNewAccountMode = true;
+                editTextEmail.setVisibility(View.VISIBLE);
+                textViewEmail.setVisibility(View.VISIBLE);
+                textViewVerifyPasswordMessage.setVisibility(View.VISIBLE);
+                editTextVerifyPassword.setVisibility(View.VISIBLE);
+                textViewVerifyPassword.setVisibility(View.VISIBLE);
+                buttonCreateNewAccount.setVisibility(View.INVISIBLE);
+                buttonRegister.setVisibility(View.VISIBLE);
+                textViewInfo.setText("Create new Account");
+            }
+        });
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(inCreateNewAccountMode){
+                    inCreateNewAccountMode = false;
+                    editTextEmail.setVisibility(View.INVISIBLE);
+                    textViewEmail.setVisibility(View.INVISIBLE);
+                    textViewVerifyPasswordMessage.setVisibility(View.INVISIBLE);
+                    editTextVerifyPassword.setVisibility(View.INVISIBLE);
+                    textViewVerifyPassword.setVisibility(View.INVISIBLE);
+                    buttonCreateNewAccount.setVisibility(View.VISIBLE);
+                    buttonRegister.setVisibility(View.INVISIBLE);
+                    textViewInfo.setText("Login to existing account");
+                }else{
+                    //TODO: look into database and verify username and password
+                    System.out.println("Not implemented yet");
+                }
             }
         });
     }
