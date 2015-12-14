@@ -30,7 +30,7 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
     private String today;
 
     Spinner categorySpinner;
-    EditText editCategory;
+//    EditText editCategory;
 
     public void setCategory(String category) {
         this.category = category;
@@ -38,6 +38,31 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
     public String getCategory() {
         return category;
     }
+
+    public void setShop(String shop) {
+        this.shop = shop;
+    }
+
+    public String getShop() {
+        return shop;
+    }
+
+    public void setSum(double sum) {
+        this.sum = sum;
+    }
+
+    public double getSum() {
+        return sum;
+    }
+
+    public void setToday(String today) {
+        this.today = today;
+    }
+
+    public String getToday() {
+        return today;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,22 +89,26 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
 
     }
 
-
-
-
-
-
-
-
     public void saveMyData(View view) {
         // TODO: Roger - Testimplementierung
         // Daten übernehmen und in Variablen speichern
         // Methode zum Speichern in Datenbank aufrufen
+
+        EditText editShop = (EditText)findViewById(R.id.editShop);
+        setShop(editShop.getText().toString());
+
+        EditText editSum = (EditText)findViewById(R.id.editSum);
+        setSum(Double.parseDouble(editSum.getText().toString()));
+
+        EditText editDate = (EditText)findViewById(R.id.editDate);
+        setToday(editDate.getText().toString());
+
+
         Toast.makeText(EditActivity.this, "Saving Data:" +
-                "\nShop: " + shop +
-                "\nSum: " + sum +
+                "\nShop: " + getShop() +
+                "\nSum: " + getSum() +
                 "\nCategory: " + getCategory() +
-                "\nDate: " + today,
+                "\nDate: " + getToday(),
                 Toast.LENGTH_SHORT).show();
     }
 
