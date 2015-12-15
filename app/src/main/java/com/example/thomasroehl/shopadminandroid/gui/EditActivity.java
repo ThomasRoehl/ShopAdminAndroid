@@ -22,47 +22,43 @@ import java.sql.Date;
 
 
 
-public class EditActivity extends AppCompatActivity implements EditControllerInterf, AdapterView.OnItemSelectedListener {
+public class EditActivity extends AppCompatActivity implements EditControllerInterf,
+        AdapterView.OnItemSelectedListener {
 
-    private String shop;
     private String category;
-    private double sum;
-    private String today;
 
+    EditText shop = (EditText)findViewById(R.id.editShop);
+    EditText sum = (EditText)findViewById(R.id.editSum);
+    EditText date = (EditText)findViewById(R.id.editDate);
     Spinner categorySpinner;
-//    EditText editCategory;
 
-    public void setCategory(String category) {
+    public void setShop(String shop){
+        this.shop.setText(shop);
+    }
+    public String getShop(){
+        return shop.getText().toString();
+    }
+
+    public void setSum(String sum){
+        this.sum.setText(sum);
+    }
+    public String getSum(){
+        return sum.getText().toString();
+    }
+
+    public void setDate(String date){
+        this.date.setText(date);
+    }
+    public String getDate(){
+        return sum.getText().toString();
+    }
+
+    public void setCategory(String category){
         this.category = category;
     }
-    public String getCategory() {
+    public String getCategory(){
         return category;
     }
-
-    public void setShop(String shop) {
-        this.shop = shop;
-    }
-
-    public String getShop() {
-        return shop;
-    }
-
-    public void setSum(double sum) {
-        this.sum = sum;
-    }
-
-    public double getSum() {
-        return sum;
-    }
-
-    public void setToday(String today) {
-        this.today = today;
-    }
-
-    public String getToday() {
-        return today;
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,22 +89,11 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
         // TODO: Roger - Testimplementierung
         // Daten übernehmen und in Variablen speichern
         // Methode zum Speichern in Datenbank aufrufen
-
-        EditText editShop = (EditText)findViewById(R.id.editShop);
-        setShop(editShop.getText().toString());
-
-        EditText editSum = (EditText)findViewById(R.id.editSum);
-        setSum(Double.parseDouble(editSum.getText().toString()));
-
-        EditText editDate = (EditText)findViewById(R.id.editDate);
-        setToday(editDate.getText().toString());
-
-
         Toast.makeText(EditActivity.this, "Saving Data:" +
-                "\nShop: " + getShop() +
-                "\nSum: " + getSum() +
-                "\nCategory: " + getCategory() +
-                "\nDate: " + getToday(),
+                        "\nShop: " + getShop() +
+                        "\nSum: " + getSum() +
+                        "\nCategory: " + getCategory() +
+                        "\nDate: " + getDate(),
                 Toast.LENGTH_SHORT).show();
     }
 
