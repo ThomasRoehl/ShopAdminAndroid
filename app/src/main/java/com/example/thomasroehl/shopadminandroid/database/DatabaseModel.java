@@ -13,7 +13,7 @@ public class DatabaseModel extends SQLiteOpenHelper{
 
     private static final int DBVERSION = 1;
     private static final String DBNAME = "ShopAdminDB";
-    private DatabaseInterf dbController;
+    private DatabaseController dbController;
 
     public DatabaseModel (Context ctx){
         super(ctx, DBNAME, null, DBVERSION);
@@ -27,9 +27,16 @@ public class DatabaseModel extends SQLiteOpenHelper{
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        dbController = StorageAdmin.DBCONTROLLER;
-        //TODO Create new Database in SQL
+        dbController = (DatabaseController)StorageAdmin.DBCONTROLLER;
+        String query = "CREATE TABLE " + dbController.USERTABLE + "(" +
+                dbController.USERNIDCOLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                dbController.USERNAMECOLUMN + " TEXT, " +
+                dbController.USEREMAILCOLUMN + " TEXT, " +
+                dbController.USERPASSWORDCOLUMN + " TEXT );";
+        db.execSQL(query);
     }
+
+
 
     /**
      * Called when the database needs to be upgraded. The implementation
