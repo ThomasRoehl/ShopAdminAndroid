@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 public class ReportPagerAdapter extends FragmentStatePagerAdapter {
     int NumOfReports = 0;
+    ReportShopSummaryFragment mShopSummary = null;
+    ReportCategorySummaryFragment mCategorySummary = null;
 
     public ReportPagerAdapter(FragmentManager fm, int NumOfReports) {
         super(fm);
@@ -28,11 +30,15 @@ public class ReportPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                ReportShopSummaryFragment tab1 = new ReportShopSummaryFragment();
-                return tab1;
+                if (this.mShopSummary == null)
+                    this.mShopSummary = new ReportShopSummaryFragment();
+
+                return this.mShopSummary;
             case 1:
-                ReportCategorySummaryFragment tab2 = new ReportCategorySummaryFragment();
-                return tab2;
+                if (this.mCategorySummary == null)
+                    this.mCategorySummary = new ReportCategorySummaryFragment();
+
+                return this.mCategorySummary;
             default:
                 return null;
         }

@@ -20,6 +20,8 @@ import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 public class ReportController implements ReportControllerInterf {
     DatabaseInterf db;
     Context currentActivityContext;
+    TableLayout ShopSummary = null;
+    TableLayout CategorySummary = null;
 
     private final float ratioColumnShop     = 0.5f;
     private final float ratioColumnCategory = 0.5f;
@@ -78,29 +80,36 @@ public class ReportController implements ReportControllerInterf {
     public void getTable(String name, TableLayout tl) {
         switch (name) {
             case StorageAdmin.REPORT_SHOP_SUMMARY:
-                getShop_Summary(tl);
+                this.ShopSummary = tl;
+                getShop_Summary();
+                break;
             case StorageAdmin.REPORT_CATEGORY_SUMMARY:
-                getCategory_Summary(tl);
+                this.CategorySummary = tl;
+                getCategory_Summary();
+                break;
             default:
+                break;
 
         }
 
     }
 
-    private void getShop_Summary(TableLayout tl) {
-        addHeader(StorageAdmin.REPORT_SHOP_SUMMARY, tl);
+    private void getShop_Summary() {
+        addHeader(StorageAdmin.REPORT_SHOP_SUMMARY);
     }
 
-    private void getCategory_Summary(TableLayout tl) {
-        addHeader(StorageAdmin.REPORT_CATEGORY_SUMMARY, tl);
+    private void getCategory_Summary() {
+        addHeader(StorageAdmin.REPORT_CATEGORY_SUMMARY);
     }
 
     /**
      * Generate Headerline for TableLayout
      */
-    private void addHeader(String Name, TableLayout tl) {
+    private void addHeader(String Name) {
         TableRow tr;
         int pixels = 0;
+
+        TableLayout tl = null;
 
         int maxpixels_width = (int) (this.currentActivityContext.getResources().getDisplayMetrics().widthPixels * 0.9f);
         int maxpixels_height = (int) (this.currentActivityContext.getResources().getDisplayMetrics().heightPixels * 0.6f);
@@ -116,6 +125,7 @@ public class ReportController implements ReportControllerInterf {
         Log.i("Height per cell:", String.valueOf(height_pixels));
 
         if (Name == StorageAdmin.REPORT_SHOP_SUMMARY) {
+            tl = this.ShopSummary;
             float dpi_column_shopname = maxpixels_width * this.ratioColumnShop;
 
             //pixels = (int)(dpi_column_shopname * scaleRatio + 0.5f);
@@ -146,6 +156,7 @@ public class ReportController implements ReportControllerInterf {
             tr.addView(Ll); // Adding textView to tablerow.
 
         } else {
+            tl = this.CategorySummary;
             float dpi_column_category = maxpixels_width * this.ratioColumnCategory;
 
             //pixels = (int)(dpi_column_shopname * scaleRatio + 0.5f);
