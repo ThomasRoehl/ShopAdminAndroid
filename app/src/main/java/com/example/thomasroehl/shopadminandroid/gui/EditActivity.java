@@ -27,31 +27,38 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
 
     private String category;
 
-    EditText shop = (EditText)findViewById(R.id.editShop);
-    EditText sum = (EditText)findViewById(R.id.editSum);
-    EditText date = (EditText)findViewById(R.id.editDate);
     Spinner categorySpinner;
 
-    public void setShop(String shop){
-        this.shop.setText(shop);
+    public void setShop(){
+        EditText shop = (EditText)findViewById(R.id.editShop);
+        shop.setText(getShop());
     }
     public String getShop(){
+        EditText shop = (EditText)findViewById(R.id.editShop);
         return shop.getText().toString();
     }
 
-    public void setSum(String sum){
-        this.sum.setText(sum);
+    public void setSum(){
+        EditText sum = (EditText)findViewById(R.id.editSum);
+        sum.setText(getSum());
     }
     public String getSum(){
+        EditText sum = (EditText)findViewById(R.id.editSum);
         return sum.getText().toString();
     }
 
-    public void setDate(String date){
-        this.date.setText(date);
+    public void setDate(){
+        EditText date = (EditText)findViewById(R.id.editDate);
+        date.setText(getDate());
     }
     public String getDate(){
-        return sum.getText().toString();
+        EditText date = (EditText)findViewById(R.id.editDate);
+        return date.getText().toString();
     }
+
+
+
+
 
     public void setCategory(String category){
         this.category = category;
@@ -61,7 +68,7 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
@@ -89,6 +96,9 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
         // TODO: Roger - Testimplementierung
         // Daten übernehmen und in Variablen speichern
         // Methode zum Speichern in Datenbank aufrufen
+        setShop();
+        setSum();
+        setDate();
         Toast.makeText(EditActivity.this, "Saving Data:" +
                         "\nShop: " + getShop() +
                         "\nSum: " + getSum() +
