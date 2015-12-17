@@ -1,10 +1,7 @@
 package com.example.thomasroehl.shopadminandroid.gui;
 
-import com.example.thomasroehl.shopadminandroid.edit.EditControllerInterf;
-import com.example.thomasroehl.shopadminandroid.R;
-
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,7 +9,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.sql.Date;
+import com.example.thomasroehl.shopadminandroid.R;
+import com.example.thomasroehl.shopadminandroid.edit.EditControllerImpl;
+import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
 /**
  * Created by Roger M. Nabinger on 06.12.2015.
@@ -22,9 +21,9 @@ import java.sql.Date;
 
 
 
-public class EditActivity extends AppCompatActivity implements EditControllerInterf,
-        AdapterView.OnItemSelectedListener {
+public class EditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    EditControllerImpl  myController = null;
     private String category;
 
     Spinner categorySpinner;
@@ -75,6 +74,12 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
         categorySpinner = (Spinner) findViewById(R.id.spinnerCategory);
         populateSpinner();
         categorySpinner.setOnItemSelectedListener(this);
+
+        //GetController Instance
+        myController = (EditControllerImpl) StorageAdmin.EDITCONTROLLER;
+
+        //SetContext
+        myController.setCurrentActivityContext(this);
     }
 
     public void populateSpinner(){
@@ -109,7 +114,8 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
 
     public void rescanData(View view) {
         // TODO: Roger - Testimplementierung
-        Toast.makeText(EditActivity.this, "Goto rescan", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(EditActivity.this, "Goto rescan", Toast.LENGTH_SHORT).show();
+        startActivity(this.myController.screenFlowCamera());
     }
 
 
@@ -121,7 +127,7 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
 
     // Aus Interface
 
-
+/*
     @Override
     public boolean saveData(String shop, String category, double sum, Date date) {
         // TODO: Roger
@@ -129,7 +135,7 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
     }
 
     @Override
-    public String screenFlowCamera() {
+    public Intent screenFlowCamera() {
         // TODO: Roger
         return null;
     }
@@ -139,7 +145,7 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
         // TODO: Roger
         return null;
     }
-
+*/
 
 
 }
