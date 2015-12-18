@@ -1,6 +1,5 @@
 package com.example.thomasroehl.shopadminandroid.gui;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thomasroehl.shopadminandroid.R;
+import com.example.thomasroehl.shopadminandroid.container.User;
 import com.example.thomasroehl.shopadminandroid.register.RegisterControllerImpl;
+import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
 public class Login_Register_Activity extends AppCompatActivity {
 
@@ -100,7 +101,14 @@ public class Login_Register_Activity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String verifyPassword = editTextVerifyPassword.getText().toString();
-                validateUserInputData(username, password, verifyPassword, email);
+                if (validateUserInputData(username, password, verifyPassword, email)) {
+                    User user = new User(username,email, password);
+                    StorageAdmin.REGISTERCONTROLLER.createUser(user);
+                    //startActivity(new Intent(Login_Register_Activity.this, MainActivity.class));
+                    startActivity(registerController.screenFlowMain());
+                    Toast.makeText(Login_Register_Activity.this, "Registration successfull!", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
         buttonCreateNewAccount.setOnClickListener(new View.OnClickListener() {
@@ -137,34 +145,33 @@ public class Login_Register_Activity extends AppCompatActivity {
             }
         });
     }
-    public void validateUserInputData(String username, String password, String verifyPassword, String email){
+    public boolean validateUserInputData(String username, String password, String verifyPassword, String email){
         if (registerController.checkUsername(username)) {
-            return;
+            return false;
         }
         if (!registerController.verifyPassword(password, verifyPassword)) {
-            return;
+            return false;
         }
         if (registerController.checkNameIsEmpty(username) == true ||
                 registerController.checkPasswordIsEmpty(password) == true ||
                 registerController.checkEmailIsEmpty(email) == true) {
             Toast.makeText(Login_Register_Activity.this, "Fill in all fields!", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
         if (registerController.checkEmailIsValid(email) == true) {
             Toast.makeText(Login_Register_Activity.this, "Enter a valid email address!", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
         if (registerController.checkPasswordIsTooShort(password) == true) {
             Toast.makeText(Login_Register_Activity.this, "Password is too short!", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
         if (registerController.checkPasswordIsTooLong(password) == true) {
             Toast.makeText(Login_Register_Activity.this, "Password is too long!", Toast.LENGTH_LONG).show();
-            return;
+            return false;
 
-        } else {
-            Toast.makeText(Login_Register_Activity.this, "Registration successfull!", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(Login_Register_Activity.this, MainActivity.class));
         }
+        else
+            return true;
     }
 }

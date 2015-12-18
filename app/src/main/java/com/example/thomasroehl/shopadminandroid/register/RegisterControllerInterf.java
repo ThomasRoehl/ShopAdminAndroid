@@ -2,6 +2,8 @@ package com.example.thomasroehl.shopadminandroid.register;
 
 import android.content.Intent;
 
+import com.example.thomasroehl.shopadminandroid.container.User;
+
 /**
  * Created by Thomas Roehl on 04.12.2015.
  */
@@ -12,5 +14,5 @@ public interface RegisterControllerInterf {
     public String screenFlowLogin();
     public boolean checkUsername(String username);
     public String getFeedbackMessage();
-    public boolean createUser(String username, String email, String password);
+    public boolean createUser(User user);
 }

@@ -3,8 +3,10 @@ package com.example.thomasroehl.shopadminandroid.register;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.thomasroehl.shopadminandroid.container.User;
 import com.example.thomasroehl.shopadminandroid.database.DatabaseController;
-import com.example.thomasroehl.shopadminandroid.gui.EditActivity;
+import com.example.thomasroehl.shopadminandroid.gui.MainActivity;
+import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
 import java.util.HashMap;
 
@@ -50,7 +52,7 @@ public class RegisterControllerImpl implements RegisterControllerInterf {
     public Intent screenFlowMain() {
         Intent i = new Intent(
                 this.currentActivityContext,
-                EditActivity.class);
+                MainActivity.class);
         return i;
     }
 
@@ -67,11 +69,12 @@ public class RegisterControllerImpl implements RegisterControllerInterf {
         namesMap.put(1,"Altug");
         namesMap.put(2,"Julia");
 
-        /*if(databaseController.checkUsername(username) == true)
-        {*/
-        if (namesMap.containsValue(username)){
+        if(databaseController.checkUsername(username) == true)
+        {
+        //if (namesMap.containsValue(username)){
             return true;
         }
+            else
         return false;
     }
 
@@ -109,7 +112,7 @@ public class RegisterControllerImpl implements RegisterControllerInterf {
 
     public boolean checkPasswordIsTooShort(String password)
     {
-        if( password.length() < 5 )
+        if( password.length() < 4)
             return true;
         else
             return false;
@@ -129,8 +132,13 @@ public class RegisterControllerImpl implements RegisterControllerInterf {
     }
 
     @Override
-    public boolean createUser(String username, String email, String password) {
+    public boolean createUser(User user) {
+        if(StorageAdmin.DBCONTROLLER.createUser(user)) {
+            System.out.println("user wird in DB gespeichert --------> " + true);
+            return true;
+        }
+
+        System.out.println("user wird nicht in DB gespeichert --------> " + false);
         return false;
     }
-
 }
