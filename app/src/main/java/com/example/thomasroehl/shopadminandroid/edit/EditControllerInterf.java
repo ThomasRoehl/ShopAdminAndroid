@@ -1,5 +1,7 @@
 package com.example.thomasroehl.shopadminandroid.edit;
 
+import android.content.Intent;
+
 import java.sql.Date;
 
 /**
@@ -8,7 +10,7 @@ import java.sql.Date;
 public interface EditControllerInterf {
     // TODO: Thomas - statt saveData wäre hier besser editData, da Speichern erst im editView erfolgt.
     public boolean saveData(String shop, String category, double sum, Date date);
-    public String screenFlowCamera();
+    public Intent screenFlowCamera();
     public String screenFlowMain();
 
 }

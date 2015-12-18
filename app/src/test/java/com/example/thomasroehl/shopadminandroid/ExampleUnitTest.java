@@ -1,7 +1,5 @@
 package com.example.thomasroehl.shopadminandroid;
 
-import android.util.Log;
-
 import com.example.thomasroehl.shopadminandroid.container.ExampleContainer;
 
 import org.junit.Before;

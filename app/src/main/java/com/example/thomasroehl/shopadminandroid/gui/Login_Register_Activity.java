@@ -100,29 +100,10 @@ public class Login_Register_Activity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String verifyPassword = editTextVerifyPassword.getText().toString();
-
-                if (registerController.checkUsername(username)) {
-                    return;
-                }
-                if (!registerController.verifyPassword(password, verifyPassword)) {
-                    return;
-                }
-                if (registerController.checkNameIsEmpty(username) == true ||
-                        registerController.checkPasswordIsEmpty(password) == true ||
-                        registerController.checkEmailIsEmpty(email) == true) {
-                    Toast toast = Toast.makeText(Login_Register_Activity.this, "Fill in all fields!", Toast.LENGTH_LONG);
-                    toast.show();
-                    return;
-                } else {
-
-                    Toast toast = Toast.makeText(Login_Register_Activity.this, "Registration successfull", Toast.LENGTH_LONG);
-                    toast.show();
-                    startActivity(new Intent(Login_Register_Activity.this, MainActivity.class));
-                }
-
+                validateUserInputData(username, password, verifyPassword, email);
             }
         });
-        buttonCreateNewAccount.setOnClickListener(new View.OnClickListener(){
+        buttonCreateNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 inCreateNewAccountMode = true;
@@ -155,5 +136,35 @@ public class Login_Register_Activity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void validateUserInputData(String username, String password, String verifyPassword, String email){
+        if (registerController.checkUsername(username)) {
+            return;
+        }
+        if (!registerController.verifyPassword(password, verifyPassword)) {
+            return;
+        }
+        if (registerController.checkNameIsEmpty(username) == true ||
+                registerController.checkPasswordIsEmpty(password) == true ||
+                registerController.checkEmailIsEmpty(email) == true) {
+            Toast.makeText(Login_Register_Activity.this, "Fill in all fields!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (registerController.checkEmailIsValid(email) == true) {
+            Toast.makeText(Login_Register_Activity.this, "Enter a valid email address!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (registerController.checkPasswordIsTooShort(password) == true) {
+            Toast.makeText(Login_Register_Activity.this, "Password is too short!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (registerController.checkPasswordIsTooLong(password) == true) {
+            Toast.makeText(Login_Register_Activity.this, "Password is too long!", Toast.LENGTH_LONG).show();
+            return;
+
+        } else {
+            Toast.makeText(Login_Register_Activity.this, "Registration successfull!", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(Login_Register_Activity.this, MainActivity.class));
+        }
     }
 }

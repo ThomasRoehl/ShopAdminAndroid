@@ -2,8 +2,8 @@ package com.example.thomasroehl.shopadminandroid.register;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 
+import com.example.thomasroehl.shopadminandroid.database.DatabaseController;
 import com.example.thomasroehl.shopadminandroid.gui.EditActivity;
 
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 public class RegisterControllerImpl implements RegisterControllerInterf {
 
-
+    private static DatabaseController databaseController = new DatabaseController();
     private static RegisterControllerImpl registerController = null;
     Context currentActivityContext;
 
@@ -67,6 +67,8 @@ public class RegisterControllerImpl implements RegisterControllerInterf {
         namesMap.put(1,"Altug");
         namesMap.put(2,"Julia");
 
+        /*if(databaseController.checkUsername(username) == true)
+        {*/
         if (namesMap.containsValue(username)){
             return true;
         }
@@ -97,6 +99,29 @@ public class RegisterControllerImpl implements RegisterControllerInterf {
             return false;
     }
 
+    public boolean checkEmailIsValid(String email)
+    {
+        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
+            return true;
+        else
+            return false;
+    }
+
+    public boolean checkPasswordIsTooShort(String password)
+    {
+        if( password.length() < 5 )
+            return true;
+        else
+            return false;
+    }
+    public boolean checkPasswordIsTooLong(String password)
+    {
+        if( password.length() > 10 )
+            return true;
+        else
+            return false;
+    }
+
     @Override
     public String getFeedbackMessage() {
 
@@ -107,4 +132,5 @@ public class RegisterControllerImpl implements RegisterControllerInterf {
     public boolean createUser(String username, String email, String password) {
         return false;
     }
+
 }

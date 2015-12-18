@@ -1,10 +1,7 @@
 package com.example.thomasroehl.shopadminandroid.gui;
 
-import com.example.thomasroehl.shopadminandroid.edit.EditControllerInterf;
-import com.example.thomasroehl.shopadminandroid.R;
-
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,7 +9,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.sql.Date;
+import com.example.thomasroehl.shopadminandroid.R;
+import com.example.thomasroehl.shopadminandroid.edit.EditControllerImpl;
+import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
 /**
  * Created by Roger M. Nabinger on 06.12.2015.
@@ -22,56 +21,65 @@ import java.sql.Date;
 
 
 
-public class EditActivity extends AppCompatActivity implements EditControllerInterf, AdapterView.OnItemSelectedListener {
+public class EditActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private String shop;
+    EditControllerImpl  myController = null;
     private String category;
-    private double sum;
-    private String today;
 
     Spinner categorySpinner;
-//    EditText editCategory;
 
-    public void setCategory(String category) {
+    public void setShop(){
+        EditText shop = (EditText)findViewById(R.id.editShop);
+        shop.setText(getShop());
+    }
+    public String getShop(){
+        EditText shop = (EditText)findViewById(R.id.editShop);
+        return shop.getText().toString();
+    }
+
+    public void setSum(){
+        EditText sum = (EditText)findViewById(R.id.editSum);
+        sum.setText(getSum());
+    }
+    public String getSum(){
+        EditText sum = (EditText)findViewById(R.id.editSum);
+        return sum.getText().toString();
+    }
+
+    public void setDate(){
+        EditText date = (EditText)findViewById(R.id.editDate);
+        date.setText(getDate());
+    }
+    public String getDate(){
+        EditText date = (EditText)findViewById(R.id.editDate);
+        return date.getText().toString();
+    }
+
+
+
+
+
+    public void setCategory(String category){
         this.category = category;
     }
-    public String getCategory() {
+    public String getCategory(){
         return category;
     }
 
-    public void setShop(String shop) {
-        this.shop = shop;
-    }
-
-    public String getShop() {
-        return shop;
-    }
-
-    public void setSum(double sum) {
-        this.sum = sum;
-    }
-
-    public double getSum() {
-        return sum;
-    }
-
-    public void setToday(String today) {
-        this.today = today;
-    }
-
-    public String getToday() {
-        return today;
-    }
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
         categorySpinner = (Spinner) findViewById(R.id.spinnerCategory);
         populateSpinner();
         categorySpinner.setOnItemSelectedListener(this);
+
+        //GetController Instance
+        myController = (EditControllerImpl) StorageAdmin.EDITCONTROLLER;
+
+        //SetContext
+        myController.setCurrentActivityContext(this);
     }
 
     public void populateSpinner(){
@@ -93,28 +101,21 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
         // TODO: Roger - Testimplementierung
         // Daten übernehmen und in Variablen speichern
         // Methode zum Speichern in Datenbank aufrufen
-
-        EditText editShop = (EditText)findViewById(R.id.editShop);
-        setShop(editShop.getText().toString());
-
-        EditText editSum = (EditText)findViewById(R.id.editSum);
-        setSum(Double.parseDouble(editSum.getText().toString()));
-
-        EditText editDate = (EditText)findViewById(R.id.editDate);
-        setToday(editDate.getText().toString());
-
-
+        setShop();
+        setSum();
+        setDate();
         Toast.makeText(EditActivity.this, "Saving Data:" +
-                "\nShop: " + getShop() +
-                "\nSum: " + getSum() +
-                "\nCategory: " + getCategory() +
-                "\nDate: " + getToday(),
+                        "\nShop: " + getShop() +
+                        "\nSum: " + getSum() +
+                        "\nCategory: " + getCategory() +
+                        "\nDate: " + getDate(),
                 Toast.LENGTH_SHORT).show();
     }
 
     public void rescanData(View view) {
         // TODO: Roger - Testimplementierung
-        Toast.makeText(EditActivity.this, "Goto rescan", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(EditActivity.this, "Goto rescan", Toast.LENGTH_SHORT).show();
+        startActivity(this.myController.screenFlowCamera());
     }
 
 
@@ -126,7 +127,7 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
 
     // Aus Interface
 
-
+/*
     @Override
     public boolean saveData(String shop, String category, double sum, Date date) {
         // TODO: Roger
@@ -134,7 +135,7 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
     }
 
     @Override
-    public String screenFlowCamera() {
+    public Intent screenFlowCamera() {
         // TODO: Roger
         return null;
     }
@@ -144,7 +145,7 @@ public class EditActivity extends AppCompatActivity implements EditControllerInt
         // TODO: Roger
         return null;
     }
-
+*/
 
 
 }
