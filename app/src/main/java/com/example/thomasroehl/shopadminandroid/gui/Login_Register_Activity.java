@@ -103,10 +103,11 @@ public class Login_Register_Activity extends AppCompatActivity {
                 String verifyPassword = editTextVerifyPassword.getText().toString();
                 if (validateUserInputData(username, password, verifyPassword, email)) {
                     User user = new User(username,email, password);
-                    StorageAdmin.REGISTERCONTROLLER.createUser(user);
-                    //startActivity(new Intent(Login_Register_Activity.this, MainActivity.class));
-                    startActivity(registerController.screenFlowMain());
-                    Toast.makeText(Login_Register_Activity.this, "Registration successfull!", Toast.LENGTH_LONG).show();
+                    if(StorageAdmin.REGISTERCONTROLLER.createUser(user)) {
+                        //startActivity(new Intent(Login_Register_Activity.this, MainActivity.class));
+                        startActivity(registerController.screenFlowMain());
+                        Toast.makeText(Login_Register_Activity.this, "Registration successfull!", Toast.LENGTH_LONG).show();
+                    }
                 }
 
             }
@@ -169,7 +170,6 @@ public class Login_Register_Activity extends AppCompatActivity {
         if (registerController.checkPasswordIsTooLong(password) == true) {
             Toast.makeText(Login_Register_Activity.this, "Password is too long!", Toast.LENGTH_LONG).show();
             return false;
-
         }
         else
             return true;
