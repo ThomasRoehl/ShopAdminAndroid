@@ -1,5 +1,6 @@
 package com.example.thomasroehl.shopadminandroid.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.thomasroehl.shopadminandroid.R;
 import com.example.thomasroehl.shopadminandroid.edit.EditControllerImpl;
@@ -28,27 +28,27 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
 
     Spinner categorySpinner;
 
-    public void setShop(){
+    public void setShop(String x){
         EditText shop = (EditText)findViewById(R.id.editShop);
-        shop.setText(getShop());
+        shop.setText(x);
     }
     public String getShop(){
         EditText shop = (EditText)findViewById(R.id.editShop);
         return shop.getText().toString();
     }
 
-    public void setSum(){
+    public void setSum(String x){
         EditText sum = (EditText)findViewById(R.id.editSum);
-        sum.setText(getSum());
+        sum.setText(x);
     }
     public String getSum(){
         EditText sum = (EditText)findViewById(R.id.editSum);
         return sum.getText().toString();
     }
 
-    public void setDate(){
+    public void setDate(String x){
         EditText date = (EditText)findViewById(R.id.editDate);
-        date.setText(getDate());
+        date.setText(x);
     }
     public String getDate(){
         EditText date = (EditText)findViewById(R.id.editDate);
@@ -101,21 +101,15 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
         // TODO: Roger - Testimplementierung
         // Daten übernehmen und in Variablen speichern
         // Methode zum Speichern in Datenbank aufrufen
-        setShop();
-        setSum();
-        setDate();
-        Toast.makeText(EditActivity.this, "Saving Data:" +
-                        "\nShop: " + getShop() +
-                        "\nSum: " + getSum() +
-                        "\nCategory: " + getCategory() +
-                        "\nDate: " + getDate(),
-                Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(EditActivity.this, MainActivity.class));
+        //startActivity(this.myController.screenFlowMain());
     }
 
     public void rescanData(View view) {
         // TODO: Roger - Testimplementierung
         //Toast.makeText(EditActivity.this, "Goto rescan", Toast.LENGTH_SHORT).show();
-        startActivity(this.myController.screenFlowCamera());
+        startActivity(new Intent(EditActivity.this, CameraActivity.class));
+        //startActivity(this.myController.screenFlowCamera());
     }
 
 
@@ -129,8 +123,7 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
 
 /*
     @Override
-    public boolean saveData(String shop, String category, double sum, Date date) {
-        // TODO: Roger
+    public boolean saveData(String shop, String category, String sum, String date) {
         return false;
     }
 
@@ -146,6 +139,4 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
         return null;
     }
 */
-
-
 }
