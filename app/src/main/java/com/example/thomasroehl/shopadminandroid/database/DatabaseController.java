@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.thomasroehl.shopadminandroid.container.Receipt;
 import com.example.thomasroehl.shopadminandroid.container.User;
 
 /**
@@ -22,13 +23,22 @@ public class DatabaseController implements DatabaseInterf {
     public final String USEREMAILCOLUMN = "Email";
 
     // Table Receipt
-    private final String RECEIPTTABLE = "ReceiptTable";
+    public final String RECEIPTTABLE = "ReceiptTable";
+    // Katia & Iuliia 04.01
+    public final String RECEIPTIDCOLUMN = "Receipt_Id";
+    public final String SHOPNAMECOLUMN = "Shopname";
+    public final String AMOUNTCOLUMN = "Amount";
+    public final String CATEGORYCOLUMN = "Category";
+    public final String DATECOLUMN = "Date";
 
      // Database statements
     private final String CHECKUSERBYNAME = "SELECT " + USERNAMECOLUMN + " FROM " + USERTABLE + " WHERE " + USERNAMECOLUMN + " = ";
     private final String CHECKUSERPASSWORD = "SELECT " + USERPASSWORDCOLUMN + " FROM " + USERTABLE + " WHERE " + USERPASSWORDCOLUMN + " = ";
     private final String GETUSER = "SELECT * FROM " + USERTABLE + " WHERE " + USERNAMECOLUMN + " = ";
     private final String DELETEUSER = "DELETE FROM " + USERTABLE + " WHERE " + USERNAMECOLUMN + " = ";
+    // Katia & Iuliia 04.01
+    private final String CHECKPASSWORDBYNAME1 = "SELECT " + USERPASSWORDCOLUMN + " FROM " + USERTABLE + " WHERE " + USERPASSWORDCOLUMN + " = ";
+    private final String CHECKPASSWORDBYNAME2 = " AND " + USERNAMECOLUMN + " = ";
 
     // Database
     private SQLiteDatabase db;
@@ -40,6 +50,11 @@ public class DatabaseController implements DatabaseInterf {
         DBModel = new DatabaseModel(applicationContext);
     }
 
+    // Katia & Iuliia 04.01
+    public DatabaseController(Context c){
+        applicationContext = c;
+        DBModel = new DatabaseModel(applicationContext);
+    }
 
     /**
      * connect database
@@ -95,7 +110,7 @@ public class DatabaseController implements DatabaseInterf {
 
 
     /**
-     * check weather username is equals parameter
+     * check whether username is equals parameter
      *
      * @param username
      * @return true if equals, else false
@@ -104,8 +119,9 @@ public class DatabaseController implements DatabaseInterf {
     public boolean checkUsername(String username) {
         try {
             connect();
-            Cursor cursor = db.rawQuery(CHECKUSERBYNAME + username + ";", null);
+            Cursor cursor = db.rawQuery(CHECKUSERBYNAME + "'" + username + "'" + ";", null);
             if (cursor.moveToFirst()) {
+                System.out.println("username exists");
                 disconnect();
                 return true;
             }
@@ -113,8 +129,7 @@ public class DatabaseController implements DatabaseInterf {
                 disconnect();
                 return false;
             }
-
-            }
+        }
         catch (Exception e){
             e.printStackTrace();
             if (!isDisconnected()) {
@@ -122,11 +137,10 @@ public class DatabaseController implements DatabaseInterf {
             }
             return false;
         }
-
     }
 
     /**
-     * check weather password is equals parameter
+     * check whether password is equals parameter
      *
      * @param password
      * @return true if password is equals, else false
@@ -137,6 +151,33 @@ public class DatabaseController implements DatabaseInterf {
 
             connect();
             Cursor cursor = db.rawQuery(CHECKUSERPASSWORD + password + ";", null);
+            if (cursor.moveToFirst()) {
+                disconnect();
+                return true;
+            }
+            disconnect();
+            return false;
+        } catch (Exception e){
+            e.printStackTrace();
+            if (!isDisconnected()) {
+                disconnect();
+            }
+            return false;
+        }
+    }
+
+    // Katia & Iuliia 04.01
+    /**
+     * check whether password is equals parameter
+     *
+     * @param password, name
+     * @return true whether name from database matches with password
+     * */
+    public boolean checkPasswordByName(String password, String name) {
+        try {
+            connect();
+            System.out.println(CHECKPASSWORDBYNAME1 + password + CHECKPASSWORDBYNAME2 + name + ";");
+            Cursor cursor = db.rawQuery(CHECKPASSWORDBYNAME1 + "'" + password + "'" + CHECKPASSWORDBYNAME2 + "'" + name + "'" + ";", null);
             if (cursor.moveToFirst()) {
                 disconnect();
                 return true;
@@ -239,6 +280,35 @@ public class DatabaseController implements DatabaseInterf {
             return false;
         }
 
+    }
+
+    // Katia & Iuliia 04.01
+    /**
+     * create receipt entry in database
+     *
+     * @param  receipt
+     * @return return if receipt was created
+     */
+    @Override
+    public boolean createReceipt(Receipt receipt) {
+        try {
+            connect();
+            ContentValues values = new ContentValues();
+            values.put(SHOPNAMECOLUMN, receipt.getShopname());
+            values.put(AMOUNTCOLUMN, receipt.getAmount());
+            values.put(CATEGORYCOLUMN, receipt.getCategory());
+            values.put(DATECOLUMN, receipt.getDate());
+            db.insert(RECEIPTTABLE, null, values);
+            disconnect();
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            if (!isDisconnected()) {
+                disconnect();
+            }
+            return false;
+        }
     }
 
 }

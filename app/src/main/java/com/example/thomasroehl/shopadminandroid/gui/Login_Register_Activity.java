@@ -13,11 +13,13 @@ import android.widget.Toast;
 
 import com.example.thomasroehl.shopadminandroid.R;
 import com.example.thomasroehl.shopadminandroid.container.User;
+import com.example.thomasroehl.shopadminandroid.database.DatabaseController;
 import com.example.thomasroehl.shopadminandroid.register.RegisterControllerImpl;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
 public class Login_Register_Activity extends AppCompatActivity {
 
+    // declare buttons, editText and textView fields
     boolean inCreateNewAccountMode;
     Button buttonLogin;
     Button buttonRegister;
@@ -33,6 +35,9 @@ public class Login_Register_Activity extends AppCompatActivity {
     TextView textViewInfo;
 
     RegisterControllerImpl registerController;
+    // Katia & Iuliia 04.01
+    // calls directly dbcontroller
+    DatabaseController dbcontroller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,30 +46,39 @@ public class Login_Register_Activity extends AppCompatActivity {
 
         inCreateNewAccountMode = false;
 
-        registerController = new RegisterControllerImpl();
+        //get registerController Instance
         registerController = RegisterControllerImpl.getRegisterController();
+        //set context
         registerController.setCurrentActivityContext(this);
 
+        // Katia & Iuliia 04.01
+        // define new dbcontroller with parameter context
+        dbcontroller = new DatabaseController(this);
+
+        // define buttons, editText and textView fields
+        buttonRegister = (Button) findViewById(R.id.buttonRegister);
+        buttonCreateNewAccount = (Button) findViewById(R.id.buttonCreateNewAccount);
+        buttonLogin = (Button) findViewById(R.id.buttonLogin);
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextVerifyPassword = (EditText) findViewById(R.id.editTextVerifyPassword);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        buttonRegister = (Button) findViewById(R.id.buttonRegister);
         textViewEmail = (TextView) findViewById(R.id.textViewEmail);
-        buttonCreateNewAccount = (Button) findViewById(R.id.buttonCreateNewAccount);
         textViewVerifyPassword = (TextView) findViewById(R.id.textViewVerifyPassword);
-        buttonLogin = (Button) findViewById(R.id.buttonLogin);
-
         textViewUsernameMessage = (TextView) findViewById(R.id.textViewUsernameMessage);
         textViewVerifyPasswordMessage = (TextView) findViewById(R.id.textViewPasswordMessage);
         textViewInfo = (TextView) findViewById(R.id.textViewInfo);
 
-
         editTextUsername.addTextChangedListener(new TextWatcher() {
-
+            /**
+             * check after each input whether username already exists in database
+             *
+             * @param s
+             */
             public void afterTextChanged(Editable s) {
                 System.out.println("afterTextChanged event handler");
-                if (registerController.checkUsername(s.toString())) {
+                if(dbcontroller.checkUsername(s.toString())){
+                //if (registerController.checkUsername(s.toString())) {
                     textViewUsernameMessage.setText("Username already in use. Choose another one!");
                     textViewUsernameMessage.setTextColor(Color.RED);
                     return;
@@ -81,6 +95,12 @@ public class Login_Register_Activity extends AppCompatActivity {
         });
 
         editTextVerifyPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            /**
+             * check whether input password matches with specified password
+             *
+             * @param v
+             * @param hasFocus
+             */
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if (!registerController.verifyPassword(editTextPassword.getText().toString(), editTextVerifyPassword.getText().toString())) {
@@ -101,12 +121,19 @@ public class Login_Register_Activity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String verifyPassword = editTextVerifyPassword.getText().toString();
+                // validate username, password, verifyPassword and email inputs
                 if (validateUserInputData(username, password, verifyPassword, email)) {
-                    User user = new User(username,email, password);
-                    if(StorageAdmin.REGISTERCONTROLLER.createUser(user)) {
-                        //startActivity(new Intent(Login_Register_Activity.this, MainActivity.class));
+                    User user = new User(username, email, password);
+                    //Katia 04.01.2016
+                    System.out.println("USER user.getName() ---> " + user.getName() + " username---> " + username);
+                    if (dbcontroller.createUser(user)) {
+                        System.out.println("in IF STATMENT dbcontroller.createUser(user)");
+                    //Katia 04.01.2016
+                        //if(StorageAdmin.REGISTERCONTROLLER.createUser(user)) {
                         startActivity(registerController.screenFlowMain());
                         Toast.makeText(Login_Register_Activity.this, "Registration successfull!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(Login_Register_Activity.this, "Database connection has failed!", Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -115,37 +142,58 @@ public class Login_Register_Activity extends AppCompatActivity {
         buttonCreateNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // set all fields visible and login button invisible
                 inCreateNewAccountMode = true;
                 editTextEmail.setVisibility(View.VISIBLE);
                 textViewEmail.setVisibility(View.VISIBLE);
+                textViewUsernameMessage.setVisibility(View.VISIBLE);
                 textViewVerifyPasswordMessage.setVisibility(View.VISIBLE);
                 editTextVerifyPassword.setVisibility(View.VISIBLE);
                 textViewVerifyPassword.setVisibility(View.VISIBLE);
                 buttonCreateNewAccount.setVisibility(View.INVISIBLE);
                 buttonRegister.setVisibility(View.VISIBLE);
+                buttonLogin.setVisibility(View.INVISIBLE);
                 textViewInfo.setText("Create new Account");
             }
         });
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(inCreateNewAccountMode){
-                    inCreateNewAccountMode = false;
-                    editTextEmail.setVisibility(View.INVISIBLE);
-                    textViewEmail.setVisibility(View.INVISIBLE);
-                    textViewVerifyPasswordMessage.setVisibility(View.INVISIBLE);
-                    editTextVerifyPassword.setVisibility(View.INVISIBLE);
-                    textViewVerifyPassword.setVisibility(View.INVISIBLE);
-                    buttonCreateNewAccount.setVisibility(View.VISIBLE);
-                    buttonRegister.setVisibility(View.INVISIBLE);
-                    textViewInfo.setText("Login to existing account");
-                }else{
-                    //TODO: look into database and verify username and password
-                    System.out.println("Not implemented yet");
+                String username = editTextUsername.getText().toString();
+                String password = editTextPassword.getText().toString();
+                System.out.println("LOGIN BUTTON CLICKED");
+                System.out.println("username " + username);
+                // check username
+                if(dbcontroller.checkUsername(username))
+                {
+                    System.out.println("username " + username);
+                    // check username matches password
+                    if(dbcontroller.checkPasswordByName(password, username)){
+                        Toast.makeText(Login_Register_Activity.this, "Login successful!", Toast.LENGTH_LONG).show();
+                        startActivity(registerController.screenFlowMain());
+                    }
+                    else{
+                        Toast.makeText(Login_Register_Activity.this, "Name and password don't match!", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+                else{
+                    Toast.makeText(Login_Register_Activity.this, "Username doesn't exist!", Toast.LENGTH_LONG).show();
+                    return;
                 }
             }
         });
     }
+
+    /**
+     * validate inputs
+     *
+     * @param username
+     * @param password
+     * @param verifyPassword
+     * @param email
+     * @return true whether input data is correct
+     */
     public boolean validateUserInputData(String username, String password, String verifyPassword, String email){
         if (registerController.checkUsername(username)) {
             return false;

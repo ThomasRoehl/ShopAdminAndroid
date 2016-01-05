@@ -1,5 +1,6 @@
 package com.example.thomasroehl.shopadminandroid.database;
 
+import com.example.thomasroehl.shopadminandroid.container.Receipt;
 import com.example.thomasroehl.shopadminandroid.container.User;
 
 /**
@@ -9,7 +10,7 @@ public interface DatabaseInterf {
 
 
     /**
-     * check weather username is equals parameter
+     * check whether username is equals parameter
      * @param username
      * @return true if equals, else false
      */
@@ -17,7 +18,7 @@ public interface DatabaseInterf {
 
 
     /**
-     * check weather password is equals parameter
+     * check whether password is equals parameter
      * @param password
      * @return true if password is equals, else false
      */
@@ -48,6 +49,14 @@ public interface DatabaseInterf {
      * @return if exist user, else null
      */
     public User getUserFromTable(String username);
+
+    /**
+     * create receipt entry in database
+     *
+     * @param  receipt
+     * @return return if receipt was created
+     */
+    public boolean createReceipt(Receipt receipt);
 
 
 

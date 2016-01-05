@@ -34,6 +34,17 @@ public class DatabaseModel extends SQLiteOpenHelper{
                 dbController.USEREMAILCOLUMN + " TEXT, " +
                 dbController.USERPASSWORDCOLUMN + " TEXT );";
         db.execSQL(query);
+
+        // Katia & Iuliia 04.01
+        String queryReceipt = "CREATE TABLE " + dbController.RECEIPTTABLE + "(" +
+                dbController.RECEIPTIDCOLUMN+ " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                dbController.SHOPNAMECOLUMN + " TEXT, " +
+                dbController.AMOUNTCOLUMN + " DOUBLE, " +
+                dbController.CATEGORYCOLUMN + " TEXT, " +
+                dbController.DATECOLUMN + " TEXT );";
+        System.out.println("CREATE dbController.RECEIPTTABLE");
+        db.execSQL(queryReceipt);
+        // Katia & Iuliia 04.01
     }
 
 

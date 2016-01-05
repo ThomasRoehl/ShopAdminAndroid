@@ -19,11 +19,20 @@ public class User {
     }
 
     public User(int id, String name, String email, String password){
-
+        //Katia & Iuliia 04.01.2016
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        //Katia & Iuliia 04.01.2016
     }
 
     public User(String name, String email, String password){
-
+        //Katia  & Iuliia 04.01.2016
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        //Katia & Iuliia 04.01.2016
     }
 
     public String getGroup() {
@@ -73,4 +82,14 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
+
+    //Katia  & Iuliia 04.01.2016
+    public String toString() {
+        return "User{" +
+                ", name='" + this.name + '\'' +
+                ", email='" + this.email + '\'' +
+                ", password=" + this.password + '\'' +
+                '}';
+    }
+    //Katia  & Iuliia 04.01.2016
 }
