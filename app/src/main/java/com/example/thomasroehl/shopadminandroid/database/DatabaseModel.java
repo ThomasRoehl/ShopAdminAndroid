@@ -28,22 +28,26 @@ public class DatabaseModel extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         dbController = (DatabaseController)StorageAdmin.DBCONTROLLER;
+
         String query = "CREATE TABLE " + dbController.USERTABLE + "(" +
                 dbController.USERNIDCOLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 dbController.USERNAMECOLUMN + " TEXT, " +
                 dbController.USEREMAILCOLUMN + " TEXT, " +
                 dbController.USERPASSWORDCOLUMN + " TEXT );";
+        System.out.println("BEFORE query " + query);
         db.execSQL(query);
+        System.out.println("BEFORE query " + query);
 
         // Katia & Iuliia 04.01
         String queryReceipt = "CREATE TABLE " + dbController.RECEIPTTABLE + "(" +
-                dbController.RECEIPTIDCOLUMN+ " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                dbController.RECEIPTIDCOLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 dbController.SHOPNAMECOLUMN + " TEXT, " +
                 dbController.AMOUNTCOLUMN + " DOUBLE, " +
                 dbController.CATEGORYCOLUMN + " TEXT, " +
                 dbController.DATECOLUMN + " TEXT );";
-        System.out.println("CREATE dbController.RECEIPTTABLE");
+        System.out.println("BEFORE queryReceipt " + queryReceipt);
         db.execSQL(queryReceipt);
+        System.out.println("BEFORE queryReceipt " + queryReceipt);
         // Katia & Iuliia 04.01
     }
 

@@ -43,17 +43,15 @@ public class Login_Register_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_register);
-
         inCreateNewAccountMode = false;
-
         //get registerController Instance
         registerController = RegisterControllerImpl.getRegisterController();
         //set context
         registerController.setCurrentActivityContext(this);
-
         // Katia & Iuliia 04.01
         // define new dbcontroller with parameter context
         dbcontroller = new DatabaseController(this);
+        System.out.println("XXXXXX dbcontroller = new DatabaseController(this) "+dbcontroller);
 
         // define buttons, editText and textView fields
         buttonRegister = (Button) findViewById(R.id.buttonRegister);

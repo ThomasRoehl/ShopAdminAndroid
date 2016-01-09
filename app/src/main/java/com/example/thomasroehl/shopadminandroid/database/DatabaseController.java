@@ -52,6 +52,7 @@ public class DatabaseController implements DatabaseInterf {
 
     // Katia & Iuliia 04.01
     public DatabaseController(Context c){
+        System.out.println("public DatabaseController(Context c) "+c);
         applicationContext = c;
         DBModel = new DatabaseModel(applicationContext);
     }
