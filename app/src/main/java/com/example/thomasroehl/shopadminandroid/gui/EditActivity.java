@@ -33,7 +33,6 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
     EditText editDate;
     Button buttonRescan;
     Button buttonSave;
-    DatabaseController dbcontroller;
     // Katja 31.12
 
     EditControllerImpl  myController = null;
@@ -84,7 +83,6 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_edit);
 
         //katja & Julia 05.01.2016
-        dbcontroller = new DatabaseController(this);
 
         //definition edittexts and buttons
         editShopname = (EditText)findViewById(R.id.editShop);
@@ -139,7 +137,7 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
             System.out.println("receipt ---> " + receipt);
             //add new receipt data in Database
             //if(StorageAdmin.DBCONTROLLER.createReceipt(receipt))
-            if (dbcontroller.createReceipt(receipt)) {
+            if (StorageAdmin.DBCONTROLLER.createReceipt(receipt)) {
                 Toast.makeText(EditActivity.this, "Receipt is saved", Toast.LENGTH_LONG).show();
                 startActivity(StorageAdmin.EDITCONTROLLER.screenFlowMain());
             } else {

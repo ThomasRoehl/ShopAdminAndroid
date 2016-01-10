@@ -1,5 +1,7 @@
 package com.example.thomasroehl.shopadminandroid.database;
 
+import android.content.Context;
+
 import com.example.thomasroehl.shopadminandroid.container.Receipt;
 import com.example.thomasroehl.shopadminandroid.container.User;
 
@@ -58,8 +60,13 @@ public interface DatabaseInterf {
      */
     public boolean createReceipt(Receipt receipt);
 
+    /**
+     * set Context for Database
+     * @param c
+     * @return True if successful, else false
+     */
+    public boolean setDBContext(Context c);
 
-
-
+    public boolean checkPasswordByName(String password, String name);
 
 }

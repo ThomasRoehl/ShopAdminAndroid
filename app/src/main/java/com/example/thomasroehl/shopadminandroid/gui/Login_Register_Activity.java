@@ -37,7 +37,6 @@ public class Login_Register_Activity extends AppCompatActivity {
     RegisterControllerImpl registerController;
     // Katia & Iuliia 04.01
     // calls directly dbcontroller
-    DatabaseController dbcontroller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +52,7 @@ public class Login_Register_Activity extends AppCompatActivity {
 
         // Katia & Iuliia 04.01
         // define new dbcontroller with parameter context
-        dbcontroller = new DatabaseController(this);
-
+        StorageAdmin.DBCONTROLLER.setDBContext(getApplicationContext());
         // define buttons, editText and textView fields
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
         buttonCreateNewAccount = (Button) findViewById(R.id.buttonCreateNewAccount);
@@ -77,7 +75,7 @@ public class Login_Register_Activity extends AppCompatActivity {
              */
             public void afterTextChanged(Editable s) {
                 System.out.println("afterTextChanged event handler");
-                if(dbcontroller.checkUsername(s.toString())){
+                if(StorageAdmin.DBCONTROLLER.checkUsername(s.toString())){
                 //if (registerController.checkUsername(s.toString())) {
                     textViewUsernameMessage.setText("Username already in use. Choose another one!");
                     textViewUsernameMessage.setTextColor(Color.RED);
@@ -126,7 +124,7 @@ public class Login_Register_Activity extends AppCompatActivity {
                     User user = new User(username, email, password);
                     //Katia 04.01.2016
                     System.out.println("USER user.getName() ---> " + user.getName() + " username---> " + username);
-                    if (dbcontroller.createUser(user)) {
+                    if (StorageAdmin.DBCONTROLLER.createUser(user)) {
                         System.out.println("in IF STATMENT dbcontroller.createUser(user)");
                     //Katia 04.01.2016
                         //if(StorageAdmin.REGISTERCONTROLLER.createUser(user)) {
@@ -164,11 +162,11 @@ public class Login_Register_Activity extends AppCompatActivity {
                 System.out.println("LOGIN BUTTON CLICKED");
                 System.out.println("username " + username);
                 // check username
-                if(dbcontroller.checkUsername(username))
+                if(StorageAdmin.DBCONTROLLER.checkUsername(username))
                 {
                     System.out.println("username " + username);
                     // check username matches password
-                    if(dbcontroller.checkPasswordByName(password, username)){
+                    if(StorageAdmin.DBCONTROLLER.checkPasswordByName(password, username)){
                         Toast.makeText(Login_Register_Activity.this, "Login successful!", Toast.LENGTH_LONG).show();
                         startActivity(registerController.screenFlowMain());
                     }
