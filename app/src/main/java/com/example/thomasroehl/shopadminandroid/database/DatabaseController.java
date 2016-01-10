@@ -42,19 +42,18 @@ public class DatabaseController implements DatabaseInterf {
 
     // Database
     private SQLiteDatabase db;
-    private final DatabaseModel DBModel;
-    private Context applicationContext;
+    private  DatabaseModel DBModel;
 
     // DatabaseController
-    public DatabaseController(){
-        DBModel = new DatabaseModel(applicationContext);
-    }
-
-    // Katia & Iuliia 04.01
-    public DatabaseController(Context c){
-        applicationContext = c;
-        DBModel = new DatabaseModel(applicationContext);
-    }
+//    public DatabaseController(){
+//        DBModel = new DatabaseModel(applicationContext);
+//    }
+//
+//    // Katia & Iuliia 04.01
+//    public DatabaseController(Context c){
+//        applicationContext = c;
+//        DBModel = new DatabaseModel(applicationContext);
+//    }
 
     /**
      * connect database
@@ -309,6 +308,19 @@ public class DatabaseController implements DatabaseInterf {
             }
             return false;
         }
+    }
+
+    /**
+     * set Context for Database
+     *
+     * @param c
+     * @return True if successful, else false
+     */
+    @Override
+    public boolean setDBContext(Context c) {
+        DBModel = new DatabaseModel(c);
+        if (DBModel != null) return true;
+        return false;
     }
 
 }
