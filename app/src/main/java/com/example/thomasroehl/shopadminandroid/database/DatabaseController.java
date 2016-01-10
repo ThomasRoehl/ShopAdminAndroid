@@ -42,15 +42,18 @@ public class DatabaseController implements DatabaseInterf {
 
     // Database
     private SQLiteDatabase db;
-    private DatabaseModel DBModel;
+    private final DatabaseModel DBModel;
+    private Context applicationContext;
 
     // DatabaseController
+    public DatabaseController(){
+        DBModel = new DatabaseModel(applicationContext);
+    }
 
     // Katia & Iuliia 04.01
-    public boolean setDBContext(Context c){
-        DBModel = new DatabaseModel(c);
-        if (DBModel != null) return true;
-        return false;
+    public DatabaseController(Context c){
+        applicationContext = c;
+        DBModel = new DatabaseModel(applicationContext);
     }
 
     /**
