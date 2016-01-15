@@ -49,6 +49,12 @@ public class ExampleUnitTest {
 
     @Test(expected = AssertionError.class)
     public void toStringNullTest(){
+
+
+
+
+
+
         ExampleContainer testObj2 = new ExampleContainer(1234);
         testObj2.toString();
     }
