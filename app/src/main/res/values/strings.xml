@@ -9,5 +9,11 @@
         <item>unknown</item>
     </string-array>
     <!-- END - Items of category dropdown in editView. Add more if necessary - END -->
+    <string name="shop">Shop</string>
+    <string name="sum">Sum</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="save">Save</string>
+    <string name="rescan">Rescan</string>
 
 </resources>
