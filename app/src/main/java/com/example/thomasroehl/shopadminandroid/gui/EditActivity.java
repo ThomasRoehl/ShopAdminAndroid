@@ -131,25 +131,28 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
         String date = editDate.getText().toString();
         String category = categorySpinner.getSelectedItem().toString();
         //check input dateformat
-        if(StorageAdmin.EDITCONTROLLER.isValidDate(date)){
-            //new receipt object created
-            Receipt receipt = new Receipt(shop, category, finalSum, date);
-            System.out.println("receipt ---> " + receipt);
-            //add new receipt data in Database
-            //if(StorageAdmin.DBCONTROLLER.createReceipt(receipt))
-            if (StorageAdmin.DBCONTROLLER.createReceipt(receipt)) {
-                Toast.makeText(EditActivity.this, "Receipt is saved", Toast.LENGTH_LONG).show();
-                startActivity(StorageAdmin.EDITCONTROLLER.screenFlowMain());
+        if(editShopname != null ||editDate != null || editSum != null || categorySpinner != null) {
+            if (StorageAdmin.EDITCONTROLLER.isValidDate(date)) {
+                //new receipt object created
+                Receipt receipt = new Receipt(shop, category, finalSum, date);
+                System.out.println("receipt ---> " + receipt);
+                //add new receipt data in Database
+                //if(StorageAdmin.DBCONTROLLER.createReceipt(receipt))
+                if (StorageAdmin.DBCONTROLLER.createReceipt(receipt)) {
+                    Toast.makeText(EditActivity.this, "Receipt is saved", Toast.LENGTH_LONG).show();
+                    startActivity(StorageAdmin.EDITCONTROLLER.screenFlowMain());
+                } else {
+                    Toast.makeText(EditActivity.this, "Database connection has failed!", Toast.LENGTH_LONG).show();
+                    return;
+                }
             } else {
-                Toast.makeText(EditActivity.this, "Database connection has failed!", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditActivity.this, "Invalid date input, use format (dd.MM.yyyy)", Toast.LENGTH_LONG).show();
                 return;
-            }
-        }
-        else{
-            Toast.makeText(EditActivity.this, "Invalid date input, use format (dd/MM/yyyy)", Toast.LENGTH_LONG).show();
-            return;
 
-        }
+            }
+        }else
+            Toast.makeText(EditActivity.this, "All fields must be filled", Toast.LENGTH_LONG).show();
+            return;
     }
 
     public void rescanData(View view) {

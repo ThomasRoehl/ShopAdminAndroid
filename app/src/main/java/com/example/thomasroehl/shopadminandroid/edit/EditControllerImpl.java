@@ -65,7 +65,7 @@ public class EditControllerImpl implements EditControllerInterf {
      * @return
      */
     public boolean isValidDate(String dateString) {
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         try {
             if(dateString.matches("\\d{2}/\\d{2}/\\d{4}")) {
                 df.setLenient(false);

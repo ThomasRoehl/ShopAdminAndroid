@@ -5,6 +5,8 @@ import android.content.Context;
 import com.example.thomasroehl.shopadminandroid.container.Receipt;
 import com.example.thomasroehl.shopadminandroid.container.User;
 
+import java.util.ArrayList;
+
 /**
  * Created by Thomas Roehl on 04.12.2015.
  */
@@ -68,5 +70,7 @@ public interface DatabaseInterf {
     public boolean setDBContext(Context c);
 
     public boolean checkPasswordByName(String password, String name);
+
+    public ArrayList<Receipt> getAllReceipts();
 
 }

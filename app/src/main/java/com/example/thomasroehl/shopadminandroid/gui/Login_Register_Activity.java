@@ -45,10 +45,7 @@ public class Login_Register_Activity extends AppCompatActivity {
 
         inCreateNewAccountMode = false;
 
-        //get registerController Instance
-        registerController = RegisterControllerImpl.getRegisterController();
-        //set context
-        registerController.setCurrentActivityContext(this);
+
 
         // Katia & Iuliia 04.01
         // define new dbcontroller with parameter context
@@ -67,6 +64,12 @@ public class Login_Register_Activity extends AppCompatActivity {
         textViewVerifyPasswordMessage = (TextView) findViewById(R.id.textViewPasswordMessage);
         textViewInfo = (TextView) findViewById(R.id.textViewInfo);
 
+        //get registerController Instance
+        //registerController = RegisterControllerImpl.getRegisterController();
+        registerController = (RegisterControllerImpl)StorageAdmin.REGISTERCONTROLLER;
+        //set context
+        registerController.setCurrentActivityContext(this);
+
         editTextUsername.addTextChangedListener(new TextWatcher() {
             /**
              * check after each input whether username already exists in database
@@ -75,8 +78,8 @@ public class Login_Register_Activity extends AppCompatActivity {
              */
             public void afterTextChanged(Editable s) {
                 System.out.println("afterTextChanged event handler");
-                if(StorageAdmin.DBCONTROLLER.checkUsername(s.toString())){
-                //if (registerController.checkUsername(s.toString())) {
+                //if(StorageAdmin.DBCONTROLLER.checkUsername(s.toString())){
+                if (registerController.checkUsername(s.toString())) {
                     textViewUsernameMessage.setText("Username already in use. Choose another one!");
                     textViewUsernameMessage.setTextColor(Color.RED);
                     return;
@@ -122,19 +125,14 @@ public class Login_Register_Activity extends AppCompatActivity {
                 // validate username, password, verifyPassword and email inputs
                 if (validateUserInputData(username, password, verifyPassword, email)) {
                     User user = new User(username, email, password);
-                    //Katia 04.01.2016
-                    System.out.println("USER user.getName() ---> " + user.getName() + " username---> " + username);
-                    if (StorageAdmin.DBCONTROLLER.createUser(user)) {
-                        System.out.println("in IF STATMENT dbcontroller.createUser(user)");
-                    //Katia 04.01.2016
-                        //if(StorageAdmin.REGISTERCONTROLLER.createUser(user)) {
-                        startActivity(registerController.screenFlowMain());
-                        Toast.makeText(Login_Register_Activity.this, "Registration successfull!", Toast.LENGTH_LONG).show();
+                    //if (StorageAdmin.DBCONTROLLER.createUser(user)) {
+                    if(StorageAdmin.REGISTERCONTROLLER.createUser(user)) {
+                    startActivity(registerController.screenFlowMain());
+                    Toast.makeText(Login_Register_Activity.this, "Registration successfull!", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(Login_Register_Activity.this, "Database connection has failed!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Login_Register_Activity.this, "Database connection has failed!", Toast.LENGTH_LONG).show();
                     }
                 }
-
             }
         });
         buttonCreateNewAccount.setOnClickListener(new View.OnClickListener() {
@@ -162,13 +160,14 @@ public class Login_Register_Activity extends AppCompatActivity {
                 System.out.println("LOGIN BUTTON CLICKED");
                 System.out.println("username " + username);
                 // check username
-                if(StorageAdmin.DBCONTROLLER.checkUsername(username))
+                //if(StorageAdmin.DBCONTROLLER.checkUsername(username))
+                if(StorageAdmin.LOGINCONTROLLER.checkUsername(username))
                 {
-                    System.out.println("username " + username);
                     // check username matches password
-                    if(StorageAdmin.DBCONTROLLER.checkPasswordByName(password, username)){
-                        Toast.makeText(Login_Register_Activity.this, "Login successful!", Toast.LENGTH_LONG).show();
-                        startActivity(registerController.screenFlowMain());
+                    //if(StorageAdmin.DBCONTROLLER.checkPasswordByName(password, username)){
+                    if(StorageAdmin.LOGINCONTROLLER.checkPasswordByName(password, username)){
+                            Toast.makeText(Login_Register_Activity.this, "Login successful!", Toast.LENGTH_LONG).show();
+                            startActivity(registerController.screenFlowMain());
                     }
                     else{
                         Toast.makeText(Login_Register_Activity.this, "Name and password don't match!", Toast.LENGTH_LONG).show();
@@ -193,6 +192,7 @@ public class Login_Register_Activity extends AppCompatActivity {
      * @return true whether input data is correct
      */
     public boolean validateUserInputData(String username, String password, String verifyPassword, String email){
+
         if (registerController.checkUsername(username)) {
             return false;
         }
@@ -202,7 +202,7 @@ public class Login_Register_Activity extends AppCompatActivity {
         if (registerController.checkNameIsEmpty(username) == true ||
                 registerController.checkPasswordIsEmpty(password) == true ||
                 registerController.checkEmailIsEmpty(email) == true) {
-            Toast.makeText(Login_Register_Activity.this, "Fill in all fields!", Toast.LENGTH_LONG).show();
+            Toast.makeText(Login_Register_Activity.this, "All fields must be filled!", Toast.LENGTH_LONG).show();
             return false;
         }
         if (registerController.checkEmailIsValid(email) == true) {
