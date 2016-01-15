@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="?attr/colorPrimary"
+        android:background="#f97d7b"
+
+        android:textColor="#fdfafa"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
@@ -20,7 +22,9 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar" />
+        android:layout_below="@+id/toolbar"
+        android:textColor="#f97d7b"
+        android:fillViewport="false" />
         <!-- android:background="?attr/colorPrimary"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
@@ -31,6 +35,7 @@
         android:id="@+id/reportPager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        android:textColor="#f97d7b"
         android:layout_below="@id/tab_layout"/>
 
 </RelativeLayout>

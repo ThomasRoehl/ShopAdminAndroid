@@ -8,10 +8,8 @@ import com.example.thomasroehl.shopadminandroid.gui.CameraActivity;
 import com.example.thomasroehl.shopadminandroid.gui.MainActivity;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 /**
  * Created by altug on 17.12.15.
@@ -65,9 +63,9 @@ public class EditControllerImpl implements EditControllerInterf {
      * @return
      */
     public boolean isValidDate(String dateString) {
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         try {
-            if(dateString.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            if(dateString.matches("\\d{2}.\\d{2}.\\d{4}")) {
                 df.setLenient(false);
                 df.parse(dateString);
                 return true;

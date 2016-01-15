@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.thomasroehl.shopadminandroid.gui.EditActivity" >
+    android:background="@drawable/schwein5_30l"
+    tools:context="com.example.thomasroehl.shopadminandroid.gui.EditActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,7 +19,7 @@
         android:layout_marginTop="30dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:textColor="@color/colorPigPink"
+        android:textColor="#f97d7b"
         android:layout_marginLeft="60dp" />
 
     <TextView
@@ -29,7 +30,7 @@
         android:id="@+id/textSum"
         android:layout_below="@+id/textShop"
         android:layout_alignRight="@+id/textShop"
-        android:textColor="@color/colorPigPink"
+        android:textColor="#f97d7b"
         android:layout_marginTop="15dp" />
 
     <TextView
@@ -40,7 +41,7 @@
         android:id="@+id/textCategory"
         android:layout_below="@+id/textSum"
         android:layout_alignRight="@+id/textSum"
-        android:textColor="@color/colorPigPink"
+        android:textColor="#f97d7b"
         android:layout_marginTop="15dp" />
 
     <TextView
@@ -51,8 +52,9 @@
         android:id="@+id/textDate"
         android:layout_below="@+id/textCategory"
         android:layout_alignRight="@+id/textCategory"
-        android:textColor="@color/colorPigPink"
-        android:layout_marginTop="15dp" />
+        android:textColor="#f97d7b"
+        android:layout_marginTop="15dp"
+        android:editable="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -63,7 +65,8 @@
         android:layout_alignTop="@+id/textShop"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
-        android:maxLength="40" />
+        android:maxLength="40"
+        android:textIsSelectable="false" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -96,7 +99,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:width="120dp"
-        android:background="@color/colorPigPink"
+        android:background="#f97d7b"
         android:textColor="#fdfafa"
         android:onClick="saveMyData" />
 
@@ -108,7 +111,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:width="120dp"
-        android:background="@color/colorPigPink"
+        android:background="#f97d7b"
         android:textColor="#fdfafa"
         android:onClick="rescanData" />
 
