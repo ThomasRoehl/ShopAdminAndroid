@@ -339,7 +339,7 @@ public class DatabaseController implements DatabaseInterf {
             if (cursor.moveToFirst()) {
                 do {
                     //From here you just fill your product
-                    receiptList.add(new Receipt(cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getString(4)));
+                    receiptList.add(new Receipt(cursor.getString(1), cursor.getString(3), cursor.getDouble(2), cursor.getString(4)));
                 } while (cursor.moveToNext());
             }// return contact list
             cursor.close();

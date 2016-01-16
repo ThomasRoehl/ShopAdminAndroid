@@ -147,7 +147,10 @@ public class MainViewController implements StartScreenControllerInterf {
             TextView tv_amount = new TextView(this.currentActivityContext);
             tv_amount.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
+
             tv_amount.setText(String.valueOf(allReceipts.get(i).getAmount()));
+            String test = String.valueOf(allReceipts.get(i).getAmount());
+            System.out.println("test------> " + test);
             row.addView(tv_amount);
 
             TextView tv_date = new TextView(this.currentActivityContext);
