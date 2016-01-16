@@ -8,120 +8,129 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/schwein5_30l"
-    tools:context="com.example.thomasroehl.shopadminandroid.gui.EditActivity">
+    tools:context="com.example.thomasroehl.shopadminandroid.gui.EditActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Shop"
-        android:textSize="30dp"
-        android:id="@+id/textShop"
-        android:layout_marginTop="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:textColor="#f97d7b"
-        android:layout_marginLeft="60dp" />
+        android:id="@+id/rowShop">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textShop"
+            android:text="@string/shop"
+            android:textSize="25sp"
+            android:textColor="@color/colorPigPink"
+            android:layout_weight="7" />
 
-    <TextView
-        android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editShop"
+            android:ems="8"
+            android:inputType="text"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sum"
-        android:textSize="30dp"
-        android:id="@+id/textSum"
-        android:layout_below="@+id/textShop"
-        android:layout_alignRight="@+id/textShop"
-        android:textColor="#f97d7b"
-        android:layout_marginTop="15dp" />
+        android:id="@+id/rowSum"
+        android:layout_below="@id/rowShop">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sum"
+            android:textSize="25sp"
+            android:id="@+id/textSum"
+            android:textColor="@color/colorPigPink"
+            android:layout_weight="7" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editSum"
+            android:ems="8"
+            android:inputType="numberDecimal"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Category"
-        android:textSize="30dp"
-        android:id="@+id/textCategory"
-        android:layout_below="@+id/textSum"
-        android:layout_alignRight="@+id/textSum"
-        android:textColor="#f97d7b"
-        android:layout_marginTop="15dp" />
+        android:id="@+id/rowDate"
+        android:layout_below="@id/rowSum">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            android:textSize="25sp"
+            android:id="@+id/textDate"
+            android:textColor="@color/colorPigPink"
+            android:layout_weight="7" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editDate"
+            android:ems="8"
+            android:inputType="date"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Date"
-        android:textSize="30dp"
-        android:id="@+id/textDate"
-        android:layout_below="@+id/textCategory"
-        android:layout_alignRight="@+id/textCategory"
-        android:textColor="#f97d7b"
-        android:layout_marginTop="15dp"
-        android:editable="true" />
+        android:id="@+id/rowCategory"
+        android:layout_below="@id/rowDate">
 
-    <EditText
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/category"
+            android:textSize="25sp"
+            android:id="@+id/textCategory"
+            android:textColor="@color/colorPigPink"
+            android:layout_weight="7" />
+
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:entries="@array/category_array"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editShop"
-        android:ems="8"
-        android:inputType="text"
-        android:layout_alignTop="@+id/textShop"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:maxLength="40"
-        android:textIsSelectable="false" />
+        android:id="@+id/rowButton"
+        android:layout_alignParentBottom="true">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editSum"
-        android:ems="8"
-        android:inputType="numberDecimal"
-        android:layout_alignTop="@+id/textSum"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:maxLength="40" />
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:width="120dp"
+            android:background="@color/colorPigPink"
+            android:textColor="#fdfafa"
+            android:onClick="saveMyData"
+            android:layout_weight="1"/>
 
+        <Button
+            android:id="@+id/buttonRescan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rescan"
+            android:width="120dp"
+            android:background="@color/colorPigPink"
+            android:textColor="#fdfafa"
+            android:onClick="rescanData"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/editDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="8"
-        android:inputType="text"
-        android:layout_alignTop="@+id/textDate"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:maxLength="40" />
-
-    <Button
-        android:id="@+id/buttonSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:width="120dp"
-        android:background="#f97d7b"
-        android:textColor="#fdfafa"
-        android:onClick="saveMyData" />
-
-    <Button
-        android:id="@+id/buttonRescan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rescan"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:width="120dp"
-        android:background="#f97d7b"
-        android:textColor="#fdfafa"
-        android:onClick="rescanData" />
-
-    <Spinner
-        android:id="@+id/spinnerCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:layout_alignBottom="@+id/textCategory"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:entries="@array/category_array" />
 </RelativeLayout>
