@@ -7,6 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fillViewport="true"
+        android:textColor="#f97d7b"
         android:scrollbars  =  "none">
 
         <TableLayout
@@ -14,6 +15,7 @@
             android:layout_height="wrap_content"
             android:stretchColumns="1"
             android:layout_alignParentTop="true"
+            android:textColor="#f97d7b"
             android:id="@+id/tbl_Report_Category_Summary"
             android:onClick="onClickTable">
         </TableLayout>

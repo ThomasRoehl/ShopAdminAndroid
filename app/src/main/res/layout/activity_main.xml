@@ -46,7 +46,6 @@
                 android:layout_alignParentTop="true"
                 android:id="@+id/tbl_Main"
                 android:onClick="onClickTable"
-                android:background="#030303"
                 android:backgroundTint="#f97d7b">
             </TableLayout>
         </ScrollView>
