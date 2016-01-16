@@ -111,17 +111,6 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/buttonSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
-            android:width="120dp"
-            android:background="@color/colorPigPink"
-            android:textColor="#fdfafa"
-            android:onClick="saveMyData"
-            android:layout_weight="1"/>
-
-        <Button
             android:id="@+id/buttonRescan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -130,6 +119,22 @@
             android:background="@color/colorPigPink"
             android:textColor="#fdfafa"
             android:onClick="rescanData"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:width="120dp"
+            android:background="@color/colorPigPink"
+            android:textColor="#fdfafa"
+            android:onClick="saveMyData"
             android:layout_weight="1"/>
     </LinearLayout>
 
