@@ -11,11 +11,14 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.thomasroehl.shopadminandroid.container.Receipt;
 import com.example.thomasroehl.shopadminandroid.database.DatabaseController;
 import com.example.thomasroehl.shopadminandroid.database.DatabaseInterf;
 import com.example.thomasroehl.shopadminandroid.gui.CameraActivity;
 import com.example.thomasroehl.shopadminandroid.gui.ReportPagerActivity;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
+
+import java.util.ArrayList;
 
 /**
  * Created by SZC on 10.12.2015.
@@ -26,9 +29,9 @@ public class MainViewController implements StartScreenControllerInterf {
     DatabaseInterf db;
     Context currentActivityContext;
 
-    private final float ratioColumnShop     = 0.5f;
-    private final float ratioColumnAmount   = 0.25f;
-    private final float ratioColumnDate     = 0.25f;
+    private final float ratioColumnShop = 0.5f;
+    private final float ratioColumnAmount = 0.25f;
+    private final float ratioColumnDate = 0.25f;
 
     private final String txt_Shop = "Shop";
     private final String txt_Amount = "Amount";
@@ -99,7 +102,7 @@ public class MainViewController implements StartScreenControllerInterf {
      * Therefore following steps will be executed:
      * 1) Generate Header Row
      * 2) Read Data from Database for current user and current group
-     *  ReadData is Shop, Amount, Date -> preferably in descending order regarding data
+     * ReadData is Shop, Amount, Date -> preferably in descending order regarding data
      * 3) Close Database
      *
      * @param amount Specify the numbers of datasets to be read from the databaase
@@ -107,7 +110,7 @@ public class MainViewController implements StartScreenControllerInterf {
     @Override
     public void getTable(int amount) {
         // 1) Generate Header Row
-        addHeader();
+        this.addHeader();
 
         // 2) ReadData from Database
         /*
@@ -117,9 +120,45 @@ public class MainViewController implements StartScreenControllerInterf {
          * bestimmt auch den aktuellen Benutzer/Gruppe mitteilen
          * Diesen sollte ich auch bekommen
          */
-
+        this.fillReceiptTable();
     }
 
+
+    @Override
+    public ArrayList<Receipt> getAllReceipts() {
+        return StorageAdmin.DBCONTROLLER.getAllReceipts();
+    }
+
+    @Override
+    public void fillReceiptTable() {
+        ArrayList<Receipt> allReceipts = this.getAllReceipts();
+        for (int i = 0; i < allReceipts.size(); i++) {
+
+            TableRow row = new TableRow(this.currentActivityContext);
+
+            row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+            TextView tv_shopname = new TextView(this.currentActivityContext);
+            tv_shopname.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+            tv_shopname.setText(allReceipts.get(i).getShopname());
+            row.addView(tv_shopname);
+
+            TextView tv_amount = new TextView(this.currentActivityContext);
+            tv_amount.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+            tv_amount.setText(String.valueOf(allReceipts.get(i).getAmount()));
+            row.addView(tv_amount);
+
+            TextView tv_date = new TextView(this.currentActivityContext);
+            tv_date.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+            tv_date.setText(allReceipts.get(i).getDate());
+            row.addView(tv_date);
+
+            tl.addView(row);
+        }
+    }
 
     /**
      * Generate Headerline for TableLayout
@@ -140,11 +179,11 @@ public class MainViewController implements StartScreenControllerInterf {
         Log.i("Height per cell:", String.valueOf(height_pixels));
 
         float dpi_column_shopname = maxpixels_width * this.ratioColumnShop;
-        float dpi_column_amount   = maxpixels_width * this.ratioColumnAmount;
-        float dpi_column_date     = maxpixels_width * this.ratioColumnDate;
+        float dpi_column_amount = maxpixels_width * this.ratioColumnAmount;
+        float dpi_column_date = maxpixels_width * this.ratioColumnDate;
 
         //pixels = (int)(dpi_column_shopname * scaleRatio + 0.5f);
-        pixels = (int)dpi_column_shopname;
+        pixels = (int) dpi_column_shopname;
 
         Log.i("Pixel ShopName:", String.valueOf(pixels));
 
@@ -167,14 +206,14 @@ public class MainViewController implements StartScreenControllerInterf {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT);
         params.setMargins(5, 5, 5, 5);
-        Ll.addView(shopname,params);
+        Ll.addView(shopname, params);
         tr.addView(Ll); // Adding textView to tablerow.
 
         /** Creating a TextView as Column Description for the Amount **/
         TextView amount = new TextView(this.currentActivityContext);
         amount.setText(this.txt_Amount);
         //pixels = (int)(dpi_column_amount * scaleRatio + 0.5f);
-        pixels = (int)dpi_column_amount;
+        pixels = (int) dpi_column_amount;
         Log.i("Pixel Amount:", String.valueOf(pixels));
 
         amount.setWidth(pixels);
@@ -189,7 +228,7 @@ public class MainViewController implements StartScreenControllerInterf {
         params = new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 5, 5, 5);
-        Ll.addView(amount,params);
+        Ll.addView(amount, params);
         tr.addView(Ll); // Adding textview to tablerow.
 
         /** Creating a TextView as Column Description for the Amount **/
@@ -198,7 +237,7 @@ public class MainViewController implements StartScreenControllerInterf {
         //date.setTextSize(myTextSize);
         //pixels = (int)(dpi_column_date * scaleRatio + 0.5f);
 
-        pixels = (int)dpi_column_date;
+        pixels = (int) dpi_column_date;
         Log.i("Pixel Date:", String.valueOf(pixels));
 
         date.setWidth(pixels);
@@ -212,7 +251,7 @@ public class MainViewController implements StartScreenControllerInterf {
         params = new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 5, 5, 5);
-        Ll.addView(date,params);
+        Ll.addView(date, params);
         tr.addView(Ll); // Adding textview to tablerow.
 
         // Add the TableRow to the TableLayout

@@ -1,19 +1,23 @@
 package com.example.thomasroehl.shopadminandroid.gui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TableRow.LayoutParams;
+import android.widget.TextView;
 
 import com.example.thomasroehl.shopadminandroid.R;
-import com.example.thomasroehl.shopadminandroid.camera.CameraController;
+import com.example.thomasroehl.shopadminandroid.container.Receipt;
 import com.example.thomasroehl.shopadminandroid.startscreen.MainViewController;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     MainViewController  myController = null;
@@ -35,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Fill receipt overview table
         mainViewReceipts = (TableLayout) findViewById(R.id.tbl_Main);
-
         myController.setTableLayout(mainViewReceipts);
+
+
 
         /*
          * TODO: Steuerung von Login/Register und vorhalten der Benutzerdaten zur Laufzeit
@@ -93,4 +98,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 }

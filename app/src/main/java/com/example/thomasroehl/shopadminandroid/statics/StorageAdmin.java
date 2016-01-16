@@ -8,6 +8,7 @@ import com.example.thomasroehl.shopadminandroid.database.DatabaseController;
 import com.example.thomasroehl.shopadminandroid.database.DatabaseInterf;
 import com.example.thomasroehl.shopadminandroid.edit.EditControllerImpl;
 import com.example.thomasroehl.shopadminandroid.edit.EditControllerInterf;
+import com.example.thomasroehl.shopadminandroid.login.LoginControllerImpl;
 import com.example.thomasroehl.shopadminandroid.login.LoginControllerInterf;
 import com.example.thomasroehl.shopadminandroid.register.RegisterControllerImpl;
 import com.example.thomasroehl.shopadminandroid.register.RegisterControllerInterf;
@@ -26,8 +27,8 @@ public abstract class StorageAdmin {
     public static final DatabaseInterf DBCONTROLLER = new DatabaseController();
     public static final CameraControllerInterf CAMERACONTROLLER = CameraController.getInstance();
     public static EditControllerInterf EDITCONTROLLER = EditControllerImpl.getInstance();
-    public static LoginControllerInterf LOGINCONTROLLER;
-    public static final RegisterControllerInterf REGISTERCONTROLLER = new RegisterControllerImpl();
+    public static final LoginControllerInterf LOGINCONTROLLER =new  LoginControllerImpl();
+    public static final RegisterControllerInterf REGISTERCONTROLLER = RegisterControllerImpl.getRegisterController();
     public static ReportControllerInterf REPORTCONTROLLER = ReportController.getInstance();
     public static final StartScreenControllerInterf STARTSCREENCONTROLLER = MainViewController.getInstance();
     private static Session session;

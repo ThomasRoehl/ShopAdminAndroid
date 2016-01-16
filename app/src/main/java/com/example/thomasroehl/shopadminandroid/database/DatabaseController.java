@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.thomasroehl.shopadminandroid.container.Receipt;
 import com.example.thomasroehl.shopadminandroid.container.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Thomas Roehl on 05.12.2015.
  */
@@ -39,6 +42,8 @@ public class DatabaseController implements DatabaseInterf {
     // Katia & Iuliia 04.01
     private final String CHECKPASSWORDBYNAME1 = "SELECT " + USERPASSWORDCOLUMN + " FROM " + USERTABLE + " WHERE " + USERPASSWORDCOLUMN + " = ";
     private final String CHECKPASSWORDBYNAME2 = " AND " + USERNAMECOLUMN + " = ";
+
+    private final String GETRECEIPT= "SELECT  * FROM ReceiptTable WHERE 1";
 
     // Database
     private SQLiteDatabase db;
@@ -321,6 +326,33 @@ public class DatabaseController implements DatabaseInterf {
         DBModel = new DatabaseModel(c);
         if (DBModel != null) return true;
         return false;
+    }
+
+
+    public ArrayList<Receipt> getAllReceipts() {
+        try {
+            connect();
+            ArrayList<Receipt> receiptList = new ArrayList<Receipt>();
+            // Select All Query
+            Cursor cursor = db.rawQuery(GETRECEIPT, null);
+            // looping through all rows and adding to list
+            if (cursor.moveToFirst()) {
+                do {
+                    //From here you just fill your product
+                    receiptList.add(new Receipt(cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getString(4)));
+                } while (cursor.moveToNext());
+            }// return contact list
+            cursor.close();
+            disconnect();
+            return receiptList;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            if (!isDisconnected()) {
+                disconnect();
+            }
+            return null;
+        }
     }
 
 }
