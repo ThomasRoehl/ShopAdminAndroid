@@ -8,16 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TableRow.LayoutParams;
-import android.widget.TextView;
 
 import com.example.thomasroehl.shopadminandroid.R;
-import com.example.thomasroehl.shopadminandroid.container.Receipt;
 import com.example.thomasroehl.shopadminandroid.startscreen.MainViewController;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     MainViewController  myController = null;
@@ -28,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.idToolbarEdit1);
         setSupportActionBar(toolbar);
 
         //GetController Instance
