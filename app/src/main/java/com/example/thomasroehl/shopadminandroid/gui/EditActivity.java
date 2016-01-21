@@ -3,6 +3,8 @@ package com.example.thomasroehl.shopadminandroid.gui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.thomasroehl.shopadminandroid.R;
 import com.example.thomasroehl.shopadminandroid.container.Receipt;
-import com.example.thomasroehl.shopadminandroid.database.DatabaseController;
 import com.example.thomasroehl.shopadminandroid.edit.EditControllerImpl;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
@@ -34,6 +35,14 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
     Button buttonRescan;
     Button buttonSave;
     // Katja 31.12
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+
+    }
 
     EditControllerImpl  myController = null;
     private String category;
@@ -81,6 +90,8 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.idToolbarEdit1);
+        setSupportActionBar(toolbar);
 
         //katja & Julia 05.01.2016
 
