@@ -10,7 +10,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.thomasroehl.shopadminandroid.database.DatabaseInterf;
-import com.example.thomasroehl.shopadminandroid.gui.CameraActivity;
 import com.example.thomasroehl.shopadminandroid.gui.MainActivity;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
@@ -147,7 +146,7 @@ public class ReportController implements ReportControllerInterf {
             shopname.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
             shopname.setPadding(5, 5, 5, 5);
-            shopname.setBackgroundColor(Color.MAGENTA);
+            shopname.setBackgroundColor(Color.argb(255,249,125,123));
             Ll = new LinearLayout(this.currentActivityContext);
             params = new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT);
@@ -178,7 +177,7 @@ public class ReportController implements ReportControllerInterf {
             category.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
             category.setPadding(5, 5, 5, 5);
-            category.setBackgroundColor(Color.MAGENTA);
+            category.setBackgroundColor(Color.argb(255, 249, 125, 123));
             Ll = new LinearLayout(this.currentActivityContext);
             params = new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT);
@@ -205,7 +204,7 @@ public class ReportController implements ReportControllerInterf {
         amount.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
         amount.setPadding(5, 5, 5, 5);
-        amount.setBackgroundColor(Color.MAGENTA);
+        amount.setBackgroundColor(Color.argb(255,249,125,123));
         Ll = new LinearLayout(this.currentActivityContext);
         params = new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT);
@@ -228,7 +227,7 @@ public class ReportController implements ReportControllerInterf {
         date.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
         date.setPadding(5, 5, 5, 5);
-        date.setBackgroundColor(Color.MAGENTA);
+        date.setBackgroundColor(Color.argb(255,249,125,123));
         Ll = new LinearLayout(this.currentActivityContext);
         params = new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT);

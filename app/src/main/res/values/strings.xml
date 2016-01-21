@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ShopAdminAndroid</string>
+    <string name="app_name">ShopAdmin</string>
     <string name="action_settings">Settings</string>
 
     <!-- Items of category dropdown in editView. Add more if necessary -->
