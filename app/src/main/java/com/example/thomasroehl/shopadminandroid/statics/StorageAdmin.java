@@ -35,7 +35,7 @@ public abstract class StorageAdmin {
 
     public static void newSession(User user){
         // Anhand des gegebenen Users eine Session anlegen
-        session = new Session(user.getName(), user.getId(), user.hashCode());
+        session = new Session(user.getName(), user.getId(), user.hashCode()); //HashCode als ID
 
     }
 
