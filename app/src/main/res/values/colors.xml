@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#f97d7b</color>
     <color name="colorAccent">#f97d7b</color>
     <color name="colorPigPink">#f97d7b</color>
+    <color name="white">#ffffff</color>
+    <color name="White">#ffffff</color>
 </resources>

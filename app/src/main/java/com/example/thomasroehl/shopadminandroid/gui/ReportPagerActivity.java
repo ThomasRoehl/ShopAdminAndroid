@@ -19,6 +19,8 @@ public class ReportPagerActivity extends AppCompatActivity {
     ViewPager myViewPager = null;
     TabLayout myTabLayout = null;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

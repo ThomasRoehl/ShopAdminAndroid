@@ -3,8 +3,10 @@ package com.example.thomasroehl.shopadminandroid.gui;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.thomasroehl.shopadminandroid.R;
 import com.example.thomasroehl.shopadminandroid.container.User;
-import com.example.thomasroehl.shopadminandroid.database.DatabaseController;
 import com.example.thomasroehl.shopadminandroid.register.RegisterControllerImpl;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
@@ -39,10 +40,18 @@ public class Login_Register_Activity extends AppCompatActivity {
     // calls directly dbcontroller
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_register);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.idToolbarEdit1);
+        setSupportActionBar(toolbar);
         inCreateNewAccountMode = false;
 
 
@@ -69,6 +78,8 @@ public class Login_Register_Activity extends AppCompatActivity {
         registerController = (RegisterControllerImpl)StorageAdmin.REGISTERCONTROLLER;
         //set context
         registerController.setCurrentActivityContext(this);
+
+
 
         editTextUsername.addTextChangedListener(new TextWatcher() {
             /**
