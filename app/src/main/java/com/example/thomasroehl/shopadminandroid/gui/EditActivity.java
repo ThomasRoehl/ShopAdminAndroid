@@ -187,13 +187,11 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
     public boolean saveData(String shop, String category, String sum, String date) {
         return false;
     }
-
     @Override
     public Intent screenFlowCamera() {
         // TODO: Roger
         return null;
     }
-
     @Override
     public String screenFlowMain() {
         // TODO: Roger

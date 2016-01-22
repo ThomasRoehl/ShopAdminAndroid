@@ -13,10 +13,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.thomasroehl.shopadminandroid.R;
+import com.example.thomasroehl.shopadminandroid.gui.CameraActivity;
 import com.example.thomasroehl.shopadminandroid.gui.EditActivity;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 import com.googlecode.tesseract.android.*;
@@ -41,6 +43,7 @@ public class OCR extends Activity{
     private int progressStatus = 0;
     private Handler handler = new Handler();
     private TextView textView;
+    private ImageView imgV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +51,10 @@ public class OCR extends Activity{
         setContentView(R.layout.activity_ocr);
         bitmap = StorageAdmin.CAMERACONTROLLER.getCurrentPicture();
         Button start = (Button) findViewById(R.id.ocr_button);
+        Button rescan = (Button) findViewById(R.id.ocrRescanBtn);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         textView = (TextView) findViewById(R.id.progressText);
-
+        imgV = (ImageView) findViewById(R.id.imageView);
 
         String path = DATA_PATH + "tessdata/";
 
@@ -98,11 +102,17 @@ public class OCR extends Activity{
             public void onClick(View v) {
                 String results = getText();
                 Log.v(TAG, "TESSERACT RESULTS: " + results);
-                screenflowToEdit();
+//                screenflowToEdit();
             }
         });
+    }
 
+    public void rescan(View view){
+        startActivity(new Intent(OCR.this, CameraActivity.class));
+    }
 
+    public void edit(View view){
+        startActivity(new Intent(OCR.this, EditActivity.class));
     }
 
     public void screenflowToEdit(){
@@ -111,20 +121,25 @@ public class OCR extends Activity{
 
     public String getText(){
 
-//        Bitmap bmp = toStrictBlackWhite(bitmap);
-
+        Bitmap bmp = toBinary(bitmap);
+        try{
+            imgV.setImageBitmap(bmp);
+        }
+        catch(Exception e){
+            Log.v(TAG, "BINARY IMAGE BROKEN");
+        }
 
         TessBaseAPI baseApi = new TessBaseAPI();
         baseApi.setDebug(true);
         baseApi.init(DATA_PATH, lang);
         baseApi.setPageSegMode(TessBaseAPI.PageSegMode.PSM_SINGLE_BLOCK);
-//        try{
-//            baseApi.setImage(bmp);
-//        }
-//        catch (Exception e){
-//            Log.v(TAG, "USE ORG BITMAP");
+        try{
+            baseApi.setImage(bmp);
+        }
+        catch (Exception e){
+            Log.v(TAG, "USE ORG BITMAP");
             baseApi.setImage(bitmap);
-//        }
+        }
 
         String recognizedText = baseApi.getUTF8Text();
 
@@ -139,7 +154,7 @@ public class OCR extends Activity{
         for(int y=0; y<bmp.getHeight(); y++){
             for(int x=0; x<bmp.getWidth(); x++){
                 tempColorRed = Color.red(imageOut.getPixel(x, y));
-                Log.v(TAG, "COLOR: "+tempColorRed);
+//                Log.v(TAG, "COLOR: "+tempColorRed);
 
                 if(imageOut.getPixel(x,y) < 127){
                     imageOut.setPixel(x, y, 0xffffff);
@@ -150,6 +165,34 @@ public class OCR extends Activity{
             }
         }
         return imageOut;
+    }
+
+    public Bitmap toBinary(Bitmap bmpOriginal) {
+        int width, height, threshold;
+        height = bmpOriginal.getHeight();
+        width = bmpOriginal.getWidth();
+        threshold = 127;
+        Bitmap bmpBinary = Bitmap.createBitmap(bmpOriginal);
+
+        for(int x = 0; x < width; ++x) {
+            for(int y = 0; y < height; ++y) {
+                // get one pixel color
+                int pixel = bmpOriginal.getPixel(x, y);
+                int green = Color.green(pixel);
+                int blue = Color.blue(pixel);
+                int red = Color.red(pixel);
+                int gray = (int)(red * 0.3 + green * 0.59 + blue * 0.11);
+
+                //get binary value
+                if(gray < threshold){
+                    bmpBinary.setPixel(x, y, 0xFF000000);
+                } else{
+                    bmpBinary.setPixel(x, y, 0xFFFFFFFF);
+                }
+
+            }
+        }
+        return bmpBinary;
     }
 
 }
