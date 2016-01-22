@@ -20,7 +20,7 @@ public interface CameraControllerInterf {
      * save picture from camera
      * @return true if picture save was successful, else false
      */
-    public boolean savePicture();
+    public boolean savePicture(String _path);
 
     /**
      * get shopname from OCR

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Bundle;
@@ -51,22 +52,19 @@ public class OCR extends Activity{
         textView = (TextView) findViewById(R.id.progressText);
 
 
-        String[] paths = new String[] { DATA_PATH, DATA_PATH + "tessdata/" };
+        String path = DATA_PATH + "tessdata/";
 
-        for (String path : paths) {
-            File dir = new File(path);
-            Log.v(TAG, "PATH: " + path);
+        File dir = new File(path);
+        Log.v(TAG, "PATH: " + path);
 
-            if (!dir.exists()) {
-                Log.v(TAG, "PATH EXISTS");
-                if (!dir.mkdirs()) {
-                    Log.v(TAG, "ERROR: Creation of directory " + path + " on sdcard failed");
-                    return;
-                } else {
-                    Log.v(TAG, "Created directory " + path + " on sdcard");
-                }
+        if (!dir.exists()) {
+            Log.v(TAG, "PATH EXISTS");
+            if (!dir.mkdirs()) {
+                Log.v(TAG, "ERROR: Creation of directory " + path + " on sdcard failed");
+                return;
+            } else {
+                Log.v(TAG, "Created directory " + path + " on sdcard");
             }
-
         }
 
         if (!(new File(DATA_PATH + "tessdata/" + lang + ".traineddata")).exists()) {
@@ -112,89 +110,46 @@ public class OCR extends Activity{
     }
 
     public String getText(){
-//        new Thread(new Runnable() {
-//            public void run() {
-//                int counter = 10;
-//                while (progressStatus < 100 && counter > 0) {
-//                    progressStatus += 1;
-//                    counter--;
-//                    // Update the progress bar and display the
-//
-//                    //current value in the text view
-//                    handler.post(new Runnable() {
-//                        public void run() {
-//                            progressBar.setProgress(progressStatus);
-//                            textView.setText(progressStatus+"/"+progressBar.getMax());
-//                        }
-//                    });
-//                    try {
-//                        // Sleep for 200 milliseconds.
-//
-//                        //Just to display the progress slowly
-//                        Thread.sleep(2);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    if (progressStatus == 100) progressStatus = 1;
-//                }
-//            }
-//        }).start();
 
-//        try {
-//            ExifInterface exif = new ExifInterface(bitmap);
-//            int exifOrientation = exif.getAttributeInt(
-//                    ExifInterface.TAG_ORIENTATION,
-//                    ExifInterface.ORIENTATION_NORMAL);
-//
-//            Log.v(TAG, "Orient: " + exifOrientation);
-//
-//            int rotate = 0;
-//
-//            switch (exifOrientation) {
-//                case ExifInterface.ORIENTATION_ROTATE_90:
-//                    rotate = 90;
-//                    break;
-//                case ExifInterface.ORIENTATION_ROTATE_180:
-//                    rotate = 180;
-//                    break;
-//                case ExifInterface.ORIENTATION_ROTATE_270:
-//                    rotate = 270;
-//                    break;
-//            }
-//
-//            Log.v(TAG, "Rotation: " + rotate);
-//
-//            if (rotate != 0) {
-//
-//                // Getting width & height of the given image.
-//                int w = bitmap.getWidth();
-//                int h = bitmap.getHeight();
-//
-//                // Setting pre rotate
-//                Matrix mtx = new Matrix();
-//                mtx.preRotate(rotate);
-//
-//                // Rotating Bitmap
-//                bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h, mtx, false);
-//            }
-//
-//            // Convert to ARGB_8888, required by tess
-//            bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-//
-//        } catch (IOException e) {
-//            Log.e(TAG, "Couldn't correct orientation: " + e.toString());
-//        }
+//        Bitmap bmp = toStrictBlackWhite(bitmap);
+
 
         TessBaseAPI baseApi = new TessBaseAPI();
         baseApi.setDebug(true);
         baseApi.init(DATA_PATH, lang);
-        baseApi.setImage(bitmap);
+        baseApi.setPageSegMode(TessBaseAPI.PageSegMode.PSM_SINGLE_BLOCK);
+//        try{
+//            baseApi.setImage(bmp);
+//        }
+//        catch (Exception e){
+//            Log.v(TAG, "USE ORG BITMAP");
+            baseApi.setImage(bitmap);
+//        }
 
         String recognizedText = baseApi.getUTF8Text();
 
         baseApi.end();
 
         return recognizedText;
+    }
+
+    public Bitmap toStrictBlackWhite(Bitmap bmp){
+        Bitmap imageOut = bmp;
+        int tempColorRed;
+        for(int y=0; y<bmp.getHeight(); y++){
+            for(int x=0; x<bmp.getWidth(); x++){
+                tempColorRed = Color.red(imageOut.getPixel(x, y));
+                Log.v(TAG, "COLOR: "+tempColorRed);
+
+                if(imageOut.getPixel(x,y) < 127){
+                    imageOut.setPixel(x, y, 0xffffff);
+                }
+                else{
+                    imageOut.setPixel(x, y, 0x000000);
+                }
+            }
+        }
+        return imageOut;
     }
 
 }
