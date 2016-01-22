@@ -11,10 +11,11 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/idCustomView">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/idToolbarEdit1"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#f97d7b"
@@ -29,8 +30,8 @@
         android:paddingRight="16dp"
         android:paddingBottom="16dp"
         android:paddingTop="16dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
 
         <ScrollView
@@ -45,8 +46,7 @@
                 android:stretchColumns="1"
                 android:layout_alignParentTop="true"
                 android:id="@+id/tbl_Main"
-                android:onClick="onClickTable"
-                android:backgroundTint="#f97d7b">
+                android:onClick="onClickTable">
             </TableLayout>
         </ScrollView>
 

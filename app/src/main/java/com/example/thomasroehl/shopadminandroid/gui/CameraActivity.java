@@ -60,7 +60,7 @@ public class CameraActivity extends AppCompatActivity {
 
             this.myController.setPicture((Bitmap)extras.get("data"));
 
-            startActivity(this.myController.screenFlowEdit());
+            startActivity(this.myController.screenFlowOCR());
         }
         else if (requestCode == CAMERA_OUTPUT && resultCode == RESULT_CANCELED) {
             finish();

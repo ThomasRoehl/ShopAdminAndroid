@@ -1,6 +1,7 @@
 package com.example.thomasroehl.shopadminandroid.camera;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 
 import java.sql.Date;
 
@@ -13,7 +14,7 @@ public interface CameraControllerInterf {
      * return screenflow destination for EditView
      * @return name of destination
      */
-    public Intent screenFlowEdit();
+    public Intent screenFlowOCR();
 
     /**
      * save picture from camera
@@ -38,5 +39,7 @@ public interface CameraControllerInterf {
      * @return evaluated date from OCR
      */
     public Date getDate();
+
+    public Bitmap getCurrentPicture();
     
 }

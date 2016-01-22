@@ -17,7 +17,8 @@
             android:layout_alignParentTop="true"
             android:textColor="#f97d7b"
             android:id="@+id/tbl_Report_Category_Summary"
-            android:onClick="onClickTable">
+            android:onClick="onClickTable"
+            android:background="#ffffff">
         </TableLayout>
     </ScrollView>
 
