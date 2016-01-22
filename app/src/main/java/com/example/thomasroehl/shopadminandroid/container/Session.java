@@ -6,7 +6,7 @@ import java.sql.Date;
  * Created by Thomas Roehl on 08.12.2015.
  */
 public class Session {
-    private Date lastAction;
+    //private Date lastAction;
     private String username;
     private int userID;
     private int sessionID;
@@ -15,19 +15,14 @@ public class Session {
         super();
     }
 
-    public Session(Date lastAction, String username, int userID, int sessionID){
+    public Session(String username, int userID, int sessionID){
         this.sessionID = sessionID;
-        this.lastAction = lastAction;
         this.username = username;
         this.userID = userID;
     }
 
     public Session(int sessionID){
         this.sessionID = sessionID;
-    }
-
-    public Date getLastAction() {
-        return lastAction;
     }
 
     public String getUsername() {
@@ -40,10 +35,6 @@ public class Session {
 
     public int getSessionID() {
         return sessionID;
-    }
-
-    public void setLastAction(Date lastAction) {
-        this.lastAction = lastAction;
     }
 
     public void setUsername(String username) {
