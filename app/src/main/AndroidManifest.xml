@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.thomasroehl.shopadminandroid">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
 
 
     <application
@@ -48,6 +50,12 @@
         <activity
             android:name=".gui.ReportPagerActivity"
             android:label="Reports"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".tesseract.OCR"
+            android:label="OCR"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

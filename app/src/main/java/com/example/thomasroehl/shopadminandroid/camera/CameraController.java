@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.thomasroehl.shopadminandroid.gui.CameraActivity;
 import com.example.thomasroehl.shopadminandroid.gui.EditActivity;
+import com.example.thomasroehl.shopadminandroid.tesseract.OCR;
 
 import java.sql.Date;
 
@@ -60,10 +61,10 @@ public class CameraController implements CameraControllerInterf {
      * @return Intent to EditView
      */
     @Override
-    public Intent screenFlowEdit() {
+    public Intent screenFlowOCR() {
         Intent i = new Intent(
                 this.currentActivityContext,
-                EditActivity.class);
+                OCR.class);
 
         return i;
     }
@@ -88,6 +89,7 @@ public class CameraController implements CameraControllerInterf {
              * wird das Handy zugemüllt.
              * Allerdings kann das Bild doch auch direkt ohne speichern verarbeitet werden?
              */
+
             return true;
         }
     }
@@ -105,5 +107,10 @@ public class CameraController implements CameraControllerInterf {
     @Override
     public Date getDate() {
         return null;
+    }
+
+    @Override
+    public Bitmap getCurrentPicture() {
+        return currentPicture;
     }
 }
