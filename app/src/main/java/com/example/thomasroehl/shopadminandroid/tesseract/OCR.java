@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
@@ -36,14 +37,15 @@ import java.io.OutputStream;
 public class OCR extends Activity{
 
     private final String DATA_PATH = Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/OCR/";
-    private final String lang = "deu";
+    private final String lang = "deu_frak";
     private final String TAG = "OCR.java";
+    private final String PICTURENAME = "rewe2.bmp";
     private Bitmap bitmap;
     private ProgressBar progressBar;
     private int progressStatus = 0;
     private Handler handler = new Handler();
-    private TextView textView;
     private ImageView imgV;
+    private Classificator cls = new Classificator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +54,6 @@ public class OCR extends Activity{
         bitmap = StorageAdmin.CAMERACONTROLLER.getCurrentPicture();
         Button start = (Button) findViewById(R.id.ocr_button);
         Button rescan = (Button) findViewById(R.id.ocrRescanBtn);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        textView = (TextView) findViewById(R.id.progressText);
         imgV = (ImageView) findViewById(R.id.imageView);
 
         String path = DATA_PATH + "tessdata/";
@@ -97,11 +97,27 @@ public class OCR extends Activity{
             }
         }
 
+//        copyPicture();
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String results = getText();
                 Log.v(TAG, "TESSERACT RESULTS: " + results);
+                cls.setText(results);
+                cls.classificate();
+                String shopName = cls.getShopName();
+                String sum = cls.getSum();
+                Log.v(TAG, "SHOPNAME: " + shopName);
+                Log.v(TAG, "SUM: " + sum);
+                StorageAdmin.EDITCONTROLLER.setShopName(shopName);
+                try{
+                    StorageAdmin.EDITCONTROLLER.setSum(Double.parseDouble(sum));
+                }
+                catch(Exception e){
+                    StorageAdmin.EDITCONTROLLER.setSum(-1.0);
+                }
+
 //                screenflowToEdit();
             }
         });
@@ -148,31 +164,13 @@ public class OCR extends Activity{
         return recognizedText;
     }
 
-    public Bitmap toStrictBlackWhite(Bitmap bmp){
-        Bitmap imageOut = bmp;
-        int tempColorRed;
-        for(int y=0; y<bmp.getHeight(); y++){
-            for(int x=0; x<bmp.getWidth(); x++){
-                tempColorRed = Color.red(imageOut.getPixel(x, y));
-//                Log.v(TAG, "COLOR: "+tempColorRed);
-
-                if(imageOut.getPixel(x,y) < 127){
-                    imageOut.setPixel(x, y, 0xffffff);
-                }
-                else{
-                    imageOut.setPixel(x, y, 0x000000);
-                }
-            }
-        }
-        return imageOut;
-    }
-
     public Bitmap toBinary(Bitmap bmpOriginal) {
         int width, height, threshold;
         height = bmpOriginal.getHeight();
         width = bmpOriginal.getWidth();
         threshold = 127;
-        Bitmap bmpBinary = Bitmap.createBitmap(bmpOriginal);
+        Bitmap bmpBinary = bmpOriginal.copy(Bitmap.Config.ARGB_8888, true);
+        Log.v(TAG, "BITMAP: " + bmpBinary.isMutable());
 
         for(int x = 0; x < width; ++x) {
             for(int y = 0; y < height; ++y) {
@@ -195,4 +193,27 @@ public class OCR extends Activity{
         return bmpBinary;
     }
 
+    private void copyPicture(){
+        try {
+            File path = Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES);
+            File file = new File(path, PICTURENAME);
+            // the Pictures directory exists?
+            path.mkdirs();
+            InputStream is = getResources().openRawResource(+ R.drawable.rewe2);
+            OutputStream os = new FileOutputStream(file);
+            byte[] data = new byte[is.available()];
+            is.read(data);
+            os.write(data);
+            is.close();
+            os.close();
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            bitmap = BitmapFactory.decodeFile(path + "/" + PICTURENAME , options);
+//            imgV.setImageBitmap(bitmap);
+        }
+        catch(Exception e){
+            Log.v(TAG, "copy picture failed");
+        }
+    }
 }

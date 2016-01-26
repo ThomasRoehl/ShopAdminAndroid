@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thomasroehl.shopadminandroid.R;
@@ -112,6 +113,11 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //SetContext
         myController.setCurrentActivityContext(this);
+
+        if(StorageAdmin.EDITCONTROLLER.getSum() != null)
+            editSum.setText(StorageAdmin.EDITCONTROLLER.getSum().toString(), TextView.BufferType.EDITABLE);
+        if(StorageAdmin.EDITCONTROLLER.getShopName() != null)
+            editShopname.setText(StorageAdmin.EDITCONTROLLER.getShopName(), TextView.BufferType.EDITABLE);
     }
 
     public void populateSpinner(){
