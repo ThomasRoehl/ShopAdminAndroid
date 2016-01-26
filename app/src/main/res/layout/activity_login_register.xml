@@ -48,103 +48,113 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="#f97d7b"
-        android:textColor="#fefcfc"
-        android:visibility="invisible"/>
+        android:textColor="#fefcfc"/>
+    <!--android:visibility="invisible"/>-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create  Account"
-        android:id="@+id/buttonCreateNewAccount"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:visibility="visible"
-        android:background="#f97d7b"
-        android:textColor="#fefbfb" />
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Create  Account"
+    android:id="@+id/buttonCreateNewAccount"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:visibility="visible"
+    android:background="#f97d7b"
+    android:textColor="#fefbfb" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/buttonLogin"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="#fefcfc"
-        android:background="#f97d7b" />
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Login"
+    android:id="@+id/buttonLogin"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:textColor="#fefcfc"
+    android:background="#f97d7b" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username"
-        android:paddingTop="15dp"
-        android:id="@+id/textView"
-        android:layout_below="@+id/textViewInfo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="15dp"
-        android:textColor="#f97d7b" />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Username"
+    android:paddingTop="15dp"
+    android:id="@+id/textView"
+    android:layout_below="@+id/textViewInfo"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:textSize="15dp"
+    android:textColor="#f97d7b" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editTextUsername"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+<EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/editTextUsername"
+    android:layout_below="@+id/textView"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text=""
+    android:id="@+id/textViewUsernameMessage"
+    android:layout_below="@+id/editTextUsername"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:textSize="10dp"
+    android:visibility="invisible"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Password"
+    android:id="@+id/textViewPassword"
+    android:layout_below="@+id/textViewUsernameMessage"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignRight="@+id/textView"
+    android:layout_alignEnd="@+id/textView"
+    android:textSize="15dp"
+    android:textColor="#f97d7b" />
+
+<EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:inputType="textPassword"
+    android:ems="10"
+    android:id="@+id/editTextPassword"
+    android:layout_below="@+id/textViewPassword"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignRight="@+id/editTextUsername"
+    android:layout_alignEnd="@+id/editTextUsername" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:id="@+id/textViewUsernameMessage"
-        android:layout_below="@+id/editTextUsername"
+        android:id="@+id/textViewPasswordMessage"
+        android:layout_below="@+id/editTextPassword"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="10dp"
         android:visibility="invisible"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Password"
-        android:id="@+id/textViewPassword"
-        android:layout_below="@+id/textViewUsernameMessage"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:textSize="15dp"
-        android:textColor="#f97d7b" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editTextPassword"
-        android:layout_below="@+id/textViewPassword"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editTextUsername"
-        android:layout_alignEnd="@+id/editTextUsername" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Verify password"
-        android:id="@+id/textViewVerifyPassword"
-        android:paddingTop="15dp"
-        android:layout_below="@+id/editTextPassword"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="15dp"
-        android:textColor="#f97d7b"
-        android:visibility="invisible"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Verify password"
+    android:id="@+id/textViewVerifyPassword"
+    android:layout_below="@+id/textViewPasswordMessage"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:textSize="15dp"
+    android:textColor="#f97d7b"
+    android:visibility="invisible"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -153,68 +163,78 @@
         android:ems="10"
         android:id="@+id/editTextVerifyPassword"
         android:layout_below="@+id/textViewVerifyPassword"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/editTextPassword"
         android:layout_alignEnd="@+id/editTextPassword"
-        android:visibility="invisible"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/textViewPasswordMessage"
-        android:layout_below="@+id/editTextVerifyPassword"
-        android:textSize="10dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:visibility="invisible"/>
+
+ <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text=""
+     android:id="@+id/textViewVerifyPasswordMessage"
+     android:layout_below="@+id/editTextVerifyPassword"
+     android:textSize="10dp"
+     android:layout_alignParentLeft="true"
+     android:layout_alignParentStart="true"
+     android:visibility="invisible"/>
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"
         android:id="@+id/textViewEmail"
-        android:layout_below="@+id/textViewPasswordMessage"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textViewVerifyPasswordMessage"
         android:textSize="15dp"
         android:textColor="#f97d7b"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:visibility="invisible"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Login to existing account"
+    android:textSize="20dp"
+    android:textAlignment="center"
+    android:textColor="#f97d7b"
+    android:id="@+id/textViewInfo"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true" />
+
+
+<EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:inputType="textEmailAddress"
+    android:ems="10"
+    android:id="@+id/editTextEmail"
+    android:layout_below="@+id/textViewEmail"
+    android:layout_alignRight="@+id/editTextVerifyPassword"
+    android:layout_alignEnd="@+id/editTextVerifyPassword"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login to existing account"
-        android:textSize="20dp"
-        android:textAlignment="center"
-        android:textColor="#f97d7b"
-        android:id="@+id/textViewInfo"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/editTextEmail"
-        android:layout_below="@+id/textViewEmail"
-        android:layout_alignRight="@+id/editTextVerifyPassword"
-        android:layout_alignEnd="@+id/editTextVerifyPassword"
+        android:id="@+id/textViewEmailMessage"
+        android:layout_below="@+id/editTextEmail"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
-    <!--<TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:id="@+id/textViewEmail"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editTextVerifyPassword" />-->
+<!--<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Email"
+    android:id="@+id/textViewEmail"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/editTextVerifyPassword" />-->
 
 </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

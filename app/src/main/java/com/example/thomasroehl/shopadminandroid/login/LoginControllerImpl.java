@@ -3,6 +3,7 @@ package com.example.thomasroehl.shopadminandroid.login;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.thomasroehl.shopadminandroid.container.User;
 import com.example.thomasroehl.shopadminandroid.gui.MainActivity;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
@@ -65,5 +66,14 @@ public class LoginControllerImpl implements LoginControllerInterf{
             return true;
         }
         return false;
+    }
+
+
+    @Override
+    public User getUserFromTable(String name){
+        User user = StorageAdmin.DBCONTROLLER.getUserFromTable(name);
+        System.out.println("LoginControllerImpl getUserFromTable, 'user' ---> " + user);
+        return user;
+
     }
 }

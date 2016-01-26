@@ -2,6 +2,8 @@ package com.example.thomasroehl.shopadminandroid.login;
 
 import android.content.Intent;
 
+import com.example.thomasroehl.shopadminandroid.container.User;
+
 /**
  * Created by Thomas Roehl on 04.12.2015.
  */
@@ -13,4 +15,5 @@ public interface LoginControllerInterf {
     public String getFeedbackMessage();
     public boolean checkPasswordByName(String password, String username);
     public boolean checkUsername(String username);
+    public User getUserFromTable(String name);
 }

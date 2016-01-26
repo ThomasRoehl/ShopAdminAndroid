@@ -13,6 +13,7 @@ public class User {
     private String password;
     private Date lastLogin;
     private String group;
+    private String loggedIn;
 
     public User(){
 
@@ -33,6 +34,23 @@ public class User {
         this.email = email;
         this.password = password;
         //Katia & Iuliia 04.01.2016
+    }
+
+    public User(String name, String email, String password, String loggedIn){
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.loggedIn =loggedIn;
+    }
+
+    public User(int id, String name, String email, String password, String loggedIn){
+        //Katia & Iuliia 19.01.2016
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.loggedIn = loggedIn;
+        //Katia & Iuliia 19.01.2016
     }
 
     public String getGroup() {
@@ -59,6 +77,10 @@ public class User {
         return password;
     }
 
+    public String getLoggedIn() {
+        return loggedIn;
+    }
+
     public Date getLastLogin() {
         return lastLogin;
     }
@@ -79,6 +101,10 @@ public class User {
         this.name = name;
     }
 
+    public void setLoggedIn(String loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -86,6 +112,7 @@ public class User {
     //Katia  & Iuliia 04.01.2016
     public String toString() {
         return "User{" +
+                " id=" + this.id + '\'' +
                 ", name='" + this.name + '\'' +
                 ", email='" + this.email + '\'' +
                 ", password=" + this.password + '\'' +

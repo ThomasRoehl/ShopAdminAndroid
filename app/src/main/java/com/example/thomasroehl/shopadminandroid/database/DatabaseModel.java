@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
+import java.util.HashMap;
+
 /**
  * Created by Thomas Roehl on 08.12.2015.
  */
@@ -14,6 +16,7 @@ public class DatabaseModel extends SQLiteOpenHelper{
     private static final int DBVERSION = 1;
     private static final String DBNAME = "ShopAdminDB";
     private DatabaseController dbController;
+    private ReadXMLFile readXML;
 
     public DatabaseModel (Context ctx){
         super(ctx, DBNAME, null, DBVERSION);
@@ -28,15 +31,17 @@ public class DatabaseModel extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         dbController = (DatabaseController)StorageAdmin.DBCONTROLLER;
+        System.out.println("readXML = " +readXML);
+        readXML = new ReadXMLFile();
+        HashMap<String, String> entryDicionary = readXML.readXML();
 
         String query = "CREATE TABLE " + dbController.USERTABLE + "(" +
                 dbController.USERNIDCOLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 dbController.USERNAMECOLUMN + " TEXT, " +
                 dbController.USEREMAILCOLUMN + " TEXT, " +
-                dbController.USERPASSWORDCOLUMN + " TEXT );";
-        System.out.println("BEFORE query " + query);
+                dbController.USERPASSWORDCOLUMN + " TEXT, " +
+                dbController.USERLOGGEDCOLUMN + " TEXT );";
         db.execSQL(query);
-        System.out.println("BEFORE query " + query);
 
         // Katia & Iuliia 04.01
         String queryReceipt = "CREATE TABLE " + dbController.RECEIPTTABLE + "(" +
@@ -44,11 +49,30 @@ public class DatabaseModel extends SQLiteOpenHelper{
                 dbController.SHOPNAMECOLUMN + " TEXT, " +
                 dbController.AMOUNTCOLUMN + " DOUBLE, " +
                 dbController.CATEGORYCOLUMN + " TEXT, " +
-                dbController.DATECOLUMN + " TEXT );";
-        System.out.println("BEFORE queryReceipt " + queryReceipt);
+                dbController.DATECOLUMN + " TEXT, " +
+                dbController.USERIDCOLUMN + " INTEGER NOT NULL );";
         db.execSQL(queryReceipt);
-        System.out.println("BEFORE queryReceipt " + queryReceipt);
         // Katia & Iuliia 04.01
+
+        // Katia & Iuliia 17.01
+        String queryCategory= "CREATE TABLE " + dbController.CATEGORYTABLE + "(" +
+                dbController.GENERALIDCOLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                dbController.SHOPNAMECOLUMN2 + " TEXT, " +
+                dbController.CATEGORYCOLUMN2 + " TEXT );";
+        db.execSQL(queryCategory);
+
+
+        for (HashMap.Entry<String, String> entry : entryDicionary.entrySet()) {
+            System.out.println("In for-loop Hashmap START");
+            String key = entry.getKey();
+            String value = entry.getValue();
+            String insertQueryShopname = "INSERT INTO " + dbController.CATEGORYTABLE +
+                    "(" + dbController.SHOPNAMECOLUMN2 + ", " + dbController.CATEGORYCOLUMN2 + ")" +
+                    " VALUES (" + "'" + key + "'" + ", " + "'" +value + "'" +");";
+
+            db.execSQL(insertQueryShopname);
+        }
+        System.out.println("Successfull");
     }
 
 

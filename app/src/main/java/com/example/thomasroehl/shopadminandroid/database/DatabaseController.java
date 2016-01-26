@@ -24,6 +24,9 @@ public class DatabaseController implements DatabaseInterf {
     public final String USERNAMECOLUMN = "Name";
     public final String USERPASSWORDCOLUMN = "Password";
     public final String USEREMAILCOLUMN = "Email";
+    // Katia & Iuliia 19.01
+    public final String USERLOGGEDCOLUMN = "Logged_In";
+
 
     // Table Receipt
     public final String RECEIPTTABLE = "ReceiptTable";
@@ -33,6 +36,15 @@ public class DatabaseController implements DatabaseInterf {
     public final String AMOUNTCOLUMN = "Amount";
     public final String CATEGORYCOLUMN = "Category";
     public final String DATECOLUMN = "Date";
+    // Katia & Iuliia 19.01
+    public final String USERIDCOLUMN = "User_Id";
+
+    // Katia & Iuliia 17.01
+    // Table Category
+    public final String CATEGORYTABLE = "CategoryTable";
+    public final String GENERALIDCOLUMN = "General_Id";
+    public final String SHOPNAMECOLUMN2 = "Shopname";
+    public final String CATEGORYCOLUMN2= "Category";
 
      // Database statements
     private final String CHECKUSERBYNAME = "SELECT " + USERNAMECOLUMN + " FROM " + USERTABLE + " WHERE " + USERNAMECOLUMN + " = ";
@@ -43,7 +55,22 @@ public class DatabaseController implements DatabaseInterf {
     private final String CHECKPASSWORDBYNAME1 = "SELECT " + USERPASSWORDCOLUMN + " FROM " + USERTABLE + " WHERE " + USERPASSWORDCOLUMN + " = ";
     private final String CHECKPASSWORDBYNAME2 = " AND " + USERNAMECOLUMN + " = ";
 
-    private final String GETRECEIPT= "SELECT  * FROM ReceiptTable WHERE 1";
+    private final String GETRECEIPT1= "SELECT " + SHOPNAMECOLUMN + ", " + AMOUNTCOLUMN + ", " + CATEGORYCOLUMN + ", " + DATECOLUMN + "  FROM " +  RECEIPTTABLE + " WHERE " + USERIDCOLUMN + " = ";
+    private final String GETRECEIPT2= " LIMIT 10";
+
+    private final String GETRECEIPTGROUPBYNAME1 = "SELECT " + SHOPNAMECOLUMN + ", " + " SUM(" + AMOUNTCOLUMN + ")" + ", " + CATEGORYCOLUMN + ", " + DATECOLUMN +  " FROM " + RECEIPTTABLE + " WHERE " + USERIDCOLUMN + " = ";
+    private final String GETRECEIPTGROUPBYNAME2 =" GROUP BY " + SHOPNAMECOLUMN;
+
+    private final String GETRECEIPTGROUPBYCATEGORY1 = "SELECT " + CATEGORYCOLUMN + ", " + "SUM(" + AMOUNTCOLUMN + ")" +  ", " + SHOPNAMECOLUMN + ", " + DATECOLUMN + " FROM " + RECEIPTTABLE + " WHERE " + USERIDCOLUMN + " = ";
+    private final String GETRECEIPTGROUPBYCATEGORY2 =" GROUP BY " + CATEGORYCOLUMN;
+
+    private final String GETRECEIPTSBYSPECIALSHOPNAME1 = "SELECT " + SHOPNAMECOLUMN + ", " + AMOUNTCOLUMN + ", " + CATEGORYCOLUMN + ", " + DATECOLUMN + " FROM " + RECEIPTTABLE + " WHERE " + USERIDCOLUMN + " = ";
+    private final String GETRECEIPTSBYSPECIALSHOPNAME2 = " AND " + SHOPNAMECOLUMN + " = ";
+
+    // SELECT Shopname, Amount, Category, date
+   // FROM RECEIPTTable
+    //WHERE Shopname = 'Rewe'
+    //AND User_Id = 1
 
     // Database
     private SQLiteDatabase db;
@@ -214,6 +241,9 @@ public class DatabaseController implements DatabaseInterf {
             values.put(USEREMAILCOLUMN, user.getEmail());
             values.put(USERPASSWORDCOLUMN, user.getPassword());
 
+            //TODO --> true or false for Status
+            values.put(USERLOGGEDCOLUMN, user.getLoggedIn());
+
             // insert
             db.insert(USERTABLE, null, values);
             disconnect();
@@ -228,7 +258,6 @@ public class DatabaseController implements DatabaseInterf {
         }
     }
 
-
     /**
      * get user (username, e-mail, password) from table
      *
@@ -238,7 +267,7 @@ public class DatabaseController implements DatabaseInterf {
      public User getUserFromTable(String username) {
         try {
             connect();
-            Cursor cursor = db.rawQuery(GETUSER + username + ";", null);
+            Cursor cursor = db.rawQuery(GETUSER  + "'" +  username  + "'" + ";", null);
             User user = null;
             if (cursor.moveToFirst()) {
                 do {
@@ -247,9 +276,12 @@ public class DatabaseController implements DatabaseInterf {
                     user.setName(cursor.getString(1));
                     user.setEmail(cursor.getString(2));
                     user.setPassword(cursor.getString(3));
+                    //Katia & Iuliia 19.01.2016
+                    user.setLoggedIn(cursor.getString(4));
                 } while (cursor.moveToNext());
             }
             disconnect();
+            System.out.println("DatabaseController getUserFromTable, 'user' ---> " + user);
             return user;
 
         }
@@ -272,7 +304,7 @@ public class DatabaseController implements DatabaseInterf {
     public boolean deleteUser(String username) {
         try {
             connect();
-            db.execSQL(DELETEUSER + username + ";", null);
+            db.execSQL(DELETEUSER + "'" + username+ "'" + ";", null);
             disconnect();
             return  true;
         }
@@ -283,7 +315,6 @@ public class DatabaseController implements DatabaseInterf {
             }
             return false;
         }
-
     }
 
     // Katia & Iuliia 04.01
@@ -297,13 +328,41 @@ public class DatabaseController implements DatabaseInterf {
     public boolean createReceipt(Receipt receipt) {
         try {
             connect();
+            System.out.println("createReceipt() receipt ---> " + receipt);
             ContentValues values = new ContentValues();
             values.put(SHOPNAMECOLUMN, receipt.getShopname());
             values.put(AMOUNTCOLUMN, receipt.getAmount());
             values.put(CATEGORYCOLUMN, receipt.getCategory());
             values.put(DATECOLUMN, receipt.getDate());
+            //neu
+            values.put(USERIDCOLUMN, receipt.getuserId());
+
             db.insert(RECEIPTTABLE, null, values);
-            disconnect();
+
+            System.out.println("Insert is done");
+
+
+
+            ////HACK BEGIN
+            System.out.println("---------------------------HACK------------------------------------");
+            Cursor cursor = db.rawQuery("SELECT * FROM ReceiptTable", null);
+            if (cursor.moveToFirst()) {
+                do {
+                    System.out.println(
+                                    "cursor.getString(0) = " + cursor.getString(0) +
+                                    " cursor.getString(1) = " + cursor.getString(1) +
+                                    " cursor.getString(2) = " + cursor.getString(2) +
+                                    " cursor.getString(3) = " + cursor.getString(3) +
+                                    " cursor.getString(4) = " + cursor.getString(4) +
+                                    " cursor.getString(5) = " + cursor.getString(5)
+                    );
+                } while (cursor.moveToNext());
+            }
+            System.out.println("----------------------------HACK-----------------------------------");
+            //HACK END
+
+
+                    disconnect();
             return true;
         }
         catch (Exception e){
@@ -329,17 +388,96 @@ public class DatabaseController implements DatabaseInterf {
     }
 
 
-    public ArrayList<Receipt> getAllReceipts() {
+    public ArrayList<Receipt> getAllReceipts(int id) {
         try {
             connect();
             ArrayList<Receipt> receiptList = new ArrayList<Receipt>();
             // Select All Query
-            Cursor cursor = db.rawQuery(GETRECEIPT, null);
+            Cursor cursor = db.rawQuery(GETRECEIPT1 + id + GETRECEIPT2 + ";", null);
+            // looping through all rows and adding to list
+            if (cursor.moveToFirst()) {
+                do {
+                    //From here you just fill your receipt
+                                               //String shopname, String category, double amount, String date
+                    receiptList.add(new Receipt(cursor.getString(0), cursor.getString(2), cursor.getDouble(1), cursor.getString(3)));
+                } while (cursor.moveToNext());
+            }// return contact list
+            cursor.close();
+            disconnect();
+            return receiptList;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            if (!isDisconnected()) {
+                disconnect();
+            }
+            return null;
+        }
+    }
+
+    public ArrayList<Receipt> getAllReceiptsGroupByName(int id) {
+        try {
+            connect();
+            ArrayList<Receipt> receiptList = new ArrayList<Receipt>();
+            // Select All Query
+            Cursor cursor = db.rawQuery(GETRECEIPTGROUPBYNAME1 + id + GETRECEIPTGROUPBYNAME2 + ";", null);
+            // looping through all rows and adding to list
+            if (cursor.moveToFirst()) {
+                do {
+                    //From here you just fill your receipt
+                    receiptList.add(new Receipt(cursor.getString(0), cursor.getString(2), cursor.getDouble(1), cursor.getString(3)));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            disconnect();
+            return receiptList;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            if (!isDisconnected()) {
+                disconnect();
+            }
+            return null;
+        }
+    }
+
+    public ArrayList<Receipt> getAllReceiptsGroupByCategory(int id) {
+        try {
+            connect();
+            ArrayList<Receipt> receiptList = new ArrayList<Receipt>();
+            // Select All Query
+            Cursor cursor = db.rawQuery(GETRECEIPTGROUPBYCATEGORY1 + id + GETRECEIPTGROUPBYCATEGORY2 + ";", null);
+            // looping through all rows and adding to list
+            if (cursor.moveToFirst()) {
+                do {
+
+                    receiptList.add(new Receipt(cursor.getString(2), cursor.getString(0), cursor.getDouble(1), cursor.getString(3)));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            disconnect();
+            return receiptList;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            if (!isDisconnected()) {
+                disconnect();
+            }
+            return null;
+        }
+    }
+
+    public ArrayList<Receipt> getReceiptsBySpecialShopname(int id, String shopname) {
+        try {
+            connect();
+            ArrayList<Receipt> receiptList = new ArrayList<Receipt>();
+            // Select All Query
+            Cursor cursor = db.rawQuery(GETRECEIPTSBYSPECIALSHOPNAME1 + id + GETRECEIPTSBYSPECIALSHOPNAME2  + "'" + shopname  + "'" + ";", null);
             // looping through all rows and adding to list
             if (cursor.moveToFirst()) {
                 do {
                     //From here you just fill your product
-                    receiptList.add(new Receipt(cursor.getString(1), cursor.getString(3), cursor.getDouble(2), cursor.getString(4)));
+                    receiptList.add(new Receipt(cursor.getString(0), cursor.getString(2), cursor.getDouble(1), cursor.getString(3)));
                 } while (cursor.moveToNext());
             }// return contact list
             cursor.close();

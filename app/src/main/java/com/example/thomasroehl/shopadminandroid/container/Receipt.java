@@ -9,16 +9,27 @@ public class Receipt {
     private String category;
     private double amount;
     private String date;
+    private int userId;
 
     public Receipt(){
 
     }
 
-    public Receipt(String shopname, String category, double amount, String date ){
+    public Receipt(String shopname, String category, double amount, String date){
         this.shopname = shopname;
         this.category = category;
         this.amount = amount;
         this.date = date;
+
+    }
+
+
+    public Receipt(String shopname, String category, double amount, String date, int userId ){
+        this.shopname = shopname;
+        this.category = category;
+        this.amount = amount;
+        this.date = date;
+        this.userId = userId;
     }
 
     public Receipt(int id, String shopname, String category, double amount, String date ){
@@ -29,8 +40,10 @@ public class Receipt {
         this.date = date;
     }
 
-    public int getId() {
-        return id;
+    public int getId() { return id; }
+
+    public int getuserId() {
+        return userId;
     }
 
     public String getShopname() {
@@ -69,6 +82,10 @@ public class Receipt {
         this.date = date;
     }
 
+    public void setUserId (int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Receipt{" +
@@ -77,6 +94,7 @@ public class Receipt {
                 ", category='" + category + '\'' +
                 ", amount=" + amount +
                 ", date='" + date + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

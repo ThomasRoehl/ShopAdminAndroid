@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickTable(View view) {
+        System.out.println("xxxxxxxxxxxxxxxxx MainActivity onClickTable Event handler xxxxxxxxxxxxxxxx");
         Log.i("clicks", "You clicked the Table");
         startActivity(this.myController.screenFlowTable());
     }

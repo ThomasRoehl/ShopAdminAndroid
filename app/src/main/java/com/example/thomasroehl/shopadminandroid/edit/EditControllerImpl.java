@@ -78,8 +78,6 @@ public class EditControllerImpl implements EditControllerInterf {
     }
 
 
-
-
     @Override
     public Intent screenFlowCamera() {
         Intent i = new Intent(

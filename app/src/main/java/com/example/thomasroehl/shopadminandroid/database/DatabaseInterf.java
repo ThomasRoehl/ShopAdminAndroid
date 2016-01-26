@@ -71,6 +71,12 @@ public interface DatabaseInterf {
 
     public boolean checkPasswordByName(String password, String name);
 
-    public ArrayList<Receipt> getAllReceipts();
+    public ArrayList<Receipt> getAllReceipts(int id);
+
+    public ArrayList<Receipt> getAllReceiptsGroupByName(int id);
+
+    public ArrayList<Receipt> getAllReceiptsGroupByCategory(int id);
+
+    public ArrayList<Receipt> getReceiptsBySpecialShopname(int id, String shopname);
 
 }
