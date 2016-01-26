@@ -67,6 +67,9 @@ public class DatabaseController implements DatabaseInterf {
     private final String GETRECEIPTSBYSPECIALSHOPNAME1 = "SELECT " + SHOPNAMECOLUMN + ", " + AMOUNTCOLUMN + ", " + CATEGORYCOLUMN + ", " + DATECOLUMN + " FROM " + RECEIPTTABLE + " WHERE " + USERIDCOLUMN + " = ";
     private final String GETRECEIPTSBYSPECIALSHOPNAME2 = " AND " + SHOPNAMECOLUMN + " = ";
 
+    private final String GETRECEIPTSBYSPECIALCATEGORY1 = "SELECT " + SHOPNAMECOLUMN + ", " + AMOUNTCOLUMN + ", " + CATEGORYCOLUMN + ", " + DATECOLUMN + " FROM " + RECEIPTTABLE + " WHERE " + USERIDCOLUMN + " = ";
+    private final String GETRECEIPTSBYSPECIALCATEGORY2 = " AND " + CATEGORYCOLUMN + " = ";
+
     // SELECT Shopname, Amount, Category, date
    // FROM RECEIPTTable
     //WHERE Shopname = 'Rewe'
@@ -476,7 +479,33 @@ public class DatabaseController implements DatabaseInterf {
             // looping through all rows and adding to list
             if (cursor.moveToFirst()) {
                 do {
-                    //From here you just fill your product
+                    //From here you just fill a receipt
+                    receiptList.add(new Receipt(cursor.getString(0), cursor.getString(2), cursor.getDouble(1), cursor.getString(3)));
+                } while (cursor.moveToNext());
+            }// return contact list
+            cursor.close();
+            disconnect();
+            return receiptList;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            if (!isDisconnected()) {
+                disconnect();
+            }
+            return null;
+        }
+    }
+
+    public ArrayList<Receipt> getReceiptsBySpecialCategory(int id, String category) {
+        try {
+            connect();
+            ArrayList<Receipt> receiptList = new ArrayList<Receipt>();
+            // Select All Query
+            Cursor cursor = db.rawQuery(GETRECEIPTSBYSPECIALCATEGORY1 + id + GETRECEIPTSBYSPECIALCATEGORY2  + "'" + category  + "'" + ";", null);
+            // looping through all rows and adding to list
+            if (cursor.moveToFirst()) {
+                do {
+                    //From here you just fill a receipt
                     receiptList.add(new Receipt(cursor.getString(0), cursor.getString(2), cursor.getDouble(1), cursor.getString(3)));
                 } while (cursor.moveToNext());
             }// return contact list

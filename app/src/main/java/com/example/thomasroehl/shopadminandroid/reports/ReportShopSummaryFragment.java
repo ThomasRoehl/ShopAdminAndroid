@@ -33,6 +33,8 @@ public class ReportShopSummaryFragment extends Fragment {
         //SetContext
         myController.setCurrentActivityContext(getActivity());
 
+        myController.expandedShopNames.clear();
+
         //Fill receipt overview table
         ShopSummaryFragmentTable = (TableLayout) rootView.findViewById(R.id.tbl_Report_Shop_Summary);
 

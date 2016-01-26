@@ -79,4 +79,6 @@ public interface DatabaseInterf {
 
     public ArrayList<Receipt> getReceiptsBySpecialShopname(int id, String shopname);
 
+    public ArrayList<Receipt> getReceiptsBySpecialCategory(int id, String category);
+
 }

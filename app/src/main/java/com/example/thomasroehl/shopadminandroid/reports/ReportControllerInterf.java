@@ -22,5 +22,6 @@ public interface ReportControllerInterf {
     public ArrayList<Receipt> getAllReceiptGroupByName(int id);
     public ArrayList<Receipt> getAllReceiptGroupByCategory(int id);
     public ArrayList<Receipt> getReceiptsBySpecialShopname(int id, String shopname);
+    public ArrayList<Receipt> getReceiptsBySpecialCategory(int id, String category);
 
 }
