@@ -15,5 +15,9 @@ public interface EditControllerInterf {
     public Intent screenFlowCamera();
     public Intent screenFlowMain();
     public boolean isValidDate(String dateString);
+    public void setShopName(String name);
+    public void setSum(Double sum);
+    public String getShopName();
+    public Double getSum();
 
 }

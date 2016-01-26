@@ -18,6 +18,8 @@ public class EditControllerImpl implements EditControllerInterf {
 
     Context currentActivityContext;
     private static EditControllerImpl instance = null;
+    private String shopname;
+    private Double sum;
 
     protected EditControllerImpl(){
         this.currentActivityContext = null;
@@ -75,6 +77,26 @@ public class EditControllerImpl implements EditControllerInterf {
         } catch (ParseException e) {
             return false;
         }
+    }
+
+    @Override
+    public void setShopName(String name) {
+        this.shopname = name;
+    }
+
+    @Override
+    public void setSum(Double sum) {
+        this.sum = sum;
+    }
+
+    @Override
+    public String getShopName() {
+        return shopname;
+    }
+
+    @Override
+    public Double getSum() {
+        return sum;
     }
 
 

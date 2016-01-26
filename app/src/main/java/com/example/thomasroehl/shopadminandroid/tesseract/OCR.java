@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Bundle;
@@ -12,10 +14,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.thomasroehl.shopadminandroid.R;
+import com.example.thomasroehl.shopadminandroid.gui.CameraActivity;
 import com.example.thomasroehl.shopadminandroid.gui.EditActivity;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 import com.googlecode.tesseract.android.*;
@@ -33,13 +37,15 @@ import java.io.OutputStream;
 public class OCR extends Activity{
 
     private final String DATA_PATH = Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/OCR/";
-    private final String lang = "deu";
+    private final String lang = "deu_frak";
     private final String TAG = "OCR.java";
+    private final String PICTURENAME = "rewe2.bmp";
     private Bitmap bitmap;
     private ProgressBar progressBar;
     private int progressStatus = 0;
     private Handler handler = new Handler();
-    private TextView textView;
+    private ImageView imgV;
+    private Classificator cls = new Classificator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,26 +53,22 @@ public class OCR extends Activity{
         setContentView(R.layout.activity_ocr);
         bitmap = StorageAdmin.CAMERACONTROLLER.getCurrentPicture();
         Button start = (Button) findViewById(R.id.ocr_button);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        textView = (TextView) findViewById(R.id.progressText);
+        Button rescan = (Button) findViewById(R.id.ocrRescanBtn);
+        imgV = (ImageView) findViewById(R.id.imageView);
 
+        String path = DATA_PATH + "tessdata/";
 
-        String[] paths = new String[] { DATA_PATH, DATA_PATH + "tessdata/" };
+        File dir = new File(path);
+        Log.v(TAG, "PATH: " + path);
 
-        for (String path : paths) {
-            File dir = new File(path);
-            Log.v(TAG, "PATH: " + path);
-
-            if (!dir.exists()) {
-                Log.v(TAG, "PATH EXISTS");
-                if (!dir.mkdirs()) {
-                    Log.v(TAG, "ERROR: Creation of directory " + path + " on sdcard failed");
-                    return;
-                } else {
-                    Log.v(TAG, "Created directory " + path + " on sdcard");
-                }
+        if (!dir.exists()) {
+            Log.v(TAG, "PATH EXISTS");
+            if (!dir.mkdirs()) {
+                Log.v(TAG, "ERROR: Creation of directory " + path + " on sdcard failed");
+                return;
+            } else {
+                Log.v(TAG, "Created directory " + path + " on sdcard");
             }
-
         }
 
         if (!(new File(DATA_PATH + "tessdata/" + lang + ".traineddata")).exists()) {
@@ -95,16 +97,38 @@ public class OCR extends Activity{
             }
         }
 
+//        copyPicture();
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String results = getText();
                 Log.v(TAG, "TESSERACT RESULTS: " + results);
-                screenflowToEdit();
+                cls.setText(results);
+                cls.classificate();
+                String shopName = cls.getShopName();
+                String sum = cls.getSum();
+                Log.v(TAG, "SHOPNAME: " + shopName);
+                Log.v(TAG, "SUM: " + sum);
+                StorageAdmin.EDITCONTROLLER.setShopName(shopName);
+                try{
+                    StorageAdmin.EDITCONTROLLER.setSum(Double.parseDouble(sum));
+                }
+                catch(Exception e){
+                    StorageAdmin.EDITCONTROLLER.setSum(-1.0);
+                }
+
+//                screenflowToEdit();
             }
         });
+    }
 
+    public void rescan(View view){
+        startActivity(new Intent(OCR.this, CameraActivity.class));
+    }
 
+    public void edit(View view){
+        startActivity(new Intent(OCR.this, EditActivity.class));
     }
 
     public void screenflowToEdit(){
@@ -112,83 +136,26 @@ public class OCR extends Activity{
     }
 
     public String getText(){
-//        new Thread(new Runnable() {
-//            public void run() {
-//                int counter = 10;
-//                while (progressStatus < 100 && counter > 0) {
-//                    progressStatus += 1;
-//                    counter--;
-//                    // Update the progress bar and display the
-//
-//                    //current value in the text view
-//                    handler.post(new Runnable() {
-//                        public void run() {
-//                            progressBar.setProgress(progressStatus);
-//                            textView.setText(progressStatus+"/"+progressBar.getMax());
-//                        }
-//                    });
-//                    try {
-//                        // Sleep for 200 milliseconds.
-//
-//                        //Just to display the progress slowly
-//                        Thread.sleep(2);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    if (progressStatus == 100) progressStatus = 1;
-//                }
-//            }
-//        }).start();
 
-//        try {
-//            ExifInterface exif = new ExifInterface(bitmap);
-//            int exifOrientation = exif.getAttributeInt(
-//                    ExifInterface.TAG_ORIENTATION,
-//                    ExifInterface.ORIENTATION_NORMAL);
-//
-//            Log.v(TAG, "Orient: " + exifOrientation);
-//
-//            int rotate = 0;
-//
-//            switch (exifOrientation) {
-//                case ExifInterface.ORIENTATION_ROTATE_90:
-//                    rotate = 90;
-//                    break;
-//                case ExifInterface.ORIENTATION_ROTATE_180:
-//                    rotate = 180;
-//                    break;
-//                case ExifInterface.ORIENTATION_ROTATE_270:
-//                    rotate = 270;
-//                    break;
-//            }
-//
-//            Log.v(TAG, "Rotation: " + rotate);
-//
-//            if (rotate != 0) {
-//
-//                // Getting width & height of the given image.
-//                int w = bitmap.getWidth();
-//                int h = bitmap.getHeight();
-//
-//                // Setting pre rotate
-//                Matrix mtx = new Matrix();
-//                mtx.preRotate(rotate);
-//
-//                // Rotating Bitmap
-//                bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h, mtx, false);
-//            }
-//
-//            // Convert to ARGB_8888, required by tess
-//            bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-//
-//        } catch (IOException e) {
-//            Log.e(TAG, "Couldn't correct orientation: " + e.toString());
-//        }
+        Bitmap bmp = toBinary(bitmap);
+        try{
+            imgV.setImageBitmap(bmp);
+        }
+        catch(Exception e){
+            Log.v(TAG, "BINARY IMAGE BROKEN");
+        }
 
         TessBaseAPI baseApi = new TessBaseAPI();
         baseApi.setDebug(true);
         baseApi.init(DATA_PATH, lang);
-        baseApi.setImage(bitmap);
+        baseApi.setPageSegMode(TessBaseAPI.PageSegMode.PSM_SINGLE_BLOCK);
+        try{
+            baseApi.setImage(bmp);
+        }
+        catch (Exception e){
+            Log.v(TAG, "USE ORG BITMAP");
+            baseApi.setImage(bitmap);
+        }
 
         String recognizedText = baseApi.getUTF8Text();
 
@@ -197,4 +164,56 @@ public class OCR extends Activity{
         return recognizedText;
     }
 
+    public Bitmap toBinary(Bitmap bmpOriginal) {
+        int width, height, threshold;
+        height = bmpOriginal.getHeight();
+        width = bmpOriginal.getWidth();
+        threshold = 127;
+        Bitmap bmpBinary = bmpOriginal.copy(Bitmap.Config.ARGB_8888, true);
+        Log.v(TAG, "BITMAP: " + bmpBinary.isMutable());
+
+        for(int x = 0; x < width; ++x) {
+            for(int y = 0; y < height; ++y) {
+                // get one pixel color
+                int pixel = bmpOriginal.getPixel(x, y);
+                int green = Color.green(pixel);
+                int blue = Color.blue(pixel);
+                int red = Color.red(pixel);
+                int gray = (int)(red * 0.3 + green * 0.59 + blue * 0.11);
+
+                //get binary value
+                if(gray < threshold){
+                    bmpBinary.setPixel(x, y, 0xFF000000);
+                } else{
+                    bmpBinary.setPixel(x, y, 0xFFFFFFFF);
+                }
+
+            }
+        }
+        return bmpBinary;
+    }
+
+    private void copyPicture(){
+        try {
+            File path = Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES);
+            File file = new File(path, PICTURENAME);
+            // the Pictures directory exists?
+            path.mkdirs();
+            InputStream is = getResources().openRawResource(+ R.drawable.rewe2);
+            OutputStream os = new FileOutputStream(file);
+            byte[] data = new byte[is.available()];
+            is.read(data);
+            os.write(data);
+            is.close();
+            os.close();
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            bitmap = BitmapFactory.decodeFile(path + "/" + PICTURENAME , options);
+//            imgV.setImageBitmap(bitmap);
+        }
+        catch(Exception e){
+            Log.v(TAG, "copy picture failed");
+        }
+    }
 }
