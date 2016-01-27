@@ -34,6 +34,10 @@ public class Login_Register_Activity extends AppCompatActivity {
     TextView textViewEmail;
     TextView textViewVerifyPassword;
     TextView textViewInfo;
+    TextView textViewEmailMessage;
+    TextView textViewPasswordMessage;
+
+
 
     RegisterControllerImpl registerController;
     // Katia & Iuliia 04.01
@@ -70,8 +74,10 @@ public class Login_Register_Activity extends AppCompatActivity {
         textViewEmail = (TextView) findViewById(R.id.textViewEmail);
         textViewVerifyPassword = (TextView) findViewById(R.id.textViewVerifyPassword);
         textViewUsernameMessage = (TextView) findViewById(R.id.textViewUsernameMessage);
-        textViewVerifyPasswordMessage = (TextView) findViewById(R.id.textViewPasswordMessage);
+        textViewVerifyPasswordMessage = (TextView) findViewById(R.id.textViewVerifyPasswordMessage);
         textViewInfo = (TextView) findViewById(R.id.textViewInfo);
+        textViewEmailMessage = (TextView) findViewById(R.id.textViewEmailMessage);
+        textViewPasswordMessage = (TextView) findViewById(R.id.textViewPasswordMessage);
 
         //get registerController Instance
         //registerController = RegisterControllerImpl.getRegisterController();
@@ -106,6 +112,34 @@ public class Login_Register_Activity extends AppCompatActivity {
             }
         });
 
+        editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            /**
+             * check whether input password matches with specified password
+             *
+             * @param v
+             * @param hasFocus
+             */
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if (registerController.checkPasswordIsTooShort(editTextPassword.getText().toString())) {
+                        textViewPasswordMessage.setText("Password is too short!");
+                        textViewPasswordMessage.setTextColor(Color.RED);
+                    }
+                    //else {
+                    //    textViewPasswordMessage.setText("");
+                    //}
+                    else if (registerController.checkPasswordIsTooLong(editTextPassword.getText().toString())) {
+                        textViewPasswordMessage.setText("Password is too long!");
+                        textViewPasswordMessage.setTextColor(Color.RED);
+                    } else {
+                        textViewPasswordMessage.setText("");
+                    }
+                } else {
+                    textViewVerifyPasswordMessage.setText("");
+                }
+            }
+        });
+
         editTextVerifyPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             /**
              * check whether input password matches with specified password
@@ -126,26 +160,57 @@ public class Login_Register_Activity extends AppCompatActivity {
                 }
             }
         });
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = editTextUsername.getText().toString();
-                String email = editTextEmail.getText().toString();
-                String password = editTextPassword.getText().toString();
-                String verifyPassword = editTextVerifyPassword.getText().toString();
-                // validate username, password, verifyPassword and email inputs
-                if (validateUserInputData(username, password, verifyPassword, email)) {
-                    User user = new User(username, email, password);
-                    //if (StorageAdmin.DBCONTROLLER.createUser(user)) {
-                    if(StorageAdmin.REGISTERCONTROLLER.createUser(user)) {
-                    startActivity(registerController.screenFlowMain());
-                    Toast.makeText(Login_Register_Activity.this, "Registration successfull!", Toast.LENGTH_LONG).show();
+
+        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            /**
+             * check whether input password matches with specified password
+             *
+             * @param v
+             * @param hasFocus
+             */
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if (registerController.checkEmailIsValid(editTextEmail.getText().toString())) {
+                        textViewEmailMessage.setText("Enter a valid email address!");
+                        textViewEmailMessage.setTextColor(Color.RED);
                     } else {
-                    Toast.makeText(Login_Register_Activity.this, "Database connection has failed!", Toast.LENGTH_LONG).show();
+                        textViewEmailMessage.setText("");
                     }
+                } else {
+                    textViewEmailMessage.setText("");
                 }
             }
         });
+
+
+
+    buttonRegister.setOnClickListener(new View.OnClickListener()
+
+    {
+        @Override
+        public void onClick (View v){
+        String username = editTextUsername.getText().toString();
+        String email = editTextEmail.getText().toString();
+        String password = editTextPassword.getText().toString();
+        String verifyPassword = editTextVerifyPassword.getText().toString();
+        // validate username, password, verifyPassword and email inputs
+        if (validateUserInputData(username, password, verifyPassword, email)) {
+            String loggedIn = "1";
+            User user = new User(username, email, password, loggedIn);
+            System.out.println("User ------> " + user);
+            if (StorageAdmin.REGISTERCONTROLLER.createUser(user)) {
+
+                User currectUser = StorageAdmin.LOGINCONTROLLER.getUserFromTable(user.getName());
+                StorageAdmin.newSession(currectUser);
+                System.out.println(" IF Abfrage User ------>   true");
+                startActivity(registerController.screenFlowMain());
+                Toast.makeText(Login_Register_Activity.this, "Registration successfull!", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(Login_Register_Activity.this, "Database connection has failed!", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+    });
         buttonCreateNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,6 +220,8 @@ public class Login_Register_Activity extends AppCompatActivity {
                 textViewEmail.setVisibility(View.VISIBLE);
                 textViewUsernameMessage.setVisibility(View.VISIBLE);
                 textViewVerifyPasswordMessage.setVisibility(View.VISIBLE);
+                textViewPasswordMessage.setVisibility(View.VISIBLE);
+                textViewEmailMessage.setVisibility(View.VISIBLE);
                 editTextVerifyPassword.setVisibility(View.VISIBLE);
                 textViewVerifyPassword.setVisibility(View.VISIBLE);
                 buttonCreateNewAccount.setVisibility(View.INVISIBLE);
@@ -175,10 +242,14 @@ public class Login_Register_Activity extends AppCompatActivity {
                 if(StorageAdmin.LOGINCONTROLLER.checkUsername(username))
                 {
                     // check username matches password
-                    //if(StorageAdmin.DBCONTROLLER.checkPasswordByName(password, username)){
                     if(StorageAdmin.LOGINCONTROLLER.checkPasswordByName(password, username)){
-                            Toast.makeText(Login_Register_Activity.this, "Login successful!", Toast.LENGTH_LONG).show();
-                            startActivity(registerController.screenFlowMain());
+
+                        String name = username;
+                        Toast.makeText(Login_Register_Activity.this, "Login successful!", Toast.LENGTH_LONG).show();
+                        User user = StorageAdmin.LOGINCONTROLLER.getUserFromTable(name);
+                        StorageAdmin.newSession(user);
+                        //getUser(name)
+                        startActivity(registerController.screenFlowMain());
                     }
                     else{
                         Toast.makeText(Login_Register_Activity.this, "Name and password don't match!", Toast.LENGTH_LONG).show();
@@ -204,7 +275,7 @@ public class Login_Register_Activity extends AppCompatActivity {
      */
     public boolean validateUserInputData(String username, String password, String verifyPassword, String email){
 
-        if (registerController.checkUsername(username)) {
+       /* if (registerController.checkUsername(username)) {
             return false;
         }
         if (!registerController.verifyPassword(password, verifyPassword)) {
@@ -215,11 +286,12 @@ public class Login_Register_Activity extends AppCompatActivity {
                 registerController.checkEmailIsEmpty(email) == true) {
             Toast.makeText(Login_Register_Activity.this, "All fields must be filled!", Toast.LENGTH_LONG).show();
             return false;
-        }
+        }*/
         if (registerController.checkEmailIsValid(email) == true) {
             Toast.makeText(Login_Register_Activity.this, "Enter a valid email address!", Toast.LENGTH_LONG).show();
             return false;
         }
+        /*
         if (registerController.checkPasswordIsTooShort(password) == true) {
             Toast.makeText(Login_Register_Activity.this, "Password is too short!", Toast.LENGTH_LONG).show();
             return false;
@@ -227,7 +299,7 @@ public class Login_Register_Activity extends AppCompatActivity {
         if (registerController.checkPasswordIsTooLong(password) == true) {
             Toast.makeText(Login_Register_Activity.this, "Password is too long!", Toast.LENGTH_LONG).show();
             return false;
-        }
+        }*/
         else
             return true;
     }

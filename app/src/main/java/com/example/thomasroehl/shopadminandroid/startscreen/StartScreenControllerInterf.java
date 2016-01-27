@@ -19,5 +19,5 @@ public interface StartScreenControllerInterf {
     public Intent screenFlowTable();
     public void getTable(int amount);
     public void fillReceiptTable();
-    public ArrayList<Receipt> getAllReceipts();
+    public ArrayList<Receipt> getAllReceipts(int id);
 }

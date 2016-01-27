@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.thomasroehl.shopadminandroid.R;
 import com.example.thomasroehl.shopadminandroid.reports.ReportPagerAdapter;
@@ -58,6 +59,10 @@ public class ReportPagerActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void onClickTable(View view){
+        System.out.println("xxxxxxxxxxxxxx ReportPagerActivity onClickTable xxxxxxxxxxxxxx");
     }
 
     @Override

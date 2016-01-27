@@ -26,9 +26,9 @@ public class MainViewController implements StartScreenControllerInterf {
     DatabaseInterf db;
     Context currentActivityContext;
 
-    private final float ratioColumnShop = 0.5f;
+    private final float ratioColumnShop = 0.4f;
     private final float ratioColumnAmount = 0.25f;
-    private final float ratioColumnDate = 0.25f;
+    private final float ratioColumnDate = 0.35f;
 
     private final String txt_Shop = "Shop";
     private final String txt_Amount = "Amount";
@@ -120,15 +120,17 @@ public class MainViewController implements StartScreenControllerInterf {
         this.fillReceiptTable();
     }
 
-
     @Override
-    public ArrayList<Receipt> getAllReceipts() {
-        return StorageAdmin.DBCONTROLLER.getAllReceipts();
+    public ArrayList<Receipt> getAllReceipts(int id) {
+        return StorageAdmin.DBCONTROLLER.getAllReceipts(id);
     }
 
     @Override
     public void fillReceiptTable() {
-        ArrayList<Receipt> allReceipts = this.getAllReceipts();
+        //User user = new User();
+        //int id = StorageAdmin.getSession().getUserID();
+        int id = 1;
+        ArrayList<Receipt> allReceipts = this.getAllReceipts(StorageAdmin.getSession().getUserID());
         for (int i = 0; i < allReceipts.size(); i++) {
 
             TableRow row = new TableRow(this.currentActivityContext);
@@ -144,6 +146,7 @@ public class MainViewController implements StartScreenControllerInterf {
             TextView tv_amount = new TextView(this.currentActivityContext);
             tv_amount.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
+
             tv_amount.setText(String.valueOf(allReceipts.get(i).getAmount()));
             row.addView(tv_amount);
 

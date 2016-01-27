@@ -151,7 +151,8 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
         if(editShopname != null ||editDate != null || editSum != null || categorySpinner != null) {
             if (StorageAdmin.EDITCONTROLLER.isValidDate(date)) {
                 //new receipt object created
-                Receipt receipt = new Receipt(shop, category, finalSum, date);
+                int id = 1;
+                Receipt receipt = new Receipt(shop, category, finalSum, date, StorageAdmin.getSession().getUserID());
                 System.out.println("receipt ---> " + receipt);
                 //add new receipt data in Database
                 //if(StorageAdmin.DBCONTROLLER.createReceipt(receipt))
@@ -169,7 +170,7 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }else
             Toast.makeText(EditActivity.this, "All fields must be filled", Toast.LENGTH_LONG).show();
-            return;
+        return;
     }
 
     public void rescanData(View view) {
