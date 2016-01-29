@@ -15,7 +15,8 @@
             android:stretchColumns="1"
             android:layout_alignParentTop="true"
             android:id="@+id/tbl_Report_Shop_Summary"
-            android:onClick="onClickTable">
+            android:onClick="onClickTable"
+            android:background="#64dcdada">
         </TableLayout>
     </ScrollView>
 

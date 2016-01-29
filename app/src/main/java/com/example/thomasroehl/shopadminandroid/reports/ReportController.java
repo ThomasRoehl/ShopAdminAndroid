@@ -133,14 +133,17 @@ public class ReportController implements ReportControllerInterf {
                     TableRow.LayoutParams.WRAP_CONTENT));
             this.addColumnToRow(row, i, receiptsByName, "shop");
             this.addColumnToRow(row, i, receiptsByName, "amount");
+
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     TableRow t = (TableRow) view;
                     TextView firstTextView = (TextView) t.getChildAt(0);
                     firstTextView.setTypeface(null, Typeface.BOLD);
+                    firstTextView.setTextColor(Color.BLACK);//////////////////////////////////777
                     TextView secondTextView = (TextView) t.getChildAt(1);
                     secondTextView.setTypeface(null, Typeface.BOLD);
+                    secondTextView.setTextColor(Color.BLACK);//////////////////////////////////
                     int nIndex = ShopSummary.indexOfChild(t);
                     System.out.println("nIndex ------> " + nIndex);
                     showExpandedShoptable(firstTextView.getText().toString(), nIndex + 1);
@@ -170,8 +173,12 @@ public class ReportController implements ReportControllerInterf {
                     TableRow t = (TableRow) view;
                     TextView firstTextView = (TextView) t.getChildAt(0);
                     firstTextView.setTypeface(null, Typeface.BOLD);
+                    firstTextView.setTextColor(Color.BLACK);//////////////////////////////////
+
                     TextView secondTextView = (TextView) t.getChildAt(1);
                     secondTextView.setTypeface(null, Typeface.BOLD);
+                    secondTextView.setTextColor(Color.BLACK);//////////////////////////////////
+
                     int nIndex = CategorySummary.indexOfChild(t);
                     showExpandedCategorytable(firstTextView.getText().toString(), nIndex + 1);
 
@@ -248,6 +255,7 @@ public class ReportController implements ReportControllerInterf {
         TextView tv = new TextView(this.currentActivityContext);
         tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
+        tv.setTextColor(Color.BLACK);
         if(columnName.equals("shop")){
             tv.setText(receiptsByNameOrCategory.get(position).getShopname());
         }else if(columnName.equals("amount")){
@@ -301,16 +309,17 @@ public class ReportController implements ReportControllerInterf {
             //shopname.setTextSize(myTextSize);
             shopname.setWidth(pixels);
             shopname.setHeight(height_pixels);
-            shopname.setTextColor(Color.WHITE);
+            shopname.setTextColor(Color.WHITE); ///////////
 
             shopname.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
             shopname.setPadding(5, 5, 5, 5);
-            shopname.setBackgroundColor(Color.argb(255,249,125,123));
+            shopname.setBackgroundColor(Color.argb(255, 249, 125, 123));
             Ll = new LinearLayout(this.currentActivityContext);
             params = new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT);
             params.setMargins(5, 5, 5, 5);
+
             Ll.addView(shopname,params);
             tr.addView(Ll); // Adding textView to tablerow.
 
@@ -363,11 +372,12 @@ public class ReportController implements ReportControllerInterf {
         amount.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
         amount.setPadding(5, 5, 5, 5);
-        amount.setBackgroundColor(Color.argb(255,249,125,123));
+        amount.setBackgroundColor(Color.argb(255, 249, 125, 123));
         Ll = new LinearLayout(this.currentActivityContext);
         params = new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 5, 5, 5);
+
         Ll.addView(amount,params);
         tr.addView(Ll); // Adding textview to tablerow.
 

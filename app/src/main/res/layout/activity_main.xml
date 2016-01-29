@@ -18,7 +18,7 @@
             android:id="@+id/idToolbarEdit1"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#000000"
+            android:background="#f97d7b"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -46,7 +46,10 @@
                 android:stretchColumns="1"
                 android:layout_alignParentTop="true"
                 android:id="@+id/tbl_Main"
-                android:onClick="onClickTable">
+                android:onClick="onClickTable"
+                android:alpha="50"
+                android:baselineAligned="true"
+                android:background="#64dcdada">
             </TableLayout>
         </ScrollView>
 

@@ -141,19 +141,23 @@ public class MainViewController implements StartScreenControllerInterf {
             tv_shopname.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
             tv_shopname.setText(allReceipts.get(i).getShopname());
+            tv_shopname.setTextColor(Color.BLACK);
             row.addView(tv_shopname);
+
 
             TextView tv_amount = new TextView(this.currentActivityContext);
             tv_amount.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
 
             tv_amount.setText(String.valueOf(allReceipts.get(i).getAmount()));
+            tv_amount.setTextColor(Color.BLACK);
             row.addView(tv_amount);
 
             TextView tv_date = new TextView(this.currentActivityContext);
             tv_date.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
             tv_date.setText(allReceipts.get(i).getDate());
+            tv_date.setTextColor(Color.BLACK);
             row.addView(tv_date);
 
             tl.addView(row);

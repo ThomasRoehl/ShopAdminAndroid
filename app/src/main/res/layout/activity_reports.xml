@@ -67,7 +67,8 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:textColor="#f97d7b"
-        android:layout_below="@id/tab_layout"/>
+        android:layout_below="@id/tab_layout"
+        android:background="#64dcdada" />
 
 </RelativeLayout>
 
