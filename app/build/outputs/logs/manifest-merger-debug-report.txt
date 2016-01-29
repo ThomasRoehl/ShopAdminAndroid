@@ -1,0 +1,125 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:2:1-79:12
+	xmlns:android
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:2:11-69
+	package
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:3:5-55
+		INJECTED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml
+		INJECTED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml
+		INJECTED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml
+		INJECTED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:5:5-80
+	android:name
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:5:22-78
+application
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:9:5-77:19
+MERGED from [com.android.support:appcompat-v7:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+	android:supportsRtl
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:13:9-35
+	android:label
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:12:9-41
+	android:allowBackup
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:10:9-35
+	android:icon
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:11:9-43
+	android:theme
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:14:9-52
+activity#com.example.thomasroehl.shopadminandroid.gui.MainActivity
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:17:9-22:20
+	android:screenOrientation
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:21:13-49
+	android:label
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:19:13-45
+	android:theme
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:20:13-56
+	android:name
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:18:13-45
+activity#com.example.thomasroehl.shopadminandroid.gui.EditActivity
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:28:9-33:20
+	android:screenOrientation
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:32:13-49
+	android:label
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:30:13-45
+	android:theme
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:31:13-56
+	android:name
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:29:13-45
+activity#com.example.thomasroehl.shopadminandroid.gui.Login_Register_Activity
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:37:9-50:20
+	android:screenOrientation
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:41:13-49
+	android:label
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:39:13-45
+	android:theme
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:40:13-56
+	android:name
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:38:13-56
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:45:13-48:29
+action#android.intent.action.MAIN
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:46:17-68
+	android:name
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:46:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:47:17-77
+	android:name
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:47:27-74
+activity#com.example.thomasroehl.shopadminandroid.gui.CameraActivity
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:54:9-59:20
+	android:screenOrientation
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:58:13-49
+	android:label
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:56:13-45
+	android:theme
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:57:13-56
+	android:name
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:55:13-47
+activity#com.example.thomasroehl.shopadminandroid.gui.ReportPagerActivity
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:63:9-68:20
+	android:screenOrientation
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:67:13-49
+	android:label
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:65:13-45
+	android:theme
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:66:13-56
+	android:name
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:64:13-52
+activity#com.example.thomasroehl.shopadminandroid.tesseract.OCR
+ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:70:9-75:20
+	android:screenOrientation
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:74:13-49
+	android:label
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:72:13-32
+	android:theme
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:73:13-56
+	android:name
+		ADDED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml:71:13-42
+uses-sdk
+INJECTED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:design:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [ShopAdminAndroid.libraries:tess-two:unspecified] /home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/ShopAdminAndroid.libraries/tess-two/unspecified/AndroidManifest.xml:22:5-24:41
+	android:targetSdkVersion
+		INJECTED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml
+		INJECTED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml
+		INJECTED from /home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/AndroidManifest.xml

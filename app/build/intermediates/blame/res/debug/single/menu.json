@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/res/merged/debug/menu/menu_main.xml",
+        "source": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/res/menu/menu_main.xml"
+    },
+    {
+        "merged": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/res/merged/debug/menu/menu_report_pager.xml",
+        "source": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/res/menu/menu_report_pager.xml"
+    },
+    {
+        "merged": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/res/merged/debug/menu/menu_login_register.xml",
+        "source": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/res/menu/menu_login_register.xml"
+    }
+]
