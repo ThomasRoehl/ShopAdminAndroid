@@ -40,15 +40,6 @@ public class ReportShopSummaryFragment extends Fragment {
 
         myController.getTable(StorageAdmin.REPORT_SHOP_SUMMARY, ShopSummaryFragmentTable);
 
-        //for jeden row in ShopSummaryFragmentTable add listener
-        View tableLayout = ShopSummaryFragmentTable.getTouchables().get(0);
-        ArrayList<View> tableRows = tableLayout.getTouchables();
-        int numOfTableRows = tableRows.size();
-        System.out.println("ReportShopSummaryFragment onCreateView numOfTableRows ---> " + numOfTableRows);
-        for(int i = 0; i < numOfTableRows; i++){
-            System.out.println("ReportShopSummaryFragment onCreateView tableRows.get(i) ----> " + tableRows.get(i));
-        }
-
         return rootView;
     }
 }

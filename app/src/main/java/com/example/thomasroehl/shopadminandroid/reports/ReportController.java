@@ -17,7 +17,6 @@ import com.example.thomasroehl.shopadminandroid.gui.MainActivity;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by SZC on 12.12.2015.
@@ -29,13 +28,11 @@ public class ReportController implements ReportControllerInterf {
     TableLayout CategorySummary = null;
 
     ArrayList<Receipt> receiptsByName = new ArrayList<Receipt>();
-
     ArrayList<Receipt> receiptsByCategory = new ArrayList<Receipt>();
 
     private final float ratioColumnShop     = 0.6f;
     private final float ratioColumnCategory = 0.6f;
     private final float ratioColumnAmount   = 0.4f;
-
     //private final float ratioColumnDate     = 0.25f;
 
     private final String txt_Shop = "Shop";
@@ -75,9 +72,6 @@ public class ReportController implements ReportControllerInterf {
     }
 
     public Intent screenFlowMain() {
-        System.out.println("ReportController screenFlowMain 'before clearing expandedShopNames'");
-        this.expandedShopNames.clear();
-        System.out.println("ReportController screenFlowMain 'after clearing expandedShopNames'");
         //Wozu eigentlich? Geht über Back-Button
         Intent i = new Intent(
                 this.currentActivityContext,
@@ -102,15 +96,11 @@ public class ReportController implements ReportControllerInterf {
                 break;
             default:
                 break;
-
         }
-
     }
 
     private void getShop_Summary() {
-        System.out.println("ReportController getShop_Summary");
         addHeader(StorageAdmin.REPORT_SHOP_SUMMARY);
-
         this.fillReceiptTableByName();
     }
 
@@ -136,153 +126,139 @@ public class ReportController implements ReportControllerInterf {
 
     @Override
     public void fillReceiptTableByName() {
-        int id = 1;
-        receiptsByName = this.getAllReceiptGroupByName(id);
+        receiptsByName = this.getAllReceiptGroupByName(StorageAdmin.getSession().getUserID());
         for (int i = 0; i < receiptsByName.size(); i++) {
             TableRow row = new TableRow(this.currentActivityContext);
-
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
-
-            TextView tv_shopname = new TextView(this.currentActivityContext);
-            tv_shopname.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-            tv_shopname.setText(receiptsByName.get(i).getShopname());
-            row.addView(tv_shopname);
-
-            TextView tv_amount = new TextView(this.currentActivityContext);
-            tv_amount.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-            tv_amount.setText(String.valueOf(receiptsByName.get(i).getAmount()));
-            row.addView(tv_amount);
-
+            this.addColumnToRow(row, i, receiptsByName, "shop");
+            this.addColumnToRow(row, i, receiptsByName, "amount");
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     TableRow t = (TableRow) view;
                     TextView firstTextView = (TextView) t.getChildAt(0);
-                    firstTextView.setTextColor(Color.BLACK);
                     firstTextView.setTypeface(null, Typeface.BOLD);
                     TextView secondTextView = (TextView) t.getChildAt(1);
-                    secondTextView.setTextColor(Color.BLACK);
                     secondTextView.setTypeface(null, Typeface.BOLD);
-
-                    String shopname = firstTextView.getText().toString();
-                    String amount = secondTextView.getText().toString();
-                    System.out.println("ReportController fillReceiptTableByName row onClick firstText ---> " + shopname);
-                    System.out.println("ReportController fillReceiptTableByName row onClick secondText ---> " + amount);
                     int nIndex = ShopSummary.indexOfChild(t);
                     System.out.println("nIndex ------> " + nIndex);
-                    showExpandedShoptable(shopname, nIndex + 1);
+                    showExpandedShoptable(firstTextView.getText().toString(), nIndex + 1);
                 }
             });
-
             this.ShopSummary.addView(row);
         }
     }
 
     private void getCategory_Summary() {
-
         addHeader(StorageAdmin.REPORT_CATEGORY_SUMMARY);
         this.fillReceiptTableByCategory();
     }
 
     @Override
     public void fillReceiptTableByCategory() {
-        int id = 1;
         receiptsByCategory = this.getAllReceiptGroupByCategory(StorageAdmin.getSession().getUserID());
         for (int i = 0; i < receiptsByCategory.size(); i++) {
-            String testGetCategory = receiptsByCategory.get(i).getCategory();
-            System.out.println("testGetCategory ----> " + testGetCategory);
-
             TableRow row = new TableRow(this.currentActivityContext);
-
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
+            this.addColumnToRow(row, i, receiptsByCategory, "category");
+            this.addColumnToRow(row, i, receiptsByCategory, "amount");
+            row.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TableRow t = (TableRow) view;
+                    TextView firstTextView = (TextView) t.getChildAt(0);
+                    firstTextView.setTypeface(null, Typeface.BOLD);
+                    TextView secondTextView = (TextView) t.getChildAt(1);
+                    secondTextView.setTypeface(null, Typeface.BOLD);
+                    int nIndex = CategorySummary.indexOfChild(t);
+                    showExpandedCategorytable(firstTextView.getText().toString(), nIndex + 1);
 
-            TextView tv_category = new TextView(this.currentActivityContext);
-            tv_category.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-            tv_category.setText(receiptsByCategory.get(i).getCategory());
-            row.addView(tv_category);
-
-            TextView tv_amount = new TextView(this.currentActivityContext);
-            tv_amount.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-            tv_amount.setText(String.valueOf(receiptsByCategory.get(i).getAmount()));
-            row.addView(tv_amount);
-
+                }
+            });
             this.CategorySummary.addView(row);
+        }
+    }
+
+    public ArrayList<String> expandedCategories = new ArrayList<String>();
+    private ArrayList<TableRow> expandedCategoryTableRows = new ArrayList<TableRow>();
+    private void showExpandedCategorytable(String category, int index) {
+        ArrayList<Receipt> receiptsBySpecialCategory = this.getReceiptsBySpecialCategory(StorageAdmin.getSession().getUserID(), category);
+        System.out.println("ReportController showExpandedCategorytable receiptsBySpecialCategory ---> "+ receiptsBySpecialCategory);
+
+        if(!expandedCategories.contains(category)){
+            System.out.println("ReportController showExpandedCategorytable 'must add rows now'");
+            System.out.println("ReportController showExpandedCategorytable 'receiptsByCategory.size()' = " + receiptsByCategory.size());
+            for (int i = 0; i < receiptsByCategory.size(); i++) {
+                if(receiptsByCategory.get(i).getCategory() == category){
+                    System.out.println("ReportController showExpandedCategorytable, adding rows for 'category' = " + category);
+                    for (int j = 0; j < receiptsBySpecialCategory.size(); j++) {
+                        TableRow rowExpanded = new TableRow(this.currentActivityContext);
+                        rowExpanded.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                                TableRow.LayoutParams.WRAP_CONTENT));
+                        this.addColumnToRow(rowExpanded, j, receiptsBySpecialCategory, "shop");
+                        this.addColumnToRow(rowExpanded, j, receiptsBySpecialCategory, "amount");
+                        this.addColumnToRow(rowExpanded, j, receiptsBySpecialCategory, "date");
+                        this.expandedCategoryTableRows.add(rowExpanded);
+                        this.CategorySummary.addView(rowExpanded, index);
+                    }
+                }
+            }
+            expandedCategories.add(category);
+        }else if (expandedCategories.contains(category)){
+            System.out.println("ReportController showExpandedCategorytable, deleting rows for 'category' = " + category);
+            for (int i = 0; i < expandedCategoryTableRows.size(); i++){
+                this.CategorySummary.removeView(expandedCategoryTableRows.get(i));
+            }
+            expandedCategories.remove(category);
         }
     }
 
 
     public ArrayList<String> expandedShopNames = new ArrayList<String>();
-
-    public void showExpandedShoptable(String shopName, int index){
+    private ArrayList<TableRow> expandedTableRows = new ArrayList<TableRow>();
+    private void showExpandedShoptable(String shopName, int index){
         ArrayList<Receipt> receiptsBySpecialName = this.getReceiptsBySpecialShopname(StorageAdmin.getSession().getUserID(),shopName);
-        System.out.println("ReportController showExpandedShoptable receiptsBySpecialName = " + receiptsBySpecialName);
-       if(!expandedShopNames.contains(shopName)){
+        if(!expandedShopNames.contains(shopName)){
             for (int i = 0; i < receiptsByName.size(); i++) {
                 if(receiptsByName.get(i).getShopname() == shopName){
-                    for (int j = 0; j < receiptsBySpecialName.size(); j++){
+                    for (int j = 0; j < receiptsBySpecialName.size(); j++) {
                         TableRow rowExpanded = new TableRow(this.currentActivityContext);
-
                         rowExpanded.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                                 TableRow.LayoutParams.WRAP_CONTENT));
-
-                        TextView tv_shopnameExpanded = new TextView(this.currentActivityContext);
-                        tv_shopnameExpanded.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                                TableRow.LayoutParams.WRAP_CONTENT));
-                        tv_shopnameExpanded.setText(receiptsBySpecialName.get(j).getShopname());
-                        rowExpanded.addView(tv_shopnameExpanded);
-
-                        TextView tv_amountExpanded = new TextView(this.currentActivityContext);
-                        tv_amountExpanded.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                                TableRow.LayoutParams.WRAP_CONTENT));
-                        tv_amountExpanded.setText(String.valueOf(receiptsBySpecialName.get(j).getAmount()));
-                        rowExpanded.addView(tv_amountExpanded);
-
-                        TextView tv_dateExpanded = new TextView(this.currentActivityContext);
-                        tv_dateExpanded.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                                TableRow.LayoutParams.WRAP_CONTENT));
-                        tv_dateExpanded.setText(String.valueOf(receiptsBySpecialName.get(j).getDate()));
-                        rowExpanded.addView(tv_dateExpanded);
-
+                        this.addColumnToRow(rowExpanded, j, receiptsBySpecialName, "shop");
+                        this.addColumnToRow(rowExpanded, j, receiptsBySpecialName, "amount");
+                        this.addColumnToRow(rowExpanded, j, receiptsBySpecialName, "date");
+                        this.expandedTableRows.add(rowExpanded);
                         this.ShopSummary.addView(rowExpanded, index);
                     }
                 }
             }
-           expandedShopNames.add(shopName);
-       }else if (expandedShopNames.contains(shopName)){
-           System.out.println("ReportController showExpandedShoptable shopName = " + shopName);
-            //irgendwie wieder TableRows rausloeschen
-
-           for(int i = 1; i < this.ShopSummary.getChildCount(); i++)
-           {
-               //Remember that .getChildAt() method returns a View, so you would have to cast a specific control.
-               System.out.println("ReportController showExpandedShoptable this.ShopSummary.getChildAt(i="+i+") = " + this.ShopSummary.getChildAt(i));
-               TableRow row = (TableRow) this.ShopSummary.getChildAt(i);
-               System.out.println("ReportController showExpandedShoptable row.getChildAt(0) = " + row.getChildAt(0));
-               System.out.println("ReportController showExpandedShoptable row.getChildAt(1) = " + row.getChildAt(1));
-
-
-
-               TextView firstTextView = (TextView) row.getChildAt(0);
-               System.out.println("ReportController showExpandedShoptable rowLayout.getTypeface() = " + firstTextView.getTypeface());
-               if(firstTextView.getTypeface() != null){
-                   System.out.println("ReportController showExpandedShoptable rowLayout.getTypeface().isBold() = " + firstTextView.getTypeface().isBold());
-                   if(!firstTextView.getTypeface().isBold())
-                   {
-                       System.out.println("ReportController showExpandedShoptable on if drin ");
-                       this.ShopSummary.removeView(row);
-                   }
-               }
-           }
+            expandedShopNames.add(shopName);
+        }else if (expandedShopNames.contains(shopName)){
+            for (int i = 0; i < expandedTableRows.size(); i++){
+                this.ShopSummary.removeView(expandedTableRows.get(i));
+            }
+            expandedShopNames.remove(shopName);
        }
     }
 
+    private void addColumnToRow(TableRow rowExpanded, int position, ArrayList<Receipt> receiptsByNameOrCategory, String columnName){
+        TextView tv = new TextView(this.currentActivityContext);
+        tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT));
+        if(columnName.equals("shop")){
+            tv.setText(receiptsByNameOrCategory.get(position).getShopname());
+        }else if(columnName.equals("amount")){
+            tv.setText(String.valueOf(receiptsByNameOrCategory.get(position).getAmount()));
+        }else if(columnName.equals("date")) {
+            tv.setText(String.valueOf(receiptsByNameOrCategory.get(position).getDate()));
+        }else if(columnName.equals("category")){
+            tv.setText(receiptsByCategory.get(position).getCategory());
+        }
+        rowExpanded.addView(tv);
+    }
 
 
     /**
@@ -368,7 +344,6 @@ public class ReportController implements ReportControllerInterf {
             params.setMargins(5, 5, 5, 5);
             Ll.addView(category,params);
             tr.addView(Ll); // Adding textView to tablerow.
-
         }
         float dpi_column_amount = maxpixels_width * this.ratioColumnAmount;
        //float dpi_column_date = maxpixels_width * this.ratioColumnDate;
