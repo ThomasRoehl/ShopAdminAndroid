@@ -24,7 +24,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-<RelativeLayout
+    <RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:paddingLeft="16dp"
@@ -50,8 +50,20 @@
         <!--&lt;!&ndash;app:popupTheme="@style/AppTheme.PopupOverlay" />&ndash;&gt;-->
 
 
-    <android.support.design.widget.TabLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reports"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textColor="#f97d7b"
+            android:id="@+id/textViewInfo3"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
+        android:layout_below="@+id/textViewInfo3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#f97d7b"
