@@ -53,6 +53,8 @@ public class CameraActivity extends AppCompatActivity {
 
         myController.setCurrentActivityContext(this);
 
+        StorageAdmin.register(this);  // for app exit (tanja)
+
 //        Intent i = new Intent("android.media.action.IMAGE_CAPTURE");
         //Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //i.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -68,12 +70,7 @@ public class CameraActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+
 
 
     @Override

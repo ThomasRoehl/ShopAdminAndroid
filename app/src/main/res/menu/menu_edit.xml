@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context=".gui.EditActivity">
+<item
+    android:id="@+id/action_exit"
+    android:orderInCategory="100"
+    android:title="Exit"
+    app:showAsAction="never" />
+
+<item
+    android:id="@+id/action_help"
+    android:orderInCategory="100"
+    android:title="Help"
+    app:showAsAction="never" />
+
+<item
+    android:id="@+id/action_logout"
+    android:orderInCategory="100"
+    android:title="Logout"
+    app:showAsAction="never" />
+</menu>

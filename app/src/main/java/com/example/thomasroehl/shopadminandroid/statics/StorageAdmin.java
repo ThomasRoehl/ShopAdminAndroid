@@ -1,5 +1,7 @@
 package com.example.thomasroehl.shopadminandroid.statics;
 
+import android.app.Activity;
+
 import com.example.thomasroehl.shopadminandroid.camera.CameraController;
 import com.example.thomasroehl.shopadminandroid.camera.CameraControllerInterf;
 import com.example.thomasroehl.shopadminandroid.container.Session;
@@ -17,6 +19,9 @@ import com.example.thomasroehl.shopadminandroid.reports.ReportControllerInterf;
 import com.example.thomasroehl.shopadminandroid.startscreen.MainViewController;
 import com.example.thomasroehl.shopadminandroid.startscreen.StartScreenControllerInterf;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Thomas Roehl on 11.12.2015.
  */
@@ -33,6 +38,23 @@ public abstract class StorageAdmin {
     public static final StartScreenControllerInterf STARTSCREENCONTROLLER = MainViewController.getInstance();
     private static Session session;
 
+    private static List<Activity> _activities;   // for app exit (tanja)
+
+    // for app exit (tanja)
+    public static void register(Activity activity) {
+        if(_activities == null) {
+            _activities = new ArrayList<Activity>();
+        }
+        _activities.add(activity);
+    }
+
+    // for app exit (tanja)
+    public static void finishAll() {
+        for (Activity activity : _activities) {
+            activity.finish();
+        }
+    }
+
     public static void newSession(User user){
         // Anhand des gegebenen Users eine Session anlegen
         session = new Session(user.getName(), user.getId(), user.hashCode()); //HashCode als ID
@@ -42,4 +64,6 @@ public abstract class StorageAdmin {
     public static Session getSession(){
         return session;
     }
+
+
 }

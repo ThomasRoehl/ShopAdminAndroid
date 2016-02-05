@@ -3,8 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".gui.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_exit"
         android:orderInCategory="100"
-        android:title="Settings"
+        android:title="Exit"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_help"
+        android:orderInCategory="100"
+        android:title="Help"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="Logout"
         app:showAsAction="never" />
 </menu>

@@ -58,7 +58,7 @@ public class Login_Register_Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
         if (id == R.id.action_exit){
-            System.exit(0);
+            StorageAdmin.finishAll();
             return true;
         }
 
@@ -82,6 +82,7 @@ public class Login_Register_Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.idToolbarEdit1);
         setSupportActionBar(toolbar);
         inCreateNewAccountMode = false;
+        StorageAdmin.register(this);  // for app exit (tanja)
 
 
 

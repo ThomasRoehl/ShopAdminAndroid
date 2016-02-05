@@ -56,6 +56,8 @@ public class OCR extends Activity{
         Button rescan = (Button) findViewById(R.id.ocrRescanBtn);
         imgV = (ImageView) findViewById(R.id.imageView);
 
+        StorageAdmin.register(this);  // for app exit (tanja)
+
         String path = DATA_PATH + "tessdata/";
 
         File dir = new File(path);
