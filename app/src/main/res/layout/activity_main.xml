@@ -32,12 +32,22 @@
         android:paddingTop="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your purchases"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textColor="#f97d7b"
+            android:id="@+id/textViewInfo2"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fillViewport="true"
+            android:layout_below="@+id/textViewInfo2"
             android:scrollbars  =  "none">
 
             <TableLayout
