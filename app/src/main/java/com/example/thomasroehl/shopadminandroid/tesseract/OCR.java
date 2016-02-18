@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ import com.example.thomasroehl.shopadminandroid.gui.CameraActivity;
 import com.example.thomasroehl.shopadminandroid.gui.EditActivity;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 import com.googlecode.tesseract.android.*;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,13 +42,11 @@ public class OCR extends Activity{
     private final String DATA_PATH = Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/OCR/";
     private final String lang = "deu_frak";
     private final String TAG = "OCR.java";
-    private final String PICTURENAME = "rewe2.bmp";
+    private final String PICTURENAME = "rewe1.bmp";
     private Bitmap bitmap;
-    private ProgressBar progressBar;
-    private int progressStatus = 0;
-    private Handler handler = new Handler();
-    private ImageView imgV;
     private Classificator cls = new Classificator();
+    private Thread ocrThread;
+    private String results = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +54,7 @@ public class OCR extends Activity{
         setContentView(R.layout.activity_ocr);
         bitmap = StorageAdmin.CAMERACONTROLLER.getCurrentPicture();
         Button start = (Button) findViewById(R.id.ocr_button);
-        Button rescan = (Button) findViewById(R.id.ocrRescanBtn);
-        imgV = (ImageView) findViewById(R.id.imageView);
 
-        StorageAdmin.register(this);  // for app exit (tanja)
 
         String path = DATA_PATH + "tessdata/";
 
@@ -99,28 +97,52 @@ public class OCR extends Activity{
             }
         }
 
-//        copyPicture();
+        copyPicture();
+//        ocrThread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                getText();
+//
+//                cls.setText(results);
+//                cls.classificate();
+//                String shopName = cls.getShopName();
+//                String sum = cls.getSum();
+//                Log.v(TAG, "SHOPNAME: " + shopName);
+//                Log.v(TAG, "SUM: " + sum);
+//                StorageAdmin.EDITCONTROLLER.setShopName(shopName);
+//                try{
+//                    StorageAdmin.EDITCONTROLLER.setSum(Double.parseDouble(sum));
+//                }
+//                catch(Exception e) {
+//                    StorageAdmin.EDITCONTROLLER.setSum(-1.0);
+//                }
+//            }
+//        });
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String results = getText();
-                Log.v(TAG, "TESSERACT RESULTS: " + results);
-                cls.setText(results);
-                cls.classificate();
-                String shopName = cls.getShopName();
-                String sum = cls.getSum();
-                Log.v(TAG, "SHOPNAME: " + shopName);
-                Log.v(TAG, "SUM: " + sum);
-                StorageAdmin.EDITCONTROLLER.setShopName(shopName);
                 try{
-                    StorageAdmin.EDITCONTROLLER.setSum(Double.parseDouble(sum));
+//                    ocrThread.start();
+                    getText();
+                    cls.setText(results);
+                    cls.classificate();
+                    String shopName = cls.getShopName();
+                    String sum = cls.getSum();
+                    Log.v(TAG, "SHOPNAME: " + shopName);
+                    Log.v(TAG, "SUM: " + sum);
+                    StorageAdmin.EDITCONTROLLER.setShopName(shopName);
+                    try{
+                        StorageAdmin.EDITCONTROLLER.setSum(Double.parseDouble(sum));
+                    }
+                    catch(Exception e) {
+                        StorageAdmin.EDITCONTROLLER.setSum(-1.0);
+                    }
                 }
                 catch(Exception e){
-                    StorageAdmin.EDITCONTROLLER.setSum(-1.0);
+                    Log.e(TAG, e.getStackTrace().toString());
                 }
 
-//                screenflowToEdit();
             }
         });
     }
@@ -137,15 +159,9 @@ public class OCR extends Activity{
         startActivity(new Intent(this, EditActivity.class));
     }
 
-    public String getText(){
-
+    public void getText(){
         Bitmap bmp = toBinary(bitmap);
-        try{
-            imgV.setImageBitmap(bmp);
-        }
-        catch(Exception e){
-            Log.v(TAG, "BINARY IMAGE BROKEN");
-        }
+//        bmp = getResizedBitmap(bmp);
 
         TessBaseAPI baseApi = new TessBaseAPI();
         baseApi.setDebug(true);
@@ -158,12 +174,11 @@ public class OCR extends Activity{
             Log.v(TAG, "USE ORG BITMAP");
             baseApi.setImage(bitmap);
         }
-
         String recognizedText = baseApi.getUTF8Text();
 
         baseApi.end();
 
-        return recognizedText;
+        this.results = recognizedText;
     }
 
     public Bitmap toBinary(Bitmap bmpOriginal) {
@@ -192,6 +207,7 @@ public class OCR extends Activity{
 
             }
         }
+        Log.v(TAG, "PICTURE CHANGED TO BINARY");
         return bmpBinary;
     }
 
@@ -202,7 +218,7 @@ public class OCR extends Activity{
             File file = new File(path, PICTURENAME);
             // the Pictures directory exists?
             path.mkdirs();
-            InputStream is = getResources().openRawResource(+ R.drawable.rewe2);
+            InputStream is = getResources().openRawResource(+ R.drawable.rewe1);
             OutputStream os = new FileOutputStream(file);
             byte[] data = new byte[is.available()];
             is.read(data);
@@ -217,5 +233,29 @@ public class OCR extends Activity{
         catch(Exception e){
             Log.v(TAG, "copy picture failed");
         }
+    }
+
+    public Bitmap getResizedBitmap(Bitmap bm) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        if (width > 1200) return bm;
+        if (height > 2000) return bm;
+        float dw = 1200.0F / ((float)width);
+        float dh = 2000.0F / ((float)height);
+        Log.v(TAG, "DH: " + dh + "\t" + width);
+        Log.v(TAG, "DW: " + dw + "\t" + height);
+        float scaleWidth = ((float) 1200) / width;
+        float scaleHeight = ((float) 2000) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bm, 0, 0, width, height, matrix, false);
+        bm.recycle();
+        Log.v(TAG, "RESIZED TO : Width:" + resizedBitmap.getWidth() + " Height: " + resizedBitmap.getHeight());
+        return resizedBitmap;
     }
 }
