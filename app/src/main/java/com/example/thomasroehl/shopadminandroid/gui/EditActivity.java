@@ -20,6 +20,10 @@ import com.example.thomasroehl.shopadminandroid.container.Receipt;
 import com.example.thomasroehl.shopadminandroid.edit.EditControllerImpl;
 import com.example.thomasroehl.shopadminandroid.statics.StorageAdmin;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Roger M. Nabinger on 06.12.2015.
  *
@@ -90,6 +94,8 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
         Toolbar toolbar = (Toolbar) findViewById(R.id.idToolbarEdit1);
         setSupportActionBar(toolbar);
 
+
+
         StorageAdmin.register(this);  // for app exit (tanja)
 
         //katja & Julia 05.01.2016
@@ -97,10 +103,18 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
         editShopname = (EditText)findViewById(R.id.editShop);
         editSum = (EditText)findViewById(R.id.editSum);
         editDate = (EditText)findViewById(R.id.editDate);
+
+
         buttonRescan = (Button)findViewById(R.id.buttonRescan);
         buttonSave = (Button)findViewById(R.id.buttonSave);
-        //katja & Julia 05.01.2015
 
+        //Datum (tanja)
+        String mydate =java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+        mydate = mydate.split(" ")[0];
+        editDate.setText(mydate);/////////////////
+
+
+        //katja & Julia 05.01.2015
         categorySpinner = (Spinner) findViewById(R.id.spinnerCategory);
         populateSpinner();
         categorySpinner.setOnItemSelectedListener(this);
@@ -175,7 +189,8 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
         //Toast.makeText(EditActivity.this, "Goto rescan", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(EditActivity.this, CameraActivity.class));
         //startActivity(this.myController.screenFlowCamera());
-    }
+    }String mydate =java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+
 
 
     // settings (tanja)
@@ -197,7 +212,10 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
         if (id == R.id.action_help){
-            // TO DO
+            Intent i = new Intent(
+                    this.getApplicationContext(),
+                    MakeFoto.class);
+            startActivity(i);
             return true;
         }
 

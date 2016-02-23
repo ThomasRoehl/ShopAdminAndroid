@@ -1,5 +1,6 @@
 package com.example.thomasroehl.shopadminandroid.gui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -63,7 +64,11 @@ public class Login_Register_Activity extends AppCompatActivity {
         }
 
         if (id == R.id.action_help){
-            // TO DO
+
+            Intent i = new Intent(
+                    this.getApplicationContext(),
+                    MakeFoto.class);
+            startActivity(i);
             return true;
         }
 
@@ -329,4 +334,5 @@ public class Login_Register_Activity extends AppCompatActivity {
         else
             return true;
     }
+
 }

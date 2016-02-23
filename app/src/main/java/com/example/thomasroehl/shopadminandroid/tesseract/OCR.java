@@ -48,12 +48,15 @@ public class OCR extends Activity{
     private Thread ocrThread;
     private String results = "";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr);
         bitmap = StorageAdmin.CAMERACONTROLLER.getCurrentPicture();
         Button start = (Button) findViewById(R.id.ocr_button);
+        StorageAdmin.register(this);  // for app exit (tanja)
+
 
 
         String path = DATA_PATH + "tessdata/";
@@ -97,7 +100,7 @@ public class OCR extends Activity{
             }
         }
 
-        copyPicture();
+        //copyPicture();
 //        ocrThread = new Thread(new Runnable() {
 //            @Override
 //            public void run() {

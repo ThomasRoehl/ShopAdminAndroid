@@ -1,5 +1,6 @@
 package com.example.thomasroehl.shopadminandroid.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -72,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_help){
-            // TO DO
+            Intent i = new Intent(
+                    this.getApplicationContext(),
+                    MakeFoto.class);
+            startActivity(i);
             return true;
         }
 

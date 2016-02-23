@@ -1,5 +1,6 @@
 package com.example.thomasroehl.shopadminandroid.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -88,7 +89,10 @@ public class ReportPagerActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_help){
-            // TO DO
+            Intent i = new Intent(
+                    this.getApplicationContext(),
+                    MakeFoto.class);
+            startActivity(i);
             return true;
         }
 

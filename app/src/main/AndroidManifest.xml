@@ -24,7 +24,6 @@
 
 
 
-
         <activity
             android:name=".gui.EditActivity"
             android:label="@string/app_name"
@@ -73,6 +72,14 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity
+            android:name=".gui.MakeFoto"
+            android:label="bla_bla"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+        </activity>
+
 
     </application>
 
