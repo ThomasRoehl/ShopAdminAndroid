@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/res/merged/debug/menu/menu_edit.xml",
+        "source": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/res/menu/menu_edit.xml"
+    },
+    {
         "merged": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/res/merged/debug/menu/menu_main.xml",
         "source": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/res/menu/menu_main.xml"
     },

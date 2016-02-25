@@ -18,7 +18,7 @@
             android:textColor="#f97d7b"
             android:id="@+id/tbl_Report_Category_Summary"
             android:onClick="onClickTable"
-            android:background="#ffffff">
+            android:background="#64dcdada">
         </TableLayout>
     </ScrollView>
 

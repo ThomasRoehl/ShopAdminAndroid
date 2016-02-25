@@ -120,15 +120,15 @@
         "source": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/res/drawable/picture.bmp"
     },
     {
+        "merged": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/res/merged/debug/drawable/rewe2.bmp",
+        "source": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/res/drawable/rewe2.bmp"
+    },
+    {
         "merged": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
         "source": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_seekbar_track_material.xml"
     },
     {
         "merged": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/res/merged/debug/drawable/abc_tab_indicator_material.xml",
         "source": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_tab_indicator_material.xml"
-    },
-    {
-        "merged": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/build/intermediates/res/merged/debug/drawable/rewe2.bmp",
-        "source": "/home/thomas/AndroidProjects/ShopAdminAndroid/app/src/main/res/drawable/rewe2.bmp"
     }
 ]
