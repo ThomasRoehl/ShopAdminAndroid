@@ -56,7 +56,7 @@ public class DatabaseController implements DatabaseInterf {
     private final String CHECKPASSWORDBYNAME2 = " AND " + USERNAMECOLUMN + " = ";
 
     private final String GETRECEIPT1= "SELECT " + SHOPNAMECOLUMN + ", " + AMOUNTCOLUMN + ", " + CATEGORYCOLUMN + ", " + DATECOLUMN +", "+ USERIDCOLUMN + "  FROM " +  RECEIPTTABLE + " WHERE " + USERIDCOLUMN + " = ";
-    private final String GETRECEIPT2= " ORDER BY " + RECEIPTIDCOLUMN + " DESC LIMIT 10";
+    private final String GETRECEIPT2= " ORDER BY " + RECEIPTIDCOLUMN + " DESC LIMIT 20";
 
     private final String GETRECEIPTGROUPBYNAME1 = "SELECT " + SHOPNAMECOLUMN + ", " + " SUM(" + AMOUNTCOLUMN + ")" + ", " + CATEGORYCOLUMN + ", " + DATECOLUMN + ", "+ USERIDCOLUMN +  " FROM " + RECEIPTTABLE + " WHERE " + USERIDCOLUMN + " = ";
     private final String GETRECEIPTGROUPBYNAME2 =" GROUP BY " + SHOPNAMECOLUMN;

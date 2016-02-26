@@ -4,8 +4,24 @@
 
     <!-- Items of category dropdown in editView. Add more if necessary -->
     <string-array name="category_array">
-        <item>Food</item>
+        <item>Animals</item>
+        <item>Baby</item>
+        <item>Books</item>
+        <item>Bycicles</item>
+        <item>Clothing</item>
         <item>Cosmetics</item>
+        <item>Electronics</item>
+        <item>Extrordinary</item>
+        <item>Food</item>
+        <item>Furniture</item>
+        <item>Glasses</item>
+        <item>Jewelry</item>
+        <item>Shoes</item>
+        <item>Sport</item>
+        <item>Superstore</item>
+        <item>Tools</item>
+        <item>Toos</item>
+        <item>Toys</item>
         <item>unknown</item>
     </string-array>
     <!-- END - Items of category dropdown in editView. Add more if necessary - END -->

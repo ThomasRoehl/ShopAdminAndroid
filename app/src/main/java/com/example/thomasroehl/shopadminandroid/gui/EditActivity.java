@@ -154,15 +154,26 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
         //startActivity(this.myController.screenFlowMain());
 
         //katja & julia 05.01.2015
-        String shop = editShopname.getText().toString();
-        double finalSum = Double.parseDouble(editSum.getText().toString());
+        String shop = "";
+        shop = shop + editShopname.getText().toString();
+        System.out.println("shop--->" + shop);
+        double finalSum = 0.0;
+        String editSumText = "";
+        editSumText = editSumText + editSum.getText().toString();
+        System.out.println("editSumText--->" + editSumText);
         String date = editDate.getText().toString();
+        System.out.println("date--->" + date );
         String category = categorySpinner.getSelectedItem().toString();
+        System.out.println("category--->" + category );
         //check input dateformat
-        if(editShopname != null ||editDate != null || editSum != null || categorySpinner != null) {
+
+        if(shop.equals("") == false && editSumText.equals("") == false) {
+            System.out.println("EditActibity in if-Abfrage" );
             if (StorageAdmin.EDITCONTROLLER.isValidDate(date)) {
+                System.out.println();
                 //new receipt object created
                 int id = 1;
+                finalSum = Double.parseDouble(editSum.getText().toString());
                 Receipt receipt = new Receipt(shop, category, finalSum, date, StorageAdmin.getSession().getUserID());
                 System.out.println("receipt ---> " + receipt);
                 //add new receipt data in Database
@@ -179,8 +190,9 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
                 return;
 
             }
-        }else
+        }else{
             Toast.makeText(EditActivity.this, "All fields must be filled", Toast.LENGTH_LONG).show();
+        }
         return;
     }
 
