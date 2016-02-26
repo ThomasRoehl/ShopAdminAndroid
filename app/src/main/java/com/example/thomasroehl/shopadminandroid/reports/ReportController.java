@@ -244,8 +244,13 @@ public class ReportController implements ReportControllerInterf {
             }
             expandedShopNames.add(shopName);
         }else if (expandedShopNames.contains(shopName)){
+            System.out.println("shopname-list contains 'shopname' = " + shopName);
             for (int i = 0; i < expandedTableRows.size(); i++){
-                this.ShopSummary.removeView(expandedTableRows.get(i));
+                TextView tv1 = (TextView) expandedTableRows.get(i).getChildAt(0);
+                TextView tv2 = (TextView) expandedTableRows.get(i).getChildAt(1);
+                if(tv1.getText().equals(shopName)){
+                    this.ShopSummary.removeView(expandedTableRows.get(i));
+                }
             }
             expandedShopNames.remove(shopName);
        }
