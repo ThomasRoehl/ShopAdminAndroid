@@ -109,8 +109,11 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
         buttonSave = (Button)findViewById(R.id.buttonSave);
 
         //Datum (tanja)
-        String mydate =java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        mydate = mydate.split(" ")[0];
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df1 = new SimpleDateFormat("yyy-MM-dd");
+        String mydate = df1.format(c.getTime());
+
+//        mydate = mydate.split(" ")[0];
         editDate.setText(mydate);/////////////////
 
 
