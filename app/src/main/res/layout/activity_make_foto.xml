@@ -26,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:text="HOWE MAKE A PICTURE"
+                    android:text="HOW TO MAKE A PICTURE"
                     android:id="@+id/textView3"
                     android:background="#010101"
                     android:textColor="#ffffff"
