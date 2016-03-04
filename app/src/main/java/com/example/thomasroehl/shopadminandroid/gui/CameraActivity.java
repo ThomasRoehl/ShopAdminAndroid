@@ -1,5 +1,7 @@
 package com.example.thomasroehl.shopadminandroid.gui;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
@@ -25,10 +27,13 @@ import com.example.thomasroehl.shopadminandroid.tesseract.Classificator;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by SZC on 10.12.2015.
@@ -128,8 +133,6 @@ public class CameraActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
@@ -199,7 +202,7 @@ public class CameraActivity extends AppCompatActivity {
         int width, height, threshold;
         height = bmpOriginal.getHeight();
         width = bmpOriginal.getWidth();
-        threshold = 127;
+        threshold = 110;
         Bitmap bmpBinary = bmpOriginal.copy(Bitmap.Config.ARGB_8888, true);
         Log.v(TAG, "BITMAP: " + bmpBinary.isMutable());
 
