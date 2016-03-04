@@ -69,7 +69,7 @@ public class CameraController implements CameraControllerInterf {
     public Intent screenFlowOCR() {
         Intent i = new Intent(
                 this.currentActivityContext,
-                OCR.class);
+                EditActivity.class);
 
         return i;
     }

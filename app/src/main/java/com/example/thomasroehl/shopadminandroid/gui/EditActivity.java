@@ -110,7 +110,7 @@ public class EditActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //Datum (tanja)
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df1 = new SimpleDateFormat("yyy-MM-dd");
+        SimpleDateFormat df1 = new SimpleDateFormat("dd.MM.yyyy");
         String mydate = df1.format(c.getTime());
 
 //        mydate = mydate.split(" ")[0];

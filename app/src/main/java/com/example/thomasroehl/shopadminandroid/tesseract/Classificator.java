@@ -23,7 +23,7 @@ public class Classificator {
     private final String TAG = "CLS";
 
     public void setText(String txt) {
-        shops.addAll(Arrays.asList(new String[] { "REWE", "ALDI", "DM", "KAUFHOF, ROSSMANN, LILIUM" }));
+        shops.addAll(Arrays.asList(new String[] { "REWE", "ALDI", "DM", "KAUFHOF", "ROSSMANN", "LILIUM", "SATURN", "IKEA", "PRIMARK" }));
         text = txt;
         filterText();
         text = text.toUpperCase();
